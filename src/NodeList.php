@@ -15,4 +15,9 @@ class NodeList implements \IteratorAggregate
     {
         $this->nodeList[] = $node;
     }
+
+    public function isEmpty()
+    {
+        return empty($this->nodeList);
+    }
 }

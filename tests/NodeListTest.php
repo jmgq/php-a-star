@@ -41,4 +41,15 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $this->assertContains($node1, $this->sut);
         $this->assertContains($node2, $this->sut);
     }
+
+    public function testShouldDetermineIfItIsEmptyOrNot()
+    {
+        $node = $this->getMock('JMGQ\AStar\Node');
+
+        $this->assertTrue($this->sut->isEmpty());
+
+        $this->sut->add($node);
+
+        $this->assertFalse($this->sut->isEmpty());
+    }
 }
