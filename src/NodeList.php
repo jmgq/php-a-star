@@ -10,4 +10,9 @@ class NodeList implements \IteratorAggregate
     {
         return new \ArrayIterator($this->nodeList);
     }
+
+    public function add(Node $node)
+    {
+        $this->nodeList[] = $node;
+    }
 }

@@ -23,4 +23,22 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertCount(0, $this->sut);
     }
+
+    public function testShouldAddNodes()
+    {
+        $node1 = $this->getMock('JMGQ\AStar\Node');
+        $node2 = $this->getMock('JMGQ\AStar\Node');
+
+        $this->assertCount(0, $this->sut);
+
+        $this->sut->add($node1);
+
+        $this->assertCount(1, $this->sut);
+
+        $this->sut->add($node2);
+
+        $this->assertCount(2, $this->sut);
+        $this->assertContains($node1, $this->sut);
+        $this->assertContains($node2, $this->sut);
+    }
 }
