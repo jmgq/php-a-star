@@ -11,4 +11,12 @@ interface Node
 
     public function addChild(Node $child);
     public function getChildren();
+
+    public function getF();
+
+    public function setG($score);
+    public function getG();
+
+    public function setH($score);
+    public function getH();
 }

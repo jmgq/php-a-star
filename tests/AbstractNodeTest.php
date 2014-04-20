@@ -56,4 +56,34 @@ class AbstractNodeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($this->sut, $child->getParent());
     }
+
+    public function testShouldSetG()
+    {
+        $score = 5;
+
+        $this->sut->setG($score);
+
+        $this->assertSame($score, $this->sut->getG());
+    }
+
+    public function testShouldSetH()
+    {
+        $score = 4;
+
+        $this->sut->setH($score);
+
+        $this->assertSame($score, $this->sut->getH());
+    }
+
+    public function testShouldGetF()
+    {
+        $g = 3;
+        $h = 5;
+        $expectedF = $g + $h;
+
+        $this->sut->setG($g);
+        $this->sut->setH($h);
+
+        $this->assertSame($expectedF, $this->sut->getF());
+    }
 }
