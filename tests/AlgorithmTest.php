@@ -14,15 +14,13 @@ class AlgorithmTest extends \PHPUnit_Framework_TestCase
         $this->sut = new Algorithm();
     }
 
-    public function testOpenListShouldBeInitiallyEmpty()
+    public function testOpenListShouldBeANodeList()
     {
-        $this->assertTrue(is_array($this->sut->getOpenList()));
-        $this->assertEmpty($this->sut->getOpenList());
+        $this->assertInstanceOf('JMGQ\AStar\NodeList', $this->sut->getOpenList());
     }
 
-    public function testClosedListShouldBeInitiallyEmpty()
+    public function testClosedListShouldBeANodeList()
     {
-        $this->assertTrue(is_array($this->sut->getClosedList()));
-        $this->assertEmpty($this->sut->getClosedList());
+        $this->assertInstanceOf('JMGQ\AStar\NodeList', $this->sut->getClosedList());
     }
 }

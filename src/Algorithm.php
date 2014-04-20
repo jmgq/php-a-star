@@ -4,8 +4,14 @@ namespace JMGQ\AStar;
 
 class Algorithm
 {
-    private $openList = array();
-    private $closedList = array();
+    private $openList;
+    private $closedList;
+
+    public function __construct()
+    {
+        $this->openList = new NodeList();
+        $this->closedList = new NodeList();
+    }
 
     public function getOpenList()
     {
