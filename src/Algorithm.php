@@ -13,11 +13,17 @@ class Algorithm
         $this->closedList = new NodeList();
     }
 
+    /**
+     * @return NodeList
+     */
     public function getOpenList()
     {
         return $this->openList;
     }
 
+    /**
+     * @return NodeList
+     */
     public function getClosedList()
     {
         return $this->closedList;
