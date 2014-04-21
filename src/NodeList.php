@@ -26,7 +26,7 @@ class NodeList implements \IteratorAggregate
         return isset($this->nodeList[$node->getID()]);
     }
 
-    public function getBest()
+    public function extractBest()
     {
         $bestNode = null;
 
@@ -34,6 +34,10 @@ class NodeList implements \IteratorAggregate
             if ($bestNode === null || $node->getF() < $bestNode->getF()) {
                 $bestNode = $node;
             }
+        }
+
+        if ($bestNode !== null) {
+            $this->remove($bestNode);
         }
 
         return $bestNode;

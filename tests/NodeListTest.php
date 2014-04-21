@@ -101,7 +101,7 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->sut->contains($node));
     }
 
-    public function testShouldGetBestNode()
+    public function testShouldExtractBestNode()
     {
         $bestNode = $this->getMock('JMGQ\AStar\Node');
         $bestNode->expects($this->any())
@@ -131,7 +131,13 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $this->sut->add($bestNode);
         $this->sut->add($worstNode);
 
-        $this->assertSame($bestNode, $this->sut->getBest());
+        $this->assertCount(3, $this->sut);
+
+        $extractedNode = $this->sut->extractBest();
+
+        $this->assertSame($bestNode, $extractedNode);
+        $this->assertCount(2, $this->sut);
+        $this->assertNotContains($extractedNode, $this->sut);
     }
 
     public function testShouldRemoveNode()
