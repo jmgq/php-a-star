@@ -9,6 +9,31 @@ class AbstractNodeTest extends \PHPUnit_Framework_TestCase
     /** @var AbstractNode */
     private $sut;
 
+    public function validNumberProvider()
+    {
+        return array(
+            array(1),
+            array(1.5),
+            array('1.5'),
+            array('200'),
+            array(0),
+            array(PHP_INT_MAX)
+        );
+    }
+
+    public function invalidNumberProvider()
+    {
+        return array(
+            array('a'),
+            array(array()),
+            array(false),
+            array(true),
+            array(null),
+            array(''),
+            array(' ')
+        );
+    }
+
     public function setUp()
     {
         $this->sut = $this->getMockForAbstractClass('JMGQ\AStar\AbstractNode');
@@ -57,22 +82,42 @@ class AbstractNodeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->sut, $child->getParent());
     }
 
-    public function testShouldSetG()
+    /**
+     * @dataProvider validNumberProvider
+     */
+    public function testShouldSetValidG($validScore)
     {
-        $score = 5;
+        $this->sut->setG($validScore);
 
-        $this->sut->setG($score);
-
-        $this->assertSame($score, $this->sut->getG());
+        $this->assertSame($validScore, $this->sut->getG());
     }
 
-    public function testShouldSetH()
+    /**
+     * @dataProvider invalidNumberProvider
+     * @expectedException \InvalidArgumentException
+     */
+    public function testShouldNotSetInvalidG($invalidScore)
     {
-        $score = 4;
+        $this->sut->setG($invalidScore);
+    }
 
-        $this->sut->setH($score);
+    /**
+     * @dataProvider validNumberProvider
+     */
+    public function testShouldSetValidH($validScore)
+    {
+        $this->sut->setH($validScore);
 
-        $this->assertSame($score, $this->sut->getH());
+        $this->assertSame($validScore, $this->sut->getH());
+    }
+
+    /**
+     * @dataProvider invalidNumberProvider
+     * @expectedException \InvalidArgumentException
+     */
+    public function testShouldNotSetInvalidH($invalidScore)
+    {
+        $this->sut->setH($invalidScore);
     }
 
     public function testShouldGetF()

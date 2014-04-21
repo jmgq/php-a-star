@@ -57,6 +57,10 @@ abstract class AbstractNode implements Node
      */
     public function setG($score)
     {
+        if (!is_numeric($score)) {
+            throw new \InvalidArgumentException('The G value is not a number');
+        }
+
         $this->gScore = $score;
     }
 
@@ -73,6 +77,10 @@ abstract class AbstractNode implements Node
      */
     public function setH($score)
     {
+        if (!is_numeric($score)) {
+            throw new \InvalidArgumentException('The H value is not a number');
+        }
+
         $this->hScore = $score;
     }
 
