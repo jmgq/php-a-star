@@ -79,4 +79,12 @@ class NodeList implements \IteratorAggregate
 
         return null;
     }
+
+    /**
+     * Empties the array
+     */
+    public function clear()
+    {
+        $this->nodeList = array();
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace JMGQ\AStar;
 
-class Algorithm
+abstract class Algorithm
 {
     private $openList;
     private $closedList;
@@ -12,6 +12,26 @@ class Algorithm
         $this->openList = new NodeList();
         $this->closedList = new NodeList();
     }
+
+    /**
+     * @param Node $node
+     * @return Node[]
+     */
+    abstract public function generateAdjacentNodes(Node $node);
+
+    /**
+     * @param Node $start
+     * @param Node $end
+     * @return integer | float
+     */
+    abstract public function calculateRealDistance(Node $start, Node $end);
+
+    /**
+     * @param Node $start
+     * @param Node $end
+     * @return integer | float
+     */
+    abstract public function calculateHeuristicDistance(Node $start, Node $end);
 
     /**
      * @return NodeList
@@ -27,5 +47,14 @@ class Algorithm
     public function getClosedList()
     {
         return $this->closedList;
+    }
+
+    /**
+     * Sets the algorithm to its initial state
+     */
+    public function clear()
+    {
+        $this->getOpenList()->clear();
+        $this->getClosedList()->clear();
     }
 }

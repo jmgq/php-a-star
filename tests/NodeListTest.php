@@ -185,4 +185,20 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($this->sut->get($nonExistentNode));
     }
+
+    public function testShouldEmptyTheList()
+    {
+        $node = $this->getMock('JMGQ\AStar\Node');
+        $node->expects($this->any())
+            ->method('getID')
+            ->will($this->returnValue('someUniqueID'));
+
+        $this->sut->add($node);
+
+        $this->assertCount(1, $this->sut);
+
+        $this->sut->clear();
+
+        $this->assertCount(0, $this->sut);
+    }
 }
