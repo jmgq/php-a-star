@@ -57,4 +57,85 @@ abstract class Algorithm
         $this->getOpenList()->clear();
         $this->getClosedList()->clear();
     }
+
+    /**
+     * @param Node $start
+     * @param Node $goal
+     * @return Node[]
+     */
+    public function run(Node $start, Node $goal)
+    {
+        $path = array();
+
+        $this->clear();
+
+        $start->setG(0);
+        $start->setH($this->calculateHeuristicDistance($start, $goal));
+
+        $this->getOpenList()->add($start);
+
+        while (!$this->getOpenList()->isEmpty()) {
+            $currentNode = $this->getOpenList()->extractBest();
+
+            $this->getClosedList()->add($currentNode);
+
+            if ($currentNode->getID() === $goal->getID()) {
+                $path = $this->generatePathFromStartNodeTo($currentNode);
+                break;
+            }
+
+            $successors = $this->computeAdjacentNodes($currentNode, $goal);
+
+            foreach ($successors as $successor) {
+                if ($this->getOpenList()->contains($successor)) {
+                    $successorInOpenList = $this->getOpenList()->get($successor);
+
+                    if ($successor->getF() >= $successorInOpenList->getF()) {
+                        continue;
+                    }
+                } elseif ($this->getClosedList()->contains($successor)) {
+                    $successorInClosedList = $this->getClosedList()->get($successor);
+
+                    if ($successor->getF() >= $successorInClosedList->getF()) {
+                        continue;
+                    }
+                } else {
+                    $this->getOpenList()->remove($successor);
+                    $this->getClosedList()->remove($successor);
+
+                    $this->getOpenList()->add($successor);
+                }
+            }
+        }
+
+        return $path;
+    }
+
+    private function generatePathFromStartNodeTo(Node $node)
+    {
+        $path = array();
+
+        $currentNode = $node;
+
+        while ($currentNode !== null) {
+            array_unshift($path, $currentNode);
+
+            $currentNode = $currentNode->getParent();
+        }
+
+        return $path;
+    }
+
+    private function computeAdjacentNodes(Node $node, Node $goal)
+    {
+        $nodes = $this->generateAdjacentNodes($node);
+
+        foreach ($nodes as $adjacentNode) {
+            $adjacentNode->setParent($node);
+            $adjacentNode->setG($node->getG() + $this->calculateRealDistance($node, $adjacentNode));
+            $adjacentNode->setH($this->calculateHeuristicDistance($adjacentNode, $goal));
+        }
+
+        return $nodes;
+    }
 }
