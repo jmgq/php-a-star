@@ -93,18 +93,20 @@ abstract class Algorithm
                     if ($successor->getF() >= $successorInOpenList->getF()) {
                         continue;
                     }
-                } elseif ($this->getClosedList()->contains($successor)) {
+                }
+
+                if ($this->getClosedList()->contains($successor)) {
                     $successorInClosedList = $this->getClosedList()->get($successor);
 
                     if ($successor->getF() >= $successorInClosedList->getF()) {
                         continue;
                     }
-                } else {
-                    $this->getOpenList()->remove($successor);
-                    $this->getClosedList()->remove($successor);
-
-                    $this->getOpenList()->add($successor);
                 }
+
+                $this->getOpenList()->remove($successor);
+                $this->getClosedList()->remove($successor);
+
+                $this->getOpenList()->add($successor);
             }
         }
 
