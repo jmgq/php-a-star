@@ -1,6 +1,9 @@
 {
     "autoload": {
-        "psr-4": {"JMGQ\\AStar\\": "src/"}
+        "psr-4": {
+            "JMGQ\\AStar\\": "src/",
+            "JMGQ\\AStar\\Tests\\": "tests/"
+        }
     },
     "require-dev": {
         "phpunit/phpunit": "4.0.*"
