@@ -16,6 +16,7 @@
     <filter>
         <whitelist>
             <directory>src</directory>
+            <directory>example</directory>
         </whitelist>
     </filter>
 </phpunit>
