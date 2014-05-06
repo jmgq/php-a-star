@@ -97,6 +97,16 @@ class TerrainCostTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function invalidPointProvider()
+    {
+        return array(
+            array(-1, 3),
+            array(4, PHP_INT_MAX),
+            array(0, 'foo'),
+            array('bar', 0)
+        );
+    }
+
     /**
      * @dataProvider validTerrainInformationProvider
      */
@@ -152,5 +162,23 @@ class TerrainCostTest extends \PHPUnit_Framework_TestCase
     public function testShouldOnlySetRectangularTerrains($nonRectangularTerrain)
     {
         new TerrainCost($nonRectangularTerrain);
+    }
+
+    /**
+     * @dataProvider invalidPointProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid tile
+     */
+    public function testShouldThrowExceptionIfTheRequestedTileDoesNotExist($row, $column)
+    {
+        $sut = new TerrainCost(
+            array(
+                array(0, 0, 0),
+                array(0, 0, 0),
+                array(0, 0, 0)
+            )
+        );
+
+        $sut->getCost($row, $column);
     }
 }

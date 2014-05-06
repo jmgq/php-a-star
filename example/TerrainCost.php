@@ -25,6 +25,10 @@ class TerrainCost
 
     public function getCost($row, $column)
     {
+        if (!isset($this->terrainCost[$row]) || !isset($this->terrainCost[$row][$column])) {
+            throw new \InvalidArgumentException('Invalid tile: ' . print_r($row, true) . ', ' . print_r($column, true));
+        }
+
         return $this->terrainCost[$row][$column];
     }
 
