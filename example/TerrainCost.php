@@ -4,6 +4,8 @@ namespace JMGQ\AStar\Example;
 
 class TerrainCost
 {
+    const INFINITE = PHP_INT_MAX;
+
     private $terrainCost;
 
     public function __construct(array $terrainCost)
