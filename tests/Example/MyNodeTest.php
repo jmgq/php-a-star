@@ -71,4 +71,37 @@ class MyNodeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($expectedID, $sut->getID());
     }
+
+    public function testShouldCreateNewInstanceFromNode()
+    {
+        $row = 3;
+        $column = 5;
+        $nodeID = $row . 'x' . $column;
+
+        $node = $this->getMock('JMGQ\AStar\Node');
+        $node->expects($this->once())
+            ->method('getID')
+            ->will($this->returnValue($nodeID));
+
+        $myNode = MyNode::fromNode($node);
+
+        $this->assertSame($row, $myNode->getRow());
+        $this->assertSame($column, $myNode->getColumn());
+        $this->assertSame($nodeID, $myNode->getID());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testShouldNotCreateNewInstanceFromInvalidNode()
+    {
+        $nodeID = 'foo';
+
+        $node = $this->getMock('JMGQ\AStar\Node');
+        $node->expects($this->once())
+            ->method('getID')
+            ->will($this->returnValue($nodeID));
+
+        MyNode::fromNode($node);
+    }
 }

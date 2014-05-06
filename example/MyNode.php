@@ -3,6 +3,7 @@
 namespace JMGQ\AStar\Example;
 
 use JMGQ\AStar\AbstractNode;
+use JMGQ\AStar\Node;
 
 class MyNode extends AbstractNode
 {
@@ -13,6 +14,24 @@ class MyNode extends AbstractNode
     {
         $this->row = $this->filterNonNegativeInteger($row);
         $this->column = $this->filterNonNegativeInteger($column);
+    }
+
+    /**
+     * @param Node $node
+     * @return MyNode
+     */
+    public static function fromNode(Node $node)
+    {
+        $rowAndColumn = explode('x', $node->getID());
+
+        if (count($rowAndColumn) != 2) {
+            throw new \InvalidArgumentException('Invalid node: ' . print_r($node, true));
+        }
+
+        $row = $rowAndColumn[0];
+        $column = $rowAndColumn[1];
+
+        return new MyNode($row, $column);
     }
 
     public function getRow()
