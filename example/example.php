@@ -2,7 +2,7 @@
 
 namespace JMGQ\AStar\Example;
 
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $terrainCost = new TerrainCost(
     array(
