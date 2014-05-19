@@ -23,3 +23,5 @@ $solution = $aStar->run($start, $goal);
 $printer = new SequencePrinter($terrainCost, $solution);
 
 $printer->printSequence();
+
+echo "\n";
