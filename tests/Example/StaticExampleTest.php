@@ -2,11 +2,11 @@
 
 namespace JMGQ\AStar\Tests\Example;
 
-use JMGQ\AStar\Example\Example;
+use JMGQ\AStar\Example\StaticExample;
 use JMGQ\AStar\Example\MyNode;
 use JMGQ\AStar\Example\TerrainCost;
 
-class ExampleTest extends \PHPUnit_Framework_TestCase
+class StaticExampleTest extends \PHPUnit_Framework_TestCase
 {
     public function testShouldPrintSolution()
     {
@@ -29,9 +29,7 @@ class ExampleTest extends \PHPUnit_Framework_TestCase
   -  -  -  -  -
 HEREDOC;
 
-        $sut = new Example($terrainCost);
-
-        $sut->printSolution($start, $goal);
+        StaticExample::printSolution($terrainCost, $start, $goal);
 
         $this->expectOutputString($expectedOutput);
     }
@@ -57,9 +55,7 @@ HEREDOC;
   -  -  -
 HEREDOC;
 
-        $sut = new Example($terrainCost);
-
-        $sut->printSolution($start, $goal);
+        StaticExample::printSolution($terrainCost, $start, $goal);
 
         $this->expectOutputString($expectedOutput);
     }
