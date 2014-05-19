@@ -1,5 +1,15 @@
 {
+    "name": "jmgq/a-star",
+    "description": "A* (A Star) algorithm for PHP",
+    "keywords": ["a", "a star", "search", "pathfinding", "algorithm"],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Jose Gonzalez",
+            "email": "jmgq@jmgq.es",
+            "homepage": "http://www.jmgq.es"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "JMGQ\\AStar\\": "src/",
