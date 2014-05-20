@@ -20,18 +20,18 @@ abstract class Algorithm
     abstract public function generateAdjacentNodes(Node $node);
 
     /**
-     * @param Node $start
-     * @param Node $end
+     * @param Node $node
+     * @param Node $adjacent
      * @return integer | float
      */
-    abstract public function calculateRealDistance(Node $start, Node $end);
+    abstract public function calculateRealCost(Node $node, Node $adjacent);
 
     /**
      * @param Node $start
      * @param Node $end
      * @return integer | float
      */
-    abstract public function calculateHeuristicDistance(Node $start, Node $end);
+    abstract public function calculateEstimatedCost(Node $start, Node $end);
 
     /**
      * @return NodeList
@@ -70,7 +70,7 @@ abstract class Algorithm
         $this->clear();
 
         $start->setG(0);
-        $start->setH($this->calculateHeuristicDistance($start, $goal));
+        $start->setH($this->calculateEstimatedCost($start, $goal));
 
         $this->getOpenList()->add($start);
 
@@ -134,8 +134,8 @@ abstract class Algorithm
 
         foreach ($nodes as $adjacentNode) {
             $adjacentNode->setParent($node);
-            $adjacentNode->setG($node->getG() + $this->calculateRealDistance($node, $adjacentNode));
-            $adjacentNode->setH($this->calculateHeuristicDistance($adjacentNode, $goal));
+            $adjacentNode->setG($node->getG() + $this->calculateRealCost($node, $adjacentNode));
+            $adjacentNode->setH($this->calculateEstimatedCost($adjacentNode, $goal));
         }
 
         return $nodes;

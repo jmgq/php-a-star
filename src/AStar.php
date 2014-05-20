@@ -11,18 +11,18 @@ abstract class AStar
     abstract public function generateAdjacentNodes(Node $node);
 
     /**
-     * @param Node $start
-     * @param Node $end
+     * @param Node $node
+     * @param Node $adjacent
      * @return integer | float
      */
-    abstract public function calculateRealDistance(Node $start, Node $end);
+    abstract public function calculateRealCost(Node $node, Node $adjacent);
 
     /**
      * @param Node $start
      * @param Node $end
      * @return integer | float
      */
-    abstract public function calculateHeuristicDistance(Node $start, Node $end);
+    abstract public function calculateEstimatedCost(Node $start, Node $end);
 
     /**
      * @param Node $start
@@ -34,8 +34,8 @@ abstract class AStar
         $algorithm = new CallbackAlgorithm(
             $this,
             'generateAdjacentNodes',
-            'calculateRealDistance',
-            'calculateHeuristicDistance'
+            'calculateRealCost',
+            'calculateEstimatedCost'
         );
 
         return $algorithm->run($start, $goal);

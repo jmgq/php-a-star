@@ -87,11 +87,11 @@ class BaseAStarTest extends \PHPUnit_Framework_TestCase
             );
 
         $this->sut->expects($this->any())
-            ->method('calculateRealDistance')
+            ->method('calculateRealCost')
             ->will($this->returnValue(5));
 
         $this->sut->expects($this->any())
-            ->method('calculateHeuristicDistance')
+            ->method('calculateEstimatedCost')
             ->will($this->returnValue(2));
 
         $path = $this->sut->run($startNode, $goalNode);

@@ -73,41 +73,41 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testShouldCalculateRealDistance()
+    public function testShouldCalculateRealCost()
     {
-        $expectedDistance = 3;
+        $expectedCost = 3;
 
-        $startNode = new MyNode(1, 0);
-        $destinationNode = new MyNode(0, 1);
+        $node = new MyNode(1, 0);
+        $adjacentNode = new MyNode(0, 1);
 
-        $distance = $this->sut->calculateRealDistance($startNode, $destinationNode);
+        $cost = $this->sut->calculateRealCost($node, $adjacentNode);
 
-        $this->assertSame($expectedDistance, $distance);
+        $this->assertSame($expectedCost, $cost);
     }
 
-    public function testTheDistanceBetweenNonAdjacentNodesShouldBeInfinite()
+    public function testTheCostBetweenNonAdjacentNodesShouldBeInfinite()
     {
-        $expectedDistance = TerrainCost::INFINITE;
+        $expectedCost = TerrainCost::INFINITE;
 
-        $startNode = new MyNode(0, 0);
+        $node = new MyNode(0, 0);
         $nonAdjacentNode = new MyNode(0, 2);
 
-        $distance = $this->sut->calculateRealDistance($startNode, $nonAdjacentNode);
+        $cost = $this->sut->calculateRealCost($node, $nonAdjacentNode);
 
-        $this->assertSame($expectedDistance, $distance);
+        $this->assertSame($expectedCost, $cost);
     }
 
-    public function testShouldCalculateHeuristicDistance()
+    public function testShouldCalculateEstimatedCost()
     {
-        $expectedDistance = sqrt(5);
+        $expectedCost = sqrt(5);
         $maximumImprecisionAllowed = 0.0001;
 
         $startNode = new MyNode(1, 0);
         $destinationNode = new MyNode(0, 2);
 
-        $distance = $this->sut->calculateHeuristicDistance($startNode, $destinationNode);
+        $cost = $this->sut->calculateEstimatedCost($startNode, $destinationNode);
 
-        $this->assertEquals($expectedDistance, $distance, '', $maximumImprecisionAllowed);
+        $this->assertEquals($expectedCost, $cost, '', $maximumImprecisionAllowed);
     }
 
     /**

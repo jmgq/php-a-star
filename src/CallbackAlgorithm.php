@@ -6,17 +6,17 @@ class CallbackAlgorithm extends Algorithm
 {
     private $object;
     private $adjacentNodesCallback;
-    private $realDistanceCallback;
-    private $heuristicDistanceCallback;
+    private $realCostCallback;
+    private $estimatedCostCallback;
 
-    public function __construct($object, $adjacentNodesCallback, $realDistanceCallback, $heuristicDistanceCallback)
+    public function __construct($object, $adjacentNodesCallback, $realCostCallback, $estimatedCostCallback)
     {
         parent::__construct();
 
         $this->object = $object;
         $this->adjacentNodesCallback = $adjacentNodesCallback;
-        $this->realDistanceCallback = $realDistanceCallback;
-        $this->heuristicDistanceCallback = $heuristicDistanceCallback;
+        $this->realCostCallback = $realCostCallback;
+        $this->estimatedCostCallback = $estimatedCostCallback;
     }
 
     /**
@@ -29,13 +29,13 @@ class CallbackAlgorithm extends Algorithm
     }
 
     /**
-     * @param Node $start
-     * @param Node $end
+     * @param Node $node
+     * @param Node $adjacent
      * @return integer | float
      */
-    public function calculateRealDistance(Node $start, Node $end)
+    public function calculateRealCost(Node $node, Node $adjacent)
     {
-        return call_user_func_array(array($this->object, $this->realDistanceCallback), array($start, $end));
+        return call_user_func_array(array($this->object, $this->realCostCallback), array($node, $adjacent));
     }
 
     /**
@@ -43,8 +43,8 @@ class CallbackAlgorithm extends Algorithm
      * @param Node $end
      * @return integer | float
      */
-    public function calculateHeuristicDistance(Node $start, Node $end)
+    public function calculateEstimatedCost(Node $start, Node $end)
     {
-        return call_user_func_array(array($this->object, $this->heuristicDistanceCallback), array($start, $end));
+        return call_user_func_array(array($this->object, $this->estimatedCostCallback), array($start, $end));
     }
 }

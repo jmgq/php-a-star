@@ -63,10 +63,10 @@ class MyAStar extends AStar
     /**
      * @inheritdoc
      */
-    public function calculateRealDistance(Node $start, Node $end)
+    public function calculateRealCost(Node $node, Node $adjacent)
     {
-        $myStartNode = MyNode::fromNode($start);
-        $myEndNode = MyNode::fromNode($end);
+        $myStartNode = MyNode::fromNode($node);
+        $myEndNode = MyNode::fromNode($adjacent);
 
         if ($this->areAdjacent($myStartNode, $myEndNode)) {
             return $this->terrainCost->getCost($myEndNode->getRow(), $myEndNode->getColumn());
@@ -78,7 +78,7 @@ class MyAStar extends AStar
     /**
      * @inheritdoc
      */
-    public function calculateHeuristicDistance(Node $start, Node $end)
+    public function calculateEstimatedCost(Node $start, Node $end)
     {
         $myStartNode = MyNode::fromNode($start);
         $myEndNode = MyNode::fromNode($end);

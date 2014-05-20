@@ -20,32 +20,32 @@ class CallbackAlgorithmTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->adjacentNodesFunction(), $sut->generateAdjacentNodes($node));
     }
 
-    public function testRealDistanceFunctionIsSet()
+    public function testRealCostFunctionIsSet()
     {
         $sut = new CallbackAlgorithm(
             $this,
             null,
-            'realDistanceFunction',
+            'realCostFunction',
             null
         );
 
         $node = $this->getMock('JMGQ\AStar\Node');
 
-        $this->assertSame($this->realDistanceFunction(), $sut->calculateRealDistance($node, $node));
+        $this->assertSame($this->realCostFunction(), $sut->calculateRealCost($node, $node));
     }
 
-    public function testHeuristicDistanceFunctionIsSet()
+    public function testEstimatedCostFunctionIsSet()
     {
         $sut = new CallbackAlgorithm(
             $this,
             null,
             null,
-            'heuristicDistanceFunction'
+            'estimatedCostFunction'
         );
 
         $node = $this->getMock('JMGQ\AStar\Node');
 
-        $this->assertSame($this->heuristicDistanceFunction(), $sut->calculateHeuristicDistance($node, $node));
+        $this->assertSame($this->estimatedCostFunction(), $sut->calculateEstimatedCost($node, $node));
     }
 
     public function adjacentNodesFunction()
@@ -53,12 +53,12 @@ class CallbackAlgorithmTest extends \PHPUnit_Framework_TestCase
         return 'foo bar';
     }
 
-    public function realDistanceFunction()
+    public function realCostFunction()
     {
         return 'foo';
     }
 
-    public function heuristicDistanceFunction()
+    public function estimatedCostFunction()
     {
         return 'bar';
     }
