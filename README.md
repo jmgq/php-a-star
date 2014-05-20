@@ -86,4 +86,4 @@ For instance, given the following terrain:
 2 | 1 1 1 1
 ```
 
-The cost to enter the tile `(1, 3)` (row 1, column 3) from any of its adjacent tile is 4 units. So the real distance between `(0, 2)` and `(1, 3)` would be 4 units.
+The cost to enter the tile `(1, 3)` (row 1, column 3) from any of its adjacent tiles is 4 units. So the real distance between `(0, 2)` and `(1, 3)` would be 4 units.
