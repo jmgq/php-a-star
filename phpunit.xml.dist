@@ -17,6 +17,10 @@
         <whitelist>
             <directory>src</directory>
             <directory>example</directory>
+
+            <exclude>
+                <file>example/example.php</file>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
