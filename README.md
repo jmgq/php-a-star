@@ -1,5 +1,10 @@
 A Star algorithm for PHP
 ========================
+[![Latest Stable Version](https://poser.pugx.org/jmgq/a-star/v/stable.svg)](https://packagist.org/packages/jmgq/a-star)
+[![Build Status](https://travis-ci.org/jmgq/php-a-star.svg)](https://travis-ci.org/jmgq/php-a-star)
+[![Coverage Status](https://coveralls.io/repos/jmgq/php-a-star/badge.png)](https://coveralls.io/r/jmgq/php-a-star)
+[![License](https://poser.pugx.org/jmgq/a-star/license.svg)](https://packagist.org/packages/jmgq/a-star)
+
 A Star pathfinding algorithm implementation for PHP.
 
 Installation
