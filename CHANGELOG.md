@@ -2,6 +2,7 @@ Changelog
 =========
 
 ### Next release
+- [New] Added a new example (Graph).
 - [Devel] [New] Added Travis support (Continuous Integration server).
 - [Devel] [New] Added Coveralls support.
 - [Devel] [New] Added a required minimum PHP version (5.3.0).
