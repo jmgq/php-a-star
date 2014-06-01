@@ -1,8 +1,8 @@
 <?php
 
-namespace JMGQ\AStar\Tests\Example;
+namespace JMGQ\AStar\Tests\Example\Terrain;
 
-use JMGQ\AStar\Example\MyNode;
+use JMGQ\AStar\Example\Terrain\MyNode;
 
 class MyNodeTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace JMGQ\AStar\Example;
+namespace JMGQ\AStar\Example\Terrain;
 
 class StaticExample
 {

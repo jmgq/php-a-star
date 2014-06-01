@@ -13,7 +13,7 @@
     "autoload": {
         "psr-4": {
             "JMGQ\\AStar\\": "src/",
-            "JMGQ\\AStar\\Example\\": "example/",
+            "JMGQ\\AStar\\Example\\": "examples/",
             "JMGQ\\AStar\\Tests\\": "tests/"
         }
     },

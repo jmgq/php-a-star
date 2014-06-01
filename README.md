@@ -75,9 +75,9 @@ Usage
 
 Example
 -------
-There is a working implementation in the `example` folder. In order to execute it, run the following command:
+There is a working implementation in the `examples` folder, `Terrain` sub-folder. In order to execute it, run the following command:
 ```sh
-php example/example.php
+php examples/Terrain/example.php
 ```
 
 This example calculates the best route between two tiles in a rectangular board. Each tile has a cost associated to it, represented in a TerrainCost object. Every value in the TerrainCost array indicates the cost of entering into that particular tile.

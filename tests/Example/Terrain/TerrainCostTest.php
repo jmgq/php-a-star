@@ -1,8 +1,8 @@
 <?php
 
-namespace JMGQ\AStar\Tests\Example;
+namespace JMGQ\AStar\Tests\Example\Terrain;
 
-use JMGQ\AStar\Example\TerrainCost;
+use JMGQ\AStar\Example\Terrain\TerrainCost;
 
 class TerrainCostTest extends \PHPUnit_Framework_TestCase
 {

@@ -17,10 +17,10 @@
     <filter>
         <whitelist>
             <directory>src</directory>
-            <directory>example</directory>
+            <directory>examples</directory>
 
             <exclude>
-                <file>example/example.php</file>
+                <file>examples/Terrain/example.php</file>
             </exclude>
         </whitelist>
     </filter>
