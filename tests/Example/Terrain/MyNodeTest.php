@@ -54,6 +54,7 @@ class MyNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider invalidPointProvider
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid non negative integer
      */
     public function testShouldNotSetInvalidPoint($row, $column)
     {
@@ -92,6 +93,7 @@ class MyNodeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid node
      */
     public function testShouldNotCreateNewInstanceFromInvalidNode()
     {
