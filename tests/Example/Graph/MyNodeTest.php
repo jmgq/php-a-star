@@ -1,8 +1,8 @@
 <?php
 
-namespace JMGQ\AStar\Tests\Example\Connections;
+namespace JMGQ\AStar\Tests\Example\Graph;
 
-use JMGQ\AStar\Example\Connections\MyNode;
+use JMGQ\AStar\Example\Graph\MyNode;
 
 class MyNodeTest extends \PHPUnit_Framework_TestCase
 {

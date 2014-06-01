@@ -1,10 +1,10 @@
 <?php
 
-namespace JMGQ\AStar\Tests\Example\Connections;
+namespace JMGQ\AStar\Tests\Example\Graph;
 
-use JMGQ\AStar\Example\Connections\Connection;
+use JMGQ\AStar\Example\Graph\Link;
 
-class ConnectionTest extends \PHPUnit_Framework_TestCase
+class LinkTest extends \PHPUnit_Framework_TestCase
 {
     public function validDistanceProvider()
     {
@@ -37,14 +37,14 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
     {
         $expectedDistance = (float) $distance;
 
-        $source = $this->getMockBuilder('JMGQ\AStar\Example\Connections\MyNode')
+        $source = $this->getMockBuilder('JMGQ\AStar\Example\Graph\MyNode')
             ->disableOriginalConstructor()
             ->getMock();
-        $destination = $this->getMockBuilder('JMGQ\AStar\Example\Connections\MyNode')
+        $destination = $this->getMockBuilder('JMGQ\AStar\Example\Graph\MyNode')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $sut = new Connection($source, $destination, $distance);
+        $sut = new Link($source, $destination, $distance);
 
         $this->assertSame($source, $sut->getSource());
         $this->assertSame($destination, $sut->getDestination());
@@ -58,13 +58,13 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldNotSetInvalidDistance($distance)
     {
-        $source = $this->getMockBuilder('JMGQ\AStar\Example\Connections\MyNode')
+        $source = $this->getMockBuilder('JMGQ\AStar\Example\Graph\MyNode')
             ->disableOriginalConstructor()
             ->getMock();
-        $destination = $this->getMockBuilder('JMGQ\AStar\Example\Connections\MyNode')
+        $destination = $this->getMockBuilder('JMGQ\AStar\Example\Graph\MyNode')
             ->disableOriginalConstructor()
             ->getMock();
 
-        new Connection($source, $destination, $distance);
+        new Link($source, $destination, $distance);
     }
 }

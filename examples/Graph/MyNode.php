@@ -1,6 +1,6 @@
 <?php
 
-namespace JMGQ\AStar\Example\Connections;
+namespace JMGQ\AStar\Example\Graph;
 
 use JMGQ\AStar\AbstractNode;
 use JMGQ\AStar\Node;

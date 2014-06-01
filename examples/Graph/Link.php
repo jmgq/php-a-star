@@ -1,8 +1,8 @@
 <?php
 
-namespace JMGQ\AStar\Example\Connections;
+namespace JMGQ\AStar\Example\Graph;
 
-class Connection
+class Link
 {
     private $source;
     private $destination;
