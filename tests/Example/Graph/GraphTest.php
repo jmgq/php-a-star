@@ -78,4 +78,40 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($distance1, $this->sut->getLink($source1, $destination1)->getDistance());
         $this->assertSame($distance2, $this->sut->getLink($source2, $destination2)->getDistance());
     }
+
+    public function testShouldGetDirectSuccessors()
+    {
+        $nodeA = new MyNode(0, 0);
+        $nodeB = new MyNode(1, 1);
+        $nodeC = new MyNode(2, 2);
+        $nodeD = new MyNode(3, 3);
+        $distance = 1;
+
+        $this->sut->addLink(new Link($nodeA, $nodeB, $distance));
+        $this->sut->addLink(new Link($nodeA, $nodeC, $distance));
+        $this->sut->addLink(new Link($nodeB, $nodeD, $distance));
+
+        $nodeADirectSuccessors = $this->sut->getDirectSuccessors($nodeA);
+        $nodeBDirectSuccessors = $this->sut->getDirectSuccessors($nodeB);
+        $nodeCDirectSuccessors = $this->sut->getDirectSuccessors($nodeC);
+        $nodeDDirectSuccessors = $this->sut->getDirectSuccessors($nodeD);
+
+        $this->assertCount(2, $nodeADirectSuccessors);
+        $this->assertCount(1, $nodeBDirectSuccessors);
+        $this->assertCount(0, $nodeCDirectSuccessors);
+        $this->assertCount(0, $nodeDDirectSuccessors);
+
+        foreach ($nodeADirectSuccessors as $successor) {
+            $this->assertTrue($successor->getID() === $nodeB->getID() || $successor->getID() === $nodeC->getID());
+        }
+
+        $this->assertSame($nodeD->getID(), $nodeBDirectSuccessors[0]->getID());
+    }
+
+    public function testShouldGetEmptyArrayAsDirectSuccessorsIfNodeDoesNotExist()
+    {
+        $nonExistentNode = new MyNode(0, 0);
+
+        $this->assertCount(0, $this->sut->getDirectSuccessors($nonExistentNode));
+    }
 }

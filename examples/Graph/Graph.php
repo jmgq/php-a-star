@@ -51,6 +51,23 @@ class Graph
         return isset($this->links[$linkID]);
     }
 
+    /**
+     * @param MyNode $node
+     * @return MyNode[]
+     */
+    public function getDirectSuccessors(MyNode $node)
+    {
+        $successors = array();
+
+        foreach ($this->links as $link) {
+            if ($node->getID() === $link->getSource()->getID()) {
+                $successors[] = $link->getDestination();
+            }
+        }
+
+        return $successors;
+    }
+
     private function getLinkID(MyNode $source, MyNode $destination)
     {
         return $source->getID() . '|' . $destination->getID();
