@@ -81,6 +81,28 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedCost, $cost, '', $maximumImprecisionAllowed);
     }
 
+    public function testShouldGetRightSolution()
+    {
+        $start = new MyNode(0, 0);
+        $goal = new MyNode(10, 10);
+
+        $expectedSolution = array(
+            new MyNode(0, 0),
+            new MyNode(2, 5),
+            new MyNode(3, 3),
+            new MyNode(6, 4),
+            new MyNode(10, 10)
+        );
+
+        $solution = $this->sut->run($start, $goal);
+
+        $this->assertCount(count($expectedSolution), $solution);
+
+        for ($i = 0; $i < count($expectedSolution); $i++) {
+            $this->assertSame($expectedSolution[$i]->getID(), $solution[$i]->getID());
+        }
+    }
+
     /**
      * @param MyNode $needle
      * @param MyNode[] $haystack
