@@ -103,7 +103,6 @@ abstract class Algorithm
                     }
                 }
 
-                $this->getOpenList()->remove($successor);
                 $this->getClosedList()->remove($successor);
 
                 $this->getOpenList()->add($successor);
