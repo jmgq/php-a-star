@@ -90,7 +90,7 @@ abstract class Algorithm
                 if ($this->getOpenList()->contains($successor)) {
                     $successorInOpenList = $this->getOpenList()->get($successor);
 
-                    if ($successor->getF() >= $successorInOpenList->getF()) {
+                    if ($successor->getG() >= $successorInOpenList->getG()) {
                         continue;
                     }
                 }
@@ -98,7 +98,7 @@ abstract class Algorithm
                 if ($this->getClosedList()->contains($successor)) {
                     $successorInClosedList = $this->getClosedList()->get($successor);
 
-                    if ($successor->getF() >= $successorInClosedList->getF()) {
+                    if ($successor->getG() >= $successorInClosedList->getG()) {
                         continue;
                     }
                 }
