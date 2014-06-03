@@ -15,11 +15,11 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $links = array(
-            new Link(new MyNode(0, 0), new MyNode(2, 5), 3.5),
+            new Link(new MyNode(0, 0), new MyNode(2, 5), 6.5),
             new Link(new MyNode(0, 0), new MyNode(6, 4), 23.75),
             new Link(new MyNode(2, 5), new MyNode(3, 3), 5),
-            new Link(new MyNode(3, 3), new MyNode(6, 4), 1.2),
-            new Link(new MyNode(6, 4), new MyNode(10, 10), 2)
+            new Link(new MyNode(3, 3), new MyNode(6, 4), 3.2),
+            new Link(new MyNode(6, 4), new MyNode(10, 10), 8)
         );
 
         $graph = new Graph($links);
@@ -46,7 +46,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldCalculateRealCost()
     {
-        $expectedCost = 1.2;
+        $expectedCost = 3.2;
 
         $node = new MyNode(3, 3);
         $adjacentNode = new MyNode(6, 4);
