@@ -73,9 +73,12 @@ Usage
 
 3. That's all! You can now use the `run` method in the `AStar` class to generate the best path between two nodes. This method will return an ordered array of nodes, from the start node to the goal node. If there is no solution, an empty array will be returned.
 
-Example
+Examples
 -------
-There is a working implementation in the `examples` folder, `Terrain` sub-folder. In order to execute it, run the following command:
+There are two working implementations in the `examples` folder.
+
+### Terrain Example
+In order to execute this example, run the following command:
 ```sh
 php examples/Terrain/example.php
 ```
@@ -92,6 +95,17 @@ For instance, given the following terrain:
 ```
 
 The cost to enter the tile `(1, 3)` (row 1, column 3) from any of its adjacent tiles is 4 units. So the real distance between `(0, 2)` and `(1, 3)` would be 4 units.
+
+### Graph Example
+In order to execute this example, run the following command:
+```sh
+php examples/Graph/example.php
+```
+
+Important notes:
+- This example calculates the shortest path between two given nodes in a directed graph.
+- A node's position is determined by its X and Y coordinates.
+- The `Link` class specifies an arc (unidirectional connection) between two nodes. For instance `Link(A, B, D)` represents an arc from the node `A` to the node `B`, with a distance of `D` units.
 
 Changelog
 ---------

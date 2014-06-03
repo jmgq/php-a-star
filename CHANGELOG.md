@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### Next release
+### 1.1.0 (2014-06-03)
 - [New] Added a new example (Graph).
 - [Bugfix] When the node being evaluated is found in the open or closed list, the algorithm checks its tentative G value (rather than its F value) in order to determine if the node has a better cost.
 - [Improv] Removed an unnecessary step in the algorithm.
