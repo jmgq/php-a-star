@@ -132,6 +132,11 @@ abstract class Algorithm
         $nodes = $this->generateAdjacentNodes($node);
 
         foreach ($nodes as $adjacentNode) {
+
+            // BUGFIX: DONT set the parent to me, if I am already your parent
+            if ( $node->getParent() && $node->getParent()->getID() == $adjacentNode->getID() )
+                continue;
+
             $adjacentNode->setParent($node);
             $adjacentNode->setG($node->getG() + $this->calculateRealCost($node, $adjacentNode));
             $adjacentNode->setH($this->calculateEstimatedCost($adjacentNode, $goal));
