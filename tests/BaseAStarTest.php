@@ -2,7 +2,7 @@
 
 namespace JMGQ\AStar\Tests;
 
-class BaseAStarTest extends \PHPUnit_Framework_TestCase
+abstract class BaseAStarTest extends \PHPUnit_Framework_TestCase
 {
     protected $sut;
 
