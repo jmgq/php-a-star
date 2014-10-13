@@ -74,7 +74,7 @@ Usage
 3. That's all! You can now use the `run` method in the `AStar` class to generate the best path between two nodes. This method will return an ordered array of nodes, from the start node to the goal node. If there is no solution, an empty array will be returned.
 
 Examples
--------
+--------
 There are two working implementations in the `examples` folder.
 
 ### Terrain Example
@@ -106,6 +106,24 @@ Important notes:
 - This example calculates the shortest path between two given nodes in a directed graph.
 - A node's position is determined by its X and Y coordinates.
 - The `Link` class specifies an arc (unidirectional connection) between two nodes. For instance `Link(A, B, D)` represents an arc from the node `A` to the node `B`, with a distance of `D` units.
+
+Contributing
+------------
+Contributions to this project are always welcome. If you want to make a contribution, please fork the project, create a feature branch, and send a pull request.
+
+### Coding Standards
+To ensure a consistent code base, please make sure your code follows the following conventions:
+- The code should follow the standards defined in the [PSR-2](http://www.php-fig.org/psr/psr-2/) document.
+- Use camelCase for naming variables, instead of underscores.
+- Use parentheses when instantiating classes regardless of the number of arguments the constructor has.
+- Write self-documenting code instead of actual comments (unless strictly necessary).
+
+In other words, please imitate the existing code.
+
+### Tests
+This project has been developed following the [TDD](http://en.wikipedia.org/wiki/Test-driven_development) principles, and it strives for maximum test coverage. Therefore, you are encouraged to write tests for your new code. If your code is a bug fix, please write a test that proves that your code actually fixes the bug.
+
+If you don't know how to write tests, please don't be discouraged, and send your pull request without tests, I will try to add them myself later.
 
 Changelog
 ---------

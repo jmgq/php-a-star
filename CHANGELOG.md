@@ -3,6 +3,7 @@ Changelog
 
 ### Next release
 - [Devel] [Bugfix] Fixed a PHPUnit issue caused by BaseAStarTest not being abstract.
+- [Devel] [New] Added a Contributing section to the Readme.
 
 ### 1.1.0 (2014-06-03)
 - [New] Added a new example (Graph).
