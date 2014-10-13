@@ -84,7 +84,7 @@ abstract class Algorithm
                 break;
             }
 
-	    $successors = $this->generateAdjacentNodes($currentNode);
+            $successors = $this->computeAdjacentNodes($currentNode, $goal);
 
             foreach ($successors as $successor) {
                 if ($this->getOpenList()->contains($successor)) {
@@ -102,11 +102,6 @@ abstract class Algorithm
                         continue;
                     }
                 }
-
-		// after confirming, update the successor node
-            	$successor->setParent($currentNode);
-            	$successor->setG($currentNode->getG() + $this->calculateRealCost($currentNode, $successor));
-            	$successor->setH($this->calculateEstimatedCost($successor, $goal));
 
                 $this->getClosedList()->remove($successor);
 
@@ -132,4 +127,16 @@ abstract class Algorithm
         return $path;
     }
 
- }
+    private function computeAdjacentNodes(Node $node, Node $goal)
+    {
+        $nodes = $this->generateAdjacentNodes($node);
+
+        foreach ($nodes as $adjacentNode) {
+            $adjacentNode->setParent($node);
+            $adjacentNode->setG($node->getG() + $this->calculateRealCost($node, $adjacentNode));
+            $adjacentNode->setH($this->calculateEstimatedCost($adjacentNode, $goal));
+        }
+
+        return $nodes;
+    }
+}
