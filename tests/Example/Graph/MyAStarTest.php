@@ -103,6 +103,39 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testShouldGetSolutionWithNodesFormingCircularPaths()
+    {
+        $nodes = array(
+            'start' => new MyNode(0, 0),
+            'intermediate' => new MyNode(2, 5),
+            'goal' => new MyNode(6, 4)
+        );
+
+        $links = array(
+            new Link($nodes['start'], $nodes['intermediate'], 6),
+            new Link($nodes['intermediate'], $nodes['start'], 6),
+
+            new Link($nodes['intermediate'], $nodes['goal'], 23),
+            new Link($nodes['goal'], $nodes['intermediate'], 23),
+        );
+
+        $graph = new Graph($links);
+
+        $expectedSolution = array(
+            $nodes['start'],
+            $nodes['intermediate'],
+            $nodes['goal']
+        );
+
+        $this->sut = new MyAStar($graph);
+
+        $solution = $this->sut->run($nodes['start'], $nodes['goal']);
+
+        for ($i = 0; $i < count($expectedSolution); $i++) {
+            $this->assertSame($expectedSolution[$i]->getID(), $solution[$i]->getID());
+        }
+    }
+
     /**
      * @param MyNode $needle
      * @param MyNode[] $haystack
