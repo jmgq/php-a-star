@@ -103,6 +103,8 @@ abstract class Algorithm
                     }
                 }
 
+                $successor->setParent($currentNode);
+
                 $this->getClosedList()->remove($successor);
 
                 $this->getOpenList()->add($successor);
@@ -132,7 +134,6 @@ abstract class Algorithm
         $nodes = $this->generateAdjacentNodes($node);
 
         foreach ($nodes as $adjacentNode) {
-            $adjacentNode->setParent($node);
             $adjacentNode->setG($node->getG() + $this->calculateRealCost($node, $adjacentNode));
             $adjacentNode->setH($this->calculateEstimatedCost($adjacentNode, $goal));
         }
