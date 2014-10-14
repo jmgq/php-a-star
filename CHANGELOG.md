@@ -1,6 +1,9 @@
 Changelog
 =========
 
+### Next release
+- [Change] Removed the addChild and getChildren method signatures from the Node interface.
+
 ### 1.1.1 (2014-10-14)
 - [Bugfix] Fixed an infinite loop bug when getting a solution (path) that contains a starting node with a circular reference to its parent.
 - [Devel] [Bugfix] Fixed a PHPUnit issue caused by BaseAStarTest not being abstract.

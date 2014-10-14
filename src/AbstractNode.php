@@ -27,7 +27,8 @@ abstract class AbstractNode implements Node
     }
 
     /**
-     * @inheritdoc
+     * @deprecated
+     * @param Node $child
      */
     public function addChild(Node $child)
     {
@@ -37,7 +38,8 @@ abstract class AbstractNode implements Node
     }
 
     /**
-     * @inheritdoc
+     * @deprecated
+     * @return Node[]
      */
     public function getChildren()
     {
