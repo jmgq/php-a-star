@@ -13,3 +13,7 @@ before_script:
 after_script:
     # Do not execute coveralls in HHVM
     - if [[ $TRAVIS_PHP_VERSION != 'hhvm' ]]; then php vendor/bin/coveralls -v; fi
+
+    # Send the code coverage information to Scrutinizer
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml

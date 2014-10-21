@@ -3,6 +3,7 @@ A Star algorithm for PHP
 [![Latest Stable Version](https://poser.pugx.org/jmgq/a-star/v/stable.svg)](https://packagist.org/packages/jmgq/a-star)
 [![Build Status](https://travis-ci.org/jmgq/php-a-star.svg)](https://travis-ci.org/jmgq/php-a-star)
 [![Coverage Status](https://coveralls.io/repos/jmgq/php-a-star/badge.png)](https://coveralls.io/r/jmgq/php-a-star)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jmgq/php-a-star/badges/quality-score.png)](https://scrutinizer-ci.com/g/jmgq/php-a-star)
 [![SemVer](http://img.shields.io/:semver-2.0.0-brightgreen.svg)](http://semver.org/spec/v2.0.0.html)
 [![License](https://poser.pugx.org/jmgq/a-star/license.svg)](https://packagist.org/packages/jmgq/a-star)
 
