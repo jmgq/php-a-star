@@ -125,6 +125,9 @@ This project has been developed following the [TDD](http://en.wikipedia.org/wiki
 
 If you don't know how to write tests, please don't be discouraged, and send your pull request without tests, I will try to add them myself later.
 
+### Contributors
+Feel free to add yourself to the list of [contributors](CONTRIBUTORS.md).
+
 Changelog
 ---------
 Read the [changelog](CHANGELOG.md).
