@@ -75,10 +75,10 @@ HEREDOC;
         $goal = new MyNode(3, 4);
 
         $expectedOutput = <<<HEREDOC
-  1  -  -  -  -
-  2  -  -  -  -
-  -  3  4  -  -
-  -  -  -  5  6
+  1  2  3  -  -
+  -  -  -  4  -
+  -  -  -  -  5
+  -  -  -  -  6
 HEREDOC;
 
         StaticExample::printSolution($terrainCost, $start, $goal);

@@ -9,7 +9,7 @@ abstract class Algorithm
 
     public function __construct()
     {
-        $this->openList = new NodeList();
+        $this->openList = new NodePriorityQueue();
         $this->closedList = new NodeList();
     }
 
