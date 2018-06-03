@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enforced the PSR-2 standards by checking them with CodeSniffer during the Travis build.
 - Updated the Changelog format.
 - Updated the development dependencies in composer.
+- Simplified the installation instructions.
 
 ### Removed
 - Removed the `addChild` and `getChildren` method signatures from the `Node` interface.

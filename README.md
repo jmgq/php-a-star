@@ -9,22 +9,17 @@ A Star algorithm for PHP
 
 A Star pathfinding algorithm implementation for PHP.
 
+Requirements
+------------
+You need PHP >= 5.3.0 (or HHVM) to use this library, but the latest stable version of PHP is recommended.
+
 Installation
 ------------
 1. Install [composer](http://getcomposer.org/).
 
-2. Add the A Star algorithm package to your `composer.json` file:
-    ```
-    "require": {
-        ...
-        "jmgq/a-star": "1.*"
-        ...
-    }
-    ```
-
-3. Update composer:
+2. Add the A Star algorithm package to your `composer.json` file and download it:
     ```sh
-    composer update
+    composer require jmgq/a-star
     ```
 
 Usage
