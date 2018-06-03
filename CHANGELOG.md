@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed Travis build for PHP 5.3.
 - The tests and examples now use the `autoload-dev` section instead of `autoload` in `composer.json`.
+- Fixed Coveralls not working due to the `src_dir` parameter being removed in the current version.
 
 ## [1.1.1] - 2014-10-14
 ### Added
