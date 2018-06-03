@@ -10,22 +10,22 @@ class TerrainCost
 
     public function __construct(array $terrainCost)
     {
-        if (TerrainCost::isEmpty($terrainCost)) {
+        if (self::isEmpty($terrainCost)) {
             throw new \InvalidArgumentException('The terrain costs array is empty');
         }
 
-        if (!TerrainCost::isRectangular($terrainCost)) {
+        if (!self::isRectangular($terrainCost)) {
             throw new \InvalidArgumentException('The terrain costs array is not rectangular');
         }
 
-        $terrainCost = TerrainCost::convertToNumericArray($terrainCost);
+        $terrainCost = self::convertToNumericArray($terrainCost);
 
-        $this->terrainCost = TerrainCost::validateTerrainCosts($terrainCost);
+        $this->terrainCost = self::validateTerrainCosts($terrainCost);
     }
 
     public function getCost($row, $column)
     {
-        if (!isset($this->terrainCost[$row]) || !isset($this->terrainCost[$row][$column])) {
+        if (!isset($this->terrainCost[$row][$column])) {
             throw new \InvalidArgumentException('Invalid tile: ' . print_r($row, true) . ', ' . print_r($column, true));
         }
 
@@ -88,7 +88,7 @@ class TerrainCost
         $numberOfColumnsInFirstRow = count(reset($terrain));
 
         foreach ($terrain as $row) {
-            if (count($row) != $numberOfColumnsInFirstRow) {
+            if (count($row) !== $numberOfColumnsInFirstRow) {
                 return false;
             }
         }

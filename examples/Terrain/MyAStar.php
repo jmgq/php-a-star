@@ -15,7 +15,7 @@ class MyAStar extends AStar
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function generateAdjacentNodes(Node $node)
     {
@@ -23,25 +23,25 @@ class MyAStar extends AStar
 
         $myNode = MyNode::fromNode($node);
 
-        if ($myNode->getRow() == 0) {
+        if ($myNode->getRow() === 0) {
             $startingRow = 0;
         } else {
             $startingRow = $myNode->getRow() - 1;
         }
 
-        if ($myNode->getRow() == $this->terrainCost->getTotalRows() - 1) {
+        if ($myNode->getRow() === $this->terrainCost->getTotalRows() - 1) {
             $endingRow = $myNode->getRow();
         } else {
             $endingRow = $myNode->getRow() + 1;
         }
 
-        if ($myNode->getColumn() == 0) {
+        if ($myNode->getColumn() === 0) {
             $startingColumn = 0;
         } else {
             $startingColumn = $myNode->getColumn() - 1;
         }
 
-        if ($myNode->getColumn() == $this->terrainCost->getTotalColumns() - 1) {
+        if ($myNode->getColumn() === $this->terrainCost->getTotalColumns() - 1) {
             $endingColumn = $myNode->getColumn();
         } else {
             $endingColumn = $myNode->getColumn() + 1;
@@ -61,7 +61,7 @@ class MyAStar extends AStar
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function calculateRealCost(Node $node, Node $adjacent)
     {
@@ -76,7 +76,7 @@ class MyAStar extends AStar
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function calculateEstimatedCost(Node $start, Node $end)
     {

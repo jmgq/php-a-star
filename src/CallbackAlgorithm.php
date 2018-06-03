@@ -20,31 +20,26 @@ class CallbackAlgorithm extends Algorithm
     }
 
     /**
-     * @param Node $node
-     * @return Node[]
+     * {@inheritdoc}
      */
     public function generateAdjacentNodes(Node $node)
     {
-        return call_user_func_array(array($this->object, $this->adjacentNodesCallback), array($node));
+        return call_user_func(array($this->object, $this->adjacentNodesCallback), $node);
     }
 
     /**
-     * @param Node $node
-     * @param Node $adjacent
-     * @return integer | float
+     * {@inheritdoc}
      */
     public function calculateRealCost(Node $node, Node $adjacent)
     {
-        return call_user_func_array(array($this->object, $this->realCostCallback), array($node, $adjacent));
+        return call_user_func(array($this->object, $this->realCostCallback), $node, $adjacent);
     }
 
     /**
-     * @param Node $start
-     * @param Node $end
-     * @return integer | float
+     * {@inheritdoc}
      */
     public function calculateEstimatedCost(Node $start, Node $end)
     {
-        return call_user_func_array(array($this->object, $this->estimatedCostCallback), array($start, $end));
+        return call_user_func(array($this->object, $this->estimatedCostCallback), $start, $end);
     }
 }

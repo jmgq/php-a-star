@@ -15,7 +15,7 @@ class MyAStar extends AStar
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function generateAdjacentNodes(Node $node)
     {
@@ -25,7 +25,7 @@ class MyAStar extends AStar
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function calculateRealCost(Node $node, Node $adjacent)
     {
@@ -40,7 +40,7 @@ class MyAStar extends AStar
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function calculateEstimatedCost(Node $start, Node $end)
     {

@@ -24,7 +24,7 @@ class MyNode extends AbstractNode
     {
         $rowAndColumn = explode('x', $node->getID());
 
-        if (count($rowAndColumn) != 2) {
+        if (count($rowAndColumn) !== 2) {
             throw new \InvalidArgumentException('Invalid node: ' . print_r($node, true));
         }
 
@@ -45,7 +45,7 @@ class MyNode extends AbstractNode
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getID()
     {
