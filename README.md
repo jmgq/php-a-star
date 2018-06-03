@@ -113,6 +113,12 @@ Contributing
 ------------
 Contributions to this project are always welcome. If you want to make a contribution, please fork the project, create a feature branch, and send a pull request.
 
+### Development environment
+In order to set up your development environment, please follow these steps:
+1. Install [Docker](https://www.docker.com/).
+2. Build the image: `docker build -t php-a-star .`
+3. Run the image: `docker run -it php-a-star sh`
+
 ### Coding Standards
 To ensure a consistent code base, please make sure your code follows the following conventions:
 - The code should follow the standards defined in the [PSR-2](http://www.php-fig.org/psr/psr-2/) document.

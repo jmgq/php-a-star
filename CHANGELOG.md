@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a Contributors file.
 - Added Scrutinizer support.
 - Added Travis builds for PHP 7.0, 7.1 and 7.2.
+- Added support for Docker.
 
 ### Changed
 - Enforced the PSR-2 standards by checking them with CodeSniffer during the Travis build.
