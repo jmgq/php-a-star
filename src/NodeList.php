@@ -7,7 +7,7 @@ class NodeList implements \IteratorAggregate
     private $nodeList = array();
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getIterator()
     {

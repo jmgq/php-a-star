@@ -21,6 +21,18 @@ interface Node
     public function getParent();
 
     /**
+     * @deprecated
+     * @param Node $child
+     */
+    public function addChild(Node $child);
+
+    /**
+     * @deprecated
+     * @return Node[]
+     */
+    public function getChildren();
+
+    /**
      * @return integer | float
      */
     public function getF();

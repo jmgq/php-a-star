@@ -11,7 +11,7 @@ abstract class AbstractNode implements Node
     private $hScore;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setParent(Node $parent)
     {
@@ -19,7 +19,7 @@ abstract class AbstractNode implements Node
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getParent()
     {
@@ -27,8 +27,7 @@ abstract class AbstractNode implements Node
     }
 
     /**
-     * @deprecated
-     * @param Node $child
+     * {@inheritdoc}
      */
     public function addChild(Node $child)
     {
@@ -38,8 +37,7 @@ abstract class AbstractNode implements Node
     }
 
     /**
-     * @deprecated
-     * @return Node[]
+     * {@inheritdoc}
      */
     public function getChildren()
     {
@@ -47,7 +45,7 @@ abstract class AbstractNode implements Node
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getF()
     {
@@ -55,7 +53,7 @@ abstract class AbstractNode implements Node
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setG($score)
     {
@@ -67,7 +65,7 @@ abstract class AbstractNode implements Node
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getG()
     {
@@ -75,7 +73,7 @@ abstract class AbstractNode implements Node
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setH($score)
     {
@@ -87,7 +85,7 @@ abstract class AbstractNode implements Node
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getH()
     {

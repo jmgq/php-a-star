@@ -17,8 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated the development dependencies in composer.
 - Simplified the installation instructions.
 
-### Removed
-- Removed the `addChild` and `getChildren` method signatures from the `Node` interface.
+### Deprecated
+- Deprecated the `addChild` and `getChildren` method signatures from the `Node` interface.
 
 ### Fixed
 - Fixed Travis build for PHP 5.3.
