@@ -12,9 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Enforced the PSR-2 standards by checking them with CodeSniffer during the Travis build.
 - Updated the Changelog format.
+- Updated the development dependencies in composer.
 
 ### Removed
 - Removed the `addChild` and `getChildren` method signatures from the `Node` interface.
+
+### Fixed
+- Fixed Travis build for PHP 5.3.
+- The tests and examples now use the `autoload-dev` section instead of `autoload` in `composer.json`.
 
 ## [1.1.1] - 2014-10-14
 ### Added
