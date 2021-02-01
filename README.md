@@ -123,10 +123,14 @@ To ensure a consistent code base, please make sure your code follows the followi
 
 In other words, please imitate the existing code.
 
+Please remember that you can verify that your code adheres to the coding standards by running `composer coding-standards`.
+
 ### Tests
 This project has been developed following the [TDD](http://en.wikipedia.org/wiki/Test-driven_development) principles, and it strives for maximum test coverage. Therefore, you are encouraged to write tests for your new code. If your code is a bug fix, please write a test that proves that your code actually fixes the bug.
 
 If you don't know how to write tests, please don't be discouraged, and send your pull request without tests, I will try to add them myself later.
+
+To run the test suite and the code coverage report, simply execute `composer test`.
 
 ### Contributors
 Feel free to add yourself to the list of [contributors](CONTRIBUTORS.md).
