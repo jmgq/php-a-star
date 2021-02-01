@@ -28,5 +28,16 @@
         "php-coveralls/php-coveralls": "^1.0",
         "phpunit/phpunit": "^4.0",
         "squizlabs/php_codesniffer": "^1.0"
+    },
+    "scripts": {
+        "coding-standards": "phpcs --standard=PSR2 --ignore=vendor .",
+        "test": [
+            "@putenv XDEBUG_MODE=coverage",
+            "phpunit"
+        ]
+    },
+    "scripts-descriptions": {
+        "coding-standards": "Checks the code adheres to the coding standards.",
+        "test": "Runs unit tests and generates a coverage report."
     }
 }

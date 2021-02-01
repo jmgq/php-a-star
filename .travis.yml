@@ -18,8 +18,8 @@ before_script:
     - composer install
 
 script:
-    - ./vendor/bin/phpunit
-    - ./vendor/bin/phpcs --standard=PSR2 --ignore=vendor .
+    - composer test
+    - composer coding-standards
 
 after_script:
     # Do not execute coveralls in HHVM
