@@ -9,8 +9,6 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN composer global require hirak/prestissimo
-
 COPY composer.json .
 
 RUN composer install
