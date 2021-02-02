@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added a composer script for the unit tests and code coverage.
 - Added a composer script for the coding standards.
+- Added Travis build for PHP 7.3.
 
 ### Changed
 - Removed `prestissimo` from the [Dockerfile](Dockerfile).
