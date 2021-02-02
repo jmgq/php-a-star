@@ -17,9 +17,11 @@
     <filter>
         <whitelist>
             <directory>src</directory>
+            <directory>benchmark</directory>
             <directory>examples</directory>
 
             <exclude>
+                <file>benchmark/benchmark.php</file>
                 <file>examples/Graph/example.php</file>
                 <file>examples/Terrain/example.php</file>
             </exclude>

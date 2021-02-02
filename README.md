@@ -104,6 +104,25 @@ Important notes:
 - A node's position is determined by its X and Y coordinates.
 - The `Link` class specifies an arc (unidirectional connection) between two nodes. For instance `Link(A, B, D)` represents an arc from the node `A` to the node `B`, with a distance of `D` units.
 
+Benchmark
+---------
+This project contains a benchmark utility that can be used to test the algorithm's efficiency. This can be particularly useful to evaluate any changes made to the algorithm. The benchmark runs against the Terrain example.
+
+To execute it with the default parameters, simply run:
+```sh
+composer benchmark
+```
+
+For a full list of parameters, please run:
+```sh
+composer benchmark help benchmark
+```
+
+For instance, the following command runs the algorithm against 10 different terrains of size 5x5, another 10 different terrains of size 12x12, and it uses 123456 as its seed to randomly generate the costs of each one of the terrain tiles:
+```sh
+composer benchmark -- --iterations=10 --size=5 --size=12 --seed=123456
+```
+
 Contributing
 ------------
 Contributions to this project are always welcome. If you want to make a contribution, please fork the project, create a feature branch, and send a pull request.
