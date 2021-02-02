@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Removed `prestissimo` from the [Dockerfile](Dockerfile).
 
+### Fixed
+- Fixed Travis build for PHP 5.4 and 5.5.
+
 ## [1.1.2] - 2018-06-03
 ### Added
 - Added a Contributors file.
