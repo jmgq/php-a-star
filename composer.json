@@ -31,6 +31,8 @@
     },
     "scripts": {
         "coding-standards": "phpcs --standard=PSR2 --ignore=vendor .",
+        "example:graph": "@php examples/Graph/example.php",
+        "example:terrain": "@php examples/Terrain/example.php",
         "test": [
             "@putenv XDEBUG_MODE=coverage",
             "phpunit"
@@ -38,6 +40,8 @@
     },
     "scripts-descriptions": {
         "coding-standards": "Checks the code adheres to the coding standards.",
+        "example:graph": "Runs the Graph example.",
+        "example:terrain": "Runs the Terrain example.",
         "test": "Runs unit tests and generates a coverage report."
     }
 }
