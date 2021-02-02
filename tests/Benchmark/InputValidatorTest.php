@@ -155,7 +155,7 @@ class InputValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result);
     }
 
-    private function setInputExpectations($sizes, $iterations, $seed)
+    private function setInputExpectations(array $sizes, $iterations, $seed)
     {
         $this->input->expects($this->exactly(3))
             ->method('getOption')

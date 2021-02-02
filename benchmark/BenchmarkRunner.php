@@ -2,6 +2,7 @@
 
 namespace JMGQ\AStar\Benchmark;
 
+use JMGQ\AStar\Benchmark\Result\Result;
 use JMGQ\AStar\Example\Terrain\MyAStar;
 use JMGQ\AStar\Example\Terrain\MyNode;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -26,7 +27,7 @@ class BenchmarkRunner
      * @param int | null $seed
      * @return Result[]
      */
-    public function run($sizes, $iterations, $seed)
+    public function run(array $sizes, $iterations, $seed)
     {
         $results = array();
 

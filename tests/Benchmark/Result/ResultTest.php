@@ -1,8 +1,8 @@
 <?php
 
-namespace JMGQ\AStar\Tests\Benchmark;
+namespace JMGQ\AStar\Tests\Benchmark\Result;
 
-use JMGQ\AStar\Benchmark\Result;
+use JMGQ\AStar\Benchmark\Result\Result;
 
 class ResultTest extends \PHPUnit_Framework_TestCase
 {
