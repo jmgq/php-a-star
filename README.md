@@ -77,7 +77,7 @@ There are two working implementations in the `examples` folder.
 ### Terrain Example
 In order to execute this example, run the following command:
 ```sh
-php examples/Terrain/example.php
+composer example:terrain
 ```
 
 This example calculates the best route between two tiles in a rectangular board. Each tile has a cost associated to it, represented in a TerrainCost object. Every value in the TerrainCost array indicates the cost of entering into that particular tile.
@@ -96,7 +96,7 @@ The cost to enter the tile `(1, 3)` (row 1, column 3) from any of its adjacent t
 ### Graph Example
 In order to execute this example, run the following command:
 ```sh
-php examples/Graph/example.php
+composer example:graph
 ```
 
 Important notes:

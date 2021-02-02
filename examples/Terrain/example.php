@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 namespace JMGQ\AStar\Example\Terrain;
