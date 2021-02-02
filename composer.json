@@ -17,6 +17,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "JMGQ\\AStar\\Benchmark\\": "benchmark/",
             "JMGQ\\AStar\\Example\\": "examples/",
             "JMGQ\\AStar\\Tests\\": "tests/"
         }
@@ -27,9 +28,11 @@
     "require-dev": {
         "php-coveralls/php-coveralls": "^1.0",
         "phpunit/phpunit": "^4.0",
-        "squizlabs/php_codesniffer": "^1.0"
+        "squizlabs/php_codesniffer": "^1.0",
+        "symfony/console": "^2.7"
     },
     "scripts": {
+        "benchmark": "@php benchmark/benchmark.php",
         "coding-standards": "phpcs --standard=PSR2 --ignore=vendor .",
         "example:graph": "@php examples/Graph/example.php",
         "example:terrain": "@php examples/Terrain/example.php",
@@ -39,6 +42,7 @@
         ]
     },
     "scripts-descriptions": {
+        "benchmark": "Runs the benchmark.",
         "coding-standards": "Checks the code adheres to the coding standards.",
         "example:graph": "Runs the Graph example.",
         "example:terrain": "Runs the Terrain example.",

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a composer script for the graph example.
 - Added a composer script for the terrain example.
 - Added Travis build for PHP 7.3.
+- Added a benchmark utility.
 
 ### Changed
 - Removed `prestissimo` from the [Dockerfile](Dockerfile).
