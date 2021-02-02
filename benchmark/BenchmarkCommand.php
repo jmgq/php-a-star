@@ -2,10 +2,14 @@
 
 namespace JMGQ\AStar\Benchmark;
 
+use JMGQ\AStar\Benchmark\Result\Result;
+use JMGQ\AStar\Benchmark\Result\ResultAggregator;
+use JMGQ\AStar\Benchmark\Result\ResultPrinter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class BenchmarkCommand extends Command
@@ -57,8 +61,7 @@ class BenchmarkCommand extends Command
 
         $results = $benchmarkRunner->run($sizes, $iterations, $seed);
 
-        $resultPrinter = new ResultPrinter($styledOutput);
-        $resultPrinter->display($results);
+        $this->printResults($results, $styledOutput);
 
         return self::SUCCESS_EXIT_CODE;
     }
@@ -97,5 +100,20 @@ class BenchmarkCommand extends Command
         $this->addOption(self::SEED_OPTION, 'e', InputOption::VALUE_REQUIRED, $description, $defaultValue);
 
         return $this;
+    }
+
+    /**
+     * @param Result[] $results
+     * @param StyleInterface $output
+     */
+    private function printResults(array $results, StyleInterface $output)
+    {
+        $output->newLine();
+
+        $resultAggregator = new ResultAggregator();
+        $aggregatedResults = $resultAggregator->process($results);
+
+        $resultPrinter = new ResultPrinter($output);
+        $resultPrinter->display($aggregatedResults);
     }
 }

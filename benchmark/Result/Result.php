@@ -1,6 +1,6 @@
 <?php
 
-namespace JMGQ\AStar\Benchmark;
+namespace JMGQ\AStar\Benchmark\Result;
 
 class Result
 {
