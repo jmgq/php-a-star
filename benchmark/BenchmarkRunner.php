@@ -12,13 +12,11 @@ class BenchmarkRunner
 {
     private $progressBar;
     private $terrainGenerator;
-    private $stopwatch;
 
     public function __construct(ProgressBar $progressBar)
     {
         $this->progressBar = $progressBar;
         $this->terrainGenerator = new TerrainGenerator();
-        $this->stopwatch = new Stopwatch();
     }
 
     /**
@@ -42,17 +40,16 @@ class BenchmarkRunner
                 $start = new MyNode(0, 0);
                 $goal = new MyNode($size - 1, $size - 1);
 
-                $this->stopwatch->start('benchmark');
+                $stopwatch = new Stopwatch();
+                $stopwatch->start('benchmark');
 
                 $solution = $aStar->run($start, $goal);
 
-                $event = $this->stopwatch->stop('benchmark');
+                $event = $stopwatch->stop('benchmark');
 
                 $solutionFound = !empty($solution);
 
                 $results[] = new Result($size, $event->getDuration(), $solutionFound);
-
-                $this->stopwatch->reset();
 
                 $this->progressBar->advance();
             }
