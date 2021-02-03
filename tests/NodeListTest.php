@@ -9,7 +9,7 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
     /** @var NodeList */
     private $sut;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->sut = new NodeList();
     }
@@ -29,12 +29,12 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $node1 = $this->getMock('JMGQ\AStar\Node');
         $node1->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('ID1'));
+            ->willReturn('ID1');
 
         $node2 = $this->getMock('JMGQ\AStar\Node');
         $node2->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('ID2'));
+            ->willReturn('ID2');
 
         $this->assertCount(0, $this->sut);
 
@@ -67,12 +67,12 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $node1 = $this->getMock('JMGQ\AStar\Node');
         $node1->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue($uniqueID));
+            ->willReturn($uniqueID);
 
         $node2 = $this->getMock('JMGQ\AStar\Node');
         $node2->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue($uniqueID));
+            ->willReturn($uniqueID);
 
         $this->sut->add($node1);
 
@@ -92,7 +92,7 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $node = $this->getMock('JMGQ\AStar\Node');
         $node->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('someUniqueID'));
+            ->willReturn('someUniqueID');
 
         $this->assertFalse($this->sut->contains($node));
 
@@ -106,26 +106,26 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $bestNode = $this->getMock('JMGQ\AStar\Node');
         $bestNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('bestNode'));
+            ->willReturn('bestNode');
         $bestNode->expects($this->any())
             ->method('getF')
-            ->will($this->returnValue(1));
+            ->willReturn(1);
 
         $mediumNode = $this->getMock('JMGQ\AStar\Node');
         $mediumNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('mediumNode'));
+            ->willReturn('mediumNode');
         $mediumNode->expects($this->any())
             ->method('getF')
-            ->will($this->returnValue(3));
+            ->willReturn(3);
 
         $worstNode = $this->getMock('JMGQ\AStar\Node');
         $worstNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('worstNode'));
+            ->willReturn('worstNode');
         $worstNode->expects($this->any())
             ->method('getF')
-            ->will($this->returnValue(10));
+            ->willReturn(10);
 
         $this->sut->add($mediumNode);
         $this->sut->add($bestNode);
@@ -145,12 +145,12 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $nodeToBeRemoved = $this->getMock('JMGQ\AStar\Node');
         $nodeToBeRemoved->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('nodeToBeRemoved'));
+            ->willReturn('nodeToBeRemoved');
 
         $nodeToBeKept = $this->getMock('JMGQ\AStar\Node');
         $nodeToBeKept->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('nodeToBeKept'));
+            ->willReturn('nodeToBeKept');
 
         $this->sut->add($nodeToBeRemoved);
         $this->sut->add($nodeToBeKept);
@@ -169,7 +169,7 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $node = $this->getMock('JMGQ\AStar\Node');
         $node->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('someUniqueID'));
+            ->willReturn('someUniqueID');
 
         $this->sut->add($node);
 
@@ -181,7 +181,7 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $nonExistentNode = $this->getMock('JMGQ\AStar\Node');
         $nonExistentNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('someUniqueID'));
+            ->willReturn('someUniqueID');
 
         $this->assertNull($this->sut->get($nonExistentNode));
     }
@@ -191,7 +191,7 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $node = $this->getMock('JMGQ\AStar\Node');
         $node->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('someUniqueID'));
+            ->willReturn('someUniqueID');
 
         $this->sut->add($node);
 

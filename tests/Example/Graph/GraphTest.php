@@ -11,7 +11,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
     /** @var Graph */
     private $sut;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->sut = new Graph();
     }

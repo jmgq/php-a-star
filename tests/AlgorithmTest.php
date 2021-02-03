@@ -4,7 +4,7 @@ namespace JMGQ\AStar\Tests;
 
 class AlgorithmTest extends BaseAStarTest
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->sut = $this->getMockForAbstractClass('JMGQ\AStar\Algorithm');
     }
@@ -24,7 +24,7 @@ class AlgorithmTest extends BaseAStarTest
         $node = $this->getMock('JMGQ\AStar\Node');
         $node->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('someUniqueID'));
+            ->willReturn('someUniqueID');
 
         $this->sut->getOpenList()->add($node);
         $this->sut->getClosedList()->add($node);

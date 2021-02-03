@@ -13,12 +13,12 @@ abstract class BaseAStarTest extends \PHPUnit_Framework_TestCase
         $startNode = $this->getMock('JMGQ\AStar\Node');
         $startNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue($uniqueID));
+            ->willReturn($uniqueID);
 
         $goalNode = $this->getMock('JMGQ\AStar\Node');
         $goalNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue($uniqueID));
+            ->willReturn($uniqueID);
 
         $path = $this->sut->run($startNode, $goalNode);
 
@@ -32,16 +32,16 @@ abstract class BaseAStarTest extends \PHPUnit_Framework_TestCase
         $startNode = $this->getMock('JMGQ\AStar\Node');
         $startNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('startNodeID'));
+            ->willReturn('startNodeID');
 
         $unreachableGoalNode = $this->getMock('JMGQ\AStar\Node');
         $unreachableGoalNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('unreachableGoalNode'));
+            ->willReturn('unreachableGoalNode');
 
         $this->sut->expects($this->any())
             ->method('generateAdjacentNodes')
-            ->will($this->returnValue(array()));
+            ->willReturn(array());
 
         $path = $this->sut->run($startNode, $unreachableGoalNode);
 
@@ -53,46 +53,42 @@ abstract class BaseAStarTest extends \PHPUnit_Framework_TestCase
         $startNode = $this->getMockForAbstractClass('JMGQ\AStar\AbstractNode');
         $startNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('startNode'));
+            ->willReturn('startNode');
 
         $goalNode = $this->getMockForAbstractClass('JMGQ\AStar\AbstractNode');
         $goalNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('goalNode'));
+            ->willReturn('goalNode');
 
         $otherNode = $this->getMockForAbstractClass('JMGQ\AStar\AbstractNode');
         $otherNode->expects($this->any())
             ->method('getID')
-            ->will($this->returnValue('otherNode'));
+            ->willReturn('otherNode');
 
         $allNodes = array($startNode, $goalNode, $otherNode);
 
         $this->sut->expects($this->any())
             ->method('generateAdjacentNodes')
-            ->will(
-                $this->returnCallback(
-                    // The adjacent nodes are all other nodes (not including itself)
-                    function ($argumentNode) use ($allNodes) {
-                        $adjacentNodes = array();
+            ->willReturnCallback(function ($argumentNode) use ($allNodes) {
+                // The adjacent nodes are all other nodes (not including itself)
+                $adjacentNodes = array();
 
-                        foreach ($allNodes as $node) {
-                            if ($argumentNode->getID() !== $node->getID()) {
-                                $adjacentNodes[] = clone $node;
-                            }
-                        }
-
-                        return $adjacentNodes;
+                foreach ($allNodes as $node) {
+                    if ($argumentNode->getID() !== $node->getID()) {
+                        $adjacentNodes[] = clone $node;
                     }
-                )
-            );
+                }
+
+                return $adjacentNodes;
+            });
 
         $this->sut->expects($this->any())
             ->method('calculateRealCost')
-            ->will($this->returnValue(5));
+            ->willReturn(5);
 
         $this->sut->expects($this->any())
             ->method('calculateEstimatedCost')
-            ->will($this->returnValue(2));
+            ->willReturn(2);
 
         $path = $this->sut->run($startNode, $goalNode);
 

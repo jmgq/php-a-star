@@ -12,7 +12,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
     /** @var MyAStar */
     private $sut;
 
-    public function setUp()
+    protected function setUp()
     {
         $links = array(
             new Link(new MyNode(0, 0), new MyNode(2, 5), 6.5),

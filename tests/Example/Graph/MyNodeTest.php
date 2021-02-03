@@ -85,7 +85,7 @@ class MyNodeTest extends \PHPUnit_Framework_TestCase
         $node = $this->getMock('JMGQ\AStar\Node');
         $node->expects($this->once())
             ->method('getID')
-            ->will($this->returnValue($nodeID));
+            ->willReturn($nodeID);
 
         $myNode = MyNode::fromNode($node);
 
@@ -105,7 +105,7 @@ class MyNodeTest extends \PHPUnit_Framework_TestCase
         $node = $this->getMock('JMGQ\AStar\Node');
         $node->expects($this->once())
             ->method('getID')
-            ->will($this->returnValue($nodeID));
+            ->willReturn($nodeID);
 
         MyNode::fromNode($node);
     }

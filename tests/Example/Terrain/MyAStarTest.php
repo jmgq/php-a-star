@@ -46,7 +46,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $terrainCost = new TerrainCost(
             array(
