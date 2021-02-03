@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Fixed Travis build for PHP 5.4 and 5.5.
+- Fixed one test that had an ambiguous solution.
 
 ## [1.1.2] - 2018-06-03
 ### Added

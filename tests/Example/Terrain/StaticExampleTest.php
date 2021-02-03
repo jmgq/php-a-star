@@ -65,7 +65,7 @@ HEREDOC;
         $terrainCost = new TerrainCost(
             array(
                 array(3, 2, 3, 6, 1),
-                array(1, 3, 4, 1, 1),
+                array(1, 3, 4, 2, 1),
                 array(3, 2, 3, 4, 3),
                 array(1, 1, 5, 3, 1)
             )
