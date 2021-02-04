@@ -2,28 +2,31 @@
 
 namespace JMGQ\AStar\Tests;
 
+use JMGQ\AStar\Algorithm;
+use JMGQ\AStar\Node;
+use JMGQ\AStar\NodeList;
+
 class AlgorithmTest extends BaseAStarTest
 {
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->sut = $this->getMockForAbstractClass('JMGQ\AStar\Algorithm');
+        $this->sut = $this->getMockForAbstractClass(Algorithm::class);
     }
 
-    public function testOpenListShouldBeANodeList()
+    public function testOpenListShouldBeANodeList(): void
     {
-        $this->assertInstanceOf('JMGQ\AStar\NodeList', $this->sut->getOpenList());
+        $this->assertInstanceOf(NodeList::class, $this->sut->getOpenList());
     }
 
-    public function testClosedListShouldBeANodeList()
+    public function testClosedListShouldBeANodeList(): void
     {
-        $this->assertInstanceOf('JMGQ\AStar\NodeList', $this->sut->getClosedList());
+        $this->assertInstanceOf(NodeList::class, $this->sut->getClosedList());
     }
 
-    public function testShouldResetToCleanState()
+    public function testShouldResetToCleanState(): void
     {
-        $node = $this->getMock('JMGQ\AStar\Node');
-        $node->expects($this->any())
-            ->method('getID')
+        $node = $this->createStub(Node::class);
+        $node->method('getID')
             ->willReturn('someUniqueID');
 
         $this->sut->getOpenList()->add($node);

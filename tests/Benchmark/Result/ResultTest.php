@@ -3,10 +3,11 @@
 namespace JMGQ\AStar\Tests\Benchmark\Result;
 
 use JMGQ\AStar\Benchmark\Result\Result;
+use PHPUnit\Framework\TestCase;
 
-class ResultTest extends \PHPUnit_Framework_TestCase
+class ResultTest extends TestCase
 {
-    public function validValuesProvider()
+    public function validValuesProvider(): array
     {
         return array(
             array(1, PHP_INT_MAX, true),
@@ -15,7 +16,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidNaturalNumberProvider()
+    public function invalidNaturalNumberProvider(): array
     {
         return array(
             array(0),
@@ -27,7 +28,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidNonNegativeIntegerProvider()
+    public function invalidNonNegativeIntegerProvider(): array
     {
         return array(
             array(-1),
@@ -43,7 +44,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider validValuesProvider
      */
-    public function testShouldSetValidValues($size, $duration, $hasSolution)
+    public function testShouldSetValidValues($size, $duration, $hasSolution): void
     {
         $expectedSize = (int) $size;
         $expectedDuration = (int) $duration;
@@ -57,31 +58,33 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidNaturalNumberProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid size
      */
-    public function testShouldNotSetInvalidSize($invalidSize)
+    public function testShouldNotSetInvalidSize($invalidSize): void
     {
         $validDuration = 200;
         $validHasSolution = true;
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid size');
 
         new Result($invalidSize, $validDuration, $validHasSolution);
     }
 
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid duration
      */
-    public function testShouldNotSetInvalidDuration($invalidDuration)
+    public function testShouldNotSetInvalidDuration($invalidDuration): void
     {
         $validSize = '5';
         $validHasSolution = false;
 
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid duration');
+
         new Result($validSize, $invalidDuration, $validHasSolution);
     }
 
-    public function testShouldReturnABooleanTypeWhenRetrievingHasSolution()
+    public function testShouldReturnABooleanTypeWhenRetrievingHasSolution(): void
     {
         $size = 2;
         $duration = 3;

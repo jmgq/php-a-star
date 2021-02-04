@@ -6,13 +6,13 @@ use JMGQ\AStar\Example\Graph\Graph;
 use JMGQ\AStar\Example\Graph\Link;
 use JMGQ\AStar\Example\Graph\MyAStar;
 use JMGQ\AStar\Example\Graph\MyNode;
+use PHPUnit\Framework\TestCase;
 
-class MyAStarTest extends \PHPUnit_Framework_TestCase
+class MyAStarTest extends TestCase
 {
-    /** @var MyAStar */
-    private $sut;
+    private MyAStar $sut;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $links = array(
             new Link(new MyNode(0, 0), new MyNode(2, 5), 6.5),
@@ -27,7 +27,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         $this->sut = new MyAStar($graph);
     }
 
-    public function testShouldGenerateAdjacentNodes()
+    public function testShouldGenerateAdjacentNodes(): void
     {
         $node = new MyNode(0, 0);
         $expectedAdjacentNodes = array(
@@ -44,7 +44,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testShouldCalculateRealCost()
+    public function testShouldCalculateRealCost(): void
     {
         $expectedCost = 3.2;
 
@@ -56,19 +56,18 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedCost, $cost);
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage not linked
-     */
-    public function testShouldNotCalculateTheRealCostBetweenTwoUnlinkedNodes()
+    public function testShouldNotCalculateTheRealCostBetweenTwoUnlinkedNodes(): void
     {
         $node = new MyNode(6, 4);
         $nonAdjacentNode = new MyNode(3, 3);
 
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('not linked');
+
         $this->sut->calculateRealCost($node, $nonAdjacentNode);
     }
 
-    public function testShouldCalculateEstimatedCost()
+    public function testShouldCalculateEstimatedCost(): void
     {
         $expectedCost = 20.2237484162;
         $maximumImprecisionAllowed = 0.0001;
@@ -78,10 +77,10 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
 
         $cost = $this->sut->calculateEstimatedCost($startNode, $destinationNode);
 
-        $this->assertEquals($expectedCost, $cost, '', $maximumImprecisionAllowed);
+        $this->assertEqualsWithDelta($expectedCost, $cost, $maximumImprecisionAllowed);
     }
 
-    public function testShouldGetRightSolution()
+    public function testShouldGetRightSolution(): void
     {
         $start = new MyNode(0, 0);
         $goal = new MyNode(10, 10);
@@ -103,7 +102,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testShouldGetSolutionWithNodesFormingCircularPaths()
+    public function testShouldGetSolutionWithNodesFormingCircularPaths(): void
     {
         $nodes = array(
             'start' => new MyNode(0, 0),
@@ -140,7 +139,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
      * @param MyNode $needle
      * @param MyNode[] $haystack
      */
-    private function assertContainsMyNode(MyNode $needle, array $haystack)
+    private function assertContainsMyNode(MyNode $needle, array $haystack): void
     {
         foreach ($haystack as $node) {
             if ($needle->getID() === $node->getID()) {

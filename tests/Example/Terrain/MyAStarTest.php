@@ -5,13 +5,13 @@ namespace JMGQ\AStar\Tests\Example\Terrain;
 use JMGQ\AStar\Example\Terrain\MyAStar;
 use JMGQ\AStar\Example\Terrain\MyNode;
 use JMGQ\AStar\Example\Terrain\TerrainCost;
+use PHPUnit\Framework\TestCase;
 
-class MyAStarTest extends \PHPUnit_Framework_TestCase
+class MyAStarTest extends TestCase
 {
-    /** @var MyAStar */
-    private $sut;
+    private MyAStar $sut;
 
-    public function adjacentNodesProvider()
+    public function adjacentNodesProvider(): array
     {
         return array(
             array(
@@ -46,7 +46,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $terrainCost = new TerrainCost(
             array(
@@ -62,7 +62,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider adjacentNodesProvider
      */
-    public function testShouldGenerateAdjacentNodes(MyNode $node, array $expectedAdjacentNodes)
+    public function testShouldGenerateAdjacentNodes(MyNode $node, array $expectedAdjacentNodes): void
     {
         $adjacentNodes = $this->sut->generateAdjacentNodes($node);
 
@@ -73,7 +73,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testShouldCalculateRealCost()
+    public function testShouldCalculateRealCost(): void
     {
         $expectedCost = 3;
 
@@ -85,7 +85,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedCost, $cost);
     }
 
-    public function testTheCostBetweenNonAdjacentNodesShouldBeInfinite()
+    public function testTheCostBetweenNonAdjacentNodesShouldBeInfinite(): void
     {
         $expectedCost = TerrainCost::INFINITE;
 
@@ -97,7 +97,7 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedCost, $cost);
     }
 
-    public function testShouldCalculateEstimatedCost()
+    public function testShouldCalculateEstimatedCost(): void
     {
         $expectedCost = sqrt(5);
         $maximumImprecisionAllowed = 0.0001;
@@ -107,14 +107,14 @@ class MyAStarTest extends \PHPUnit_Framework_TestCase
 
         $cost = $this->sut->calculateEstimatedCost($startNode, $destinationNode);
 
-        $this->assertEquals($expectedCost, $cost, '', $maximumImprecisionAllowed);
+        $this->assertEqualsWithDelta($expectedCost, $cost, $maximumImprecisionAllowed);
     }
 
     /**
      * @param MyNode $needle
      * @param MyNode[] $haystack
      */
-    private function assertContainsMyNode(MyNode $needle, array $haystack)
+    private function assertContainsMyNode(MyNode $needle, array $haystack): void
     {
         foreach ($haystack as $node) {
             if ($needle->getID() === $node->getID()) {

@@ -3,22 +3,23 @@
 namespace JMGQ\AStar\Tests\Benchmark;
 
 use JMGQ\AStar\Benchmark\BenchmarkRunner;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Helper\ProgressBar;
 
-class BenchmarkRunnerTest extends \PHPUnit_Framework_TestCase
+class BenchmarkRunnerTest extends TestCase
 {
-    private $sut;
-    private $progressBar;
+    private BenchmarkRunner $sut;
+    private ProgressBar|MockObject $progressBar;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->progressBar = $this->getMockBuilder('Symfony\Component\Console\Helper\ProgressBar')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->progressBar = $this->createMock(ProgressBar::class);
 
         $this->sut = new BenchmarkRunner($this->progressBar);
     }
 
-    public function testShouldRunTheBenchmark()
+    public function testShouldRunTheBenchmark(): void
     {
         $sizes = array(1, 2, 3);
         $iterations = 2;

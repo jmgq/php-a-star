@@ -3,10 +3,12 @@
 namespace JMGQ\AStar\Tests\Example\Graph;
 
 use JMGQ\AStar\Example\Graph\Link;
+use JMGQ\AStar\Example\Graph\MyNode;
+use PHPUnit\Framework\TestCase;
 
-class LinkTest extends \PHPUnit_Framework_TestCase
+class LinkTest extends TestCase
 {
-    public function validDistanceProvider()
+    public function validDistanceProvider(): array
     {
         return array(
             array(0),
@@ -18,7 +20,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidDistanceProvider()
+    public function invalidDistanceProvider(): array
     {
         return array(
             array(-1),
@@ -33,16 +35,12 @@ class LinkTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider validDistanceProvider
      */
-    public function testShouldSetValidDistance($distance)
+    public function testShouldSetValidDistance($distance): void
     {
         $expectedDistance = (float) $distance;
 
-        $source = $this->getMockBuilder('JMGQ\AStar\Example\Graph\MyNode')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $destination = $this->getMockBuilder('JMGQ\AStar\Example\Graph\MyNode')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $source = $this->createStub(MyNode::class);
+        $destination = $this->createStub(MyNode::class);
 
         $sut = new Link($source, $destination, $distance);
 
@@ -53,17 +51,14 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidDistanceProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid distance
      */
-    public function testShouldNotSetInvalidDistance($distance)
+    public function testShouldNotSetInvalidDistance($distance): void
     {
-        $source = $this->getMockBuilder('JMGQ\AStar\Example\Graph\MyNode')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $destination = $this->getMockBuilder('JMGQ\AStar\Example\Graph\MyNode')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $source = $this->createStub(MyNode::class);
+        $destination = $this->createStub(MyNode::class);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid distance');
 
         new Link($source, $destination, $distance);
     }

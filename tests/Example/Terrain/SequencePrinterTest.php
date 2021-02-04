@@ -5,13 +5,13 @@ namespace JMGQ\AStar\Tests\Example\Terrain;
 use JMGQ\AStar\Example\Terrain\MyNode;
 use JMGQ\AStar\Example\Terrain\SequencePrinter;
 use JMGQ\AStar\Example\Terrain\TerrainCost;
+use PHPUnit\Framework\TestCase;
 
-class SequencePrinterTest extends \PHPUnit_Framework_TestCase
+class SequencePrinterTest extends TestCase
 {
-    /** @var SequencePrinter */
-    private $sut;
+    private SequencePrinter $sut;
 
-    public function validStringProvider()
+    public function validStringProvider(): array
     {
         return array(
             array('foo'),
@@ -22,7 +22,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidStringProvider()
+    public function invalidStringProvider(): array
     {
         return array(
             array(1),
@@ -32,7 +32,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function validNaturalNumberProvider()
+    public function validNaturalNumberProvider(): array
     {
         return array(
             array(1),
@@ -42,7 +42,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidNaturalNumberProvider()
+    public function invalidNaturalNumberProvider(): array
     {
         return array(
             array(0),
@@ -54,7 +54,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $terrainCost = new TerrainCost(
             array(
@@ -83,7 +83,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
         $this->sut = new SequencePrinter($terrainCost, $sequence);
     }
 
-    public function testShouldHaveDefaultEmptyTileToken()
+    public function testShouldHaveDefaultEmptyTileToken(): void
     {
         $defaultEmptyTileToken = '-';
 
@@ -93,7 +93,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider validStringProvider
      */
-    public function testShouldSetValidEmptyTileToken($token)
+    public function testShouldSetValidEmptyTileToken(string $token): void
     {
         $this->sut->setEmptyTileToken($token);
 
@@ -102,14 +102,15 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidStringProvider
-     * @expectedException \InvalidArgumentException
      */
-    public function testShouldNotSetInvalidEmptyFileToken($invalidToken)
+    public function testShouldNotSetInvalidEmptyFileToken($invalidToken): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->sut->setEmptyTileToken($invalidToken);
     }
 
-    public function testShouldHaveDefaultTileSize()
+    public function testShouldHaveDefaultTileSize(): void
     {
         $defaultTileSize = 3;
 
@@ -119,7 +120,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider validNaturalNumberProvider
      */
-    public function testShouldSetValidTileSize($tileSize)
+    public function testShouldSetValidTileSize($tileSize): void
     {
         $expectedTileSize = (int) $tileSize;
 
@@ -130,14 +131,15 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidNaturalNumberProvider
-     * @expectedException \InvalidArgumentException
      */
-    public function testShouldNotSetInvalidTileSize($invalidTileSize)
+    public function testShouldNotSetInvalidTileSize($invalidTileSize): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->sut->setTileSize($invalidTileSize);
     }
 
-    public function testShouldHaveDefaultPadToken()
+    public function testShouldHaveDefaultPadToken(): void
     {
         $defaultPadToken = ' ';
 
@@ -147,7 +149,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider validStringProvider
      */
-    public function testShouldSetValidPadToken($token)
+    public function testShouldSetValidPadToken(string $token): void
     {
         $this->sut->setPadToken($token);
 
@@ -156,14 +158,15 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidStringProvider
-     * @expectedException \InvalidArgumentException
      */
-    public function testShouldNotSetInvalidPadToken($invalidToken)
+    public function testShouldNotSetInvalidPadToken($invalidToken): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->sut->setPadToken($invalidToken);
     }
 
-    public function testShouldPrintANodeSequence()
+    public function testShouldPrintANodeSequence(): void
     {
         $expectedOutput = <<<HEREDOC
   -  -  7  -  -
@@ -179,7 +182,7 @@ HEREDOC;
         $this->expectOutputString($expectedOutput);
     }
 
-    public function testShouldPrintANodeSequenceWithNonDefaultValues()
+    public function testShouldPrintANodeSequenceWithNonDefaultValues(): void
     {
         $padToken = 'x';
         $emptyTileToken = 'o';

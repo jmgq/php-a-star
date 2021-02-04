@@ -2,22 +2,27 @@
 
 namespace JMGQ\AStar\Tests;
 
-abstract class BaseAStarTest extends \PHPUnit_Framework_TestCase
-{
-    protected $sut;
+use JMGQ\AStar\AbstractNode;
+use JMGQ\AStar\Algorithm;
+use JMGQ\AStar\AStar;
+use JMGQ\AStar\Node;
+use PHPUnit\Framework\MockObject\Stub;
+use PHPUnit\Framework\TestCase;
 
-    public function testShouldFindSolutionIfTheStartAndGoalNodesAreTheSame()
+abstract class BaseAStarTest extends TestCase
+{
+    protected Algorithm|AStar|Stub $sut;
+
+    public function testShouldFindSolutionIfTheStartAndGoalNodesAreTheSame(): void
     {
         $uniqueID = 'someUniqueID';
 
-        $startNode = $this->getMock('JMGQ\AStar\Node');
-        $startNode->expects($this->any())
-            ->method('getID')
+        $startNode = $this->createStub(Node::class);
+        $startNode->method('getID')
             ->willReturn($uniqueID);
 
-        $goalNode = $this->getMock('JMGQ\AStar\Node');
-        $goalNode->expects($this->any())
-            ->method('getID')
+        $goalNode = $this->createStub(Node::class);
+        $goalNode->method('getID')
             ->willReturn($uniqueID);
 
         $path = $this->sut->run($startNode, $goalNode);
@@ -27,20 +32,17 @@ abstract class BaseAStarTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($goalNode->getID(), $path[0]->getID());
     }
 
-    public function testShouldReturnEmptyPathIfSolutionNotFound()
+    public function testShouldReturnEmptyPathIfSolutionNotFound(): void
     {
-        $startNode = $this->getMock('JMGQ\AStar\Node');
-        $startNode->expects($this->any())
-            ->method('getID')
+        $startNode = $this->createStub(Node::class);
+        $startNode->method('getID')
             ->willReturn('startNodeID');
 
-        $unreachableGoalNode = $this->getMock('JMGQ\AStar\Node');
-        $unreachableGoalNode->expects($this->any())
-            ->method('getID')
+        $unreachableGoalNode = $this->createStub(Node::class);
+        $unreachableGoalNode->method('getID')
             ->willReturn('unreachableGoalNode');
 
-        $this->sut->expects($this->any())
-            ->method('generateAdjacentNodes')
+        $this->sut->method('generateAdjacentNodes')
             ->willReturn(array());
 
         $path = $this->sut->run($startNode, $unreachableGoalNode);
@@ -48,27 +50,23 @@ abstract class BaseAStarTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $path);
     }
 
-    public function testSimplePath()
+    public function testSimplePath(): void
     {
-        $startNode = $this->getMockForAbstractClass('JMGQ\AStar\AbstractNode');
-        $startNode->expects($this->any())
-            ->method('getID')
+        $startNode = $this->getMockForAbstractClass(AbstractNode::class);
+        $startNode->method('getID')
             ->willReturn('startNode');
 
-        $goalNode = $this->getMockForAbstractClass('JMGQ\AStar\AbstractNode');
-        $goalNode->expects($this->any())
-            ->method('getID')
+        $goalNode = $this->getMockForAbstractClass(AbstractNode::class);
+        $goalNode->method('getID')
             ->willReturn('goalNode');
 
-        $otherNode = $this->getMockForAbstractClass('JMGQ\AStar\AbstractNode');
-        $otherNode->expects($this->any())
-            ->method('getID')
+        $otherNode = $this->getMockForAbstractClass(AbstractNode::class);
+        $otherNode->method('getID')
             ->willReturn('otherNode');
 
         $allNodes = array($startNode, $goalNode, $otherNode);
 
-        $this->sut->expects($this->any())
-            ->method('generateAdjacentNodes')
+        $this->sut->method('generateAdjacentNodes')
             ->willReturnCallback(function ($argumentNode) use ($allNodes) {
                 // The adjacent nodes are all other nodes (not including itself)
                 $adjacentNodes = array();
@@ -82,12 +80,10 @@ abstract class BaseAStarTest extends \PHPUnit_Framework_TestCase
                 return $adjacentNodes;
             });
 
-        $this->sut->expects($this->any())
-            ->method('calculateRealCost')
+        $this->sut->method('calculateRealCost')
             ->willReturn(5);
 
-        $this->sut->expects($this->any())
-            ->method('calculateEstimatedCost')
+        $this->sut->method('calculateEstimatedCost')
             ->willReturn(2);
 
         $path = $this->sut->run($startNode, $goalNode);

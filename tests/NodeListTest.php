@@ -2,38 +2,37 @@
 
 namespace JMGQ\AStar\Tests;
 
+use JMGQ\AStar\Node;
 use JMGQ\AStar\NodeList;
+use PHPUnit\Framework\TestCase;
 
-class NodeListTest extends \PHPUnit_Framework_TestCase
+class NodeListTest extends TestCase
 {
-    /** @var NodeList */
-    private $sut;
+    private NodeList $sut;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sut = new NodeList();
     }
 
-    public function testShouldBeIterable()
+    public function testShouldBeIterable(): void
     {
         $this->assertInstanceOf('IteratorAggregate', $this->sut);
     }
 
-    public function testShouldBeInitiallyEmpty()
+    public function testShouldBeInitiallyEmpty(): void
     {
         $this->assertCount(0, $this->sut);
     }
 
-    public function testShouldAddNodes()
+    public function testShouldAddNodes(): void
     {
-        $node1 = $this->getMock('JMGQ\AStar\Node');
-        $node1->expects($this->any())
-            ->method('getID')
+        $node1 = $this->createStub(Node::class);
+        $node1->method('getID')
             ->willReturn('ID1');
 
-        $node2 = $this->getMock('JMGQ\AStar\Node');
-        $node2->expects($this->any())
-            ->method('getID')
+        $node2 = $this->createStub(Node::class);
+        $node2->method('getID')
             ->willReturn('ID2');
 
         $this->assertCount(0, $this->sut);
@@ -49,9 +48,9 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $this->assertContains($node2, $this->sut);
     }
 
-    public function testShouldDetermineIfItIsEmptyOrNot()
+    public function testShouldDetermineIfItIsEmptyOrNot(): void
     {
-        $node = $this->getMock('JMGQ\AStar\Node');
+        $node = $this->createStub(Node::class);
 
         $this->assertTrue($this->sut->isEmpty());
 
@@ -60,18 +59,16 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->sut->isEmpty());
     }
 
-    public function testShouldOverwriteIdenticalNodes()
+    public function testShouldOverwriteIdenticalNodes(): void
     {
         $uniqueID = 'someUniqueID';
 
-        $node1 = $this->getMock('JMGQ\AStar\Node');
-        $node1->expects($this->any())
-            ->method('getID')
+        $node1 = $this->createStub(Node::class);
+        $node1->method('getID')
             ->willReturn($uniqueID);
 
-        $node2 = $this->getMock('JMGQ\AStar\Node');
-        $node2->expects($this->any())
-            ->method('getID')
+        $node2 = $this->createStub(Node::class);
+        $node2->method('getID')
             ->willReturn($uniqueID);
 
         $this->sut->add($node1);
@@ -87,11 +84,10 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testShouldCheckIfItContainsANode()
+    public function testShouldCheckIfItContainsANode(): void
     {
-        $node = $this->getMock('JMGQ\AStar\Node');
-        $node->expects($this->any())
-            ->method('getID')
+        $node = $this->createStub(Node::class);
+        $node->method('getID')
             ->willReturn('someUniqueID');
 
         $this->assertFalse($this->sut->contains($node));
@@ -101,30 +97,24 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->sut->contains($node));
     }
 
-    public function testShouldExtractBestNode()
+    public function testShouldExtractBestNode(): void
     {
-        $bestNode = $this->getMock('JMGQ\AStar\Node');
-        $bestNode->expects($this->any())
-            ->method('getID')
+        $bestNode = $this->createStub(Node::class);
+        $bestNode->method('getID')
             ->willReturn('bestNode');
-        $bestNode->expects($this->any())
-            ->method('getF')
+        $bestNode->method('getF')
             ->willReturn(1);
 
-        $mediumNode = $this->getMock('JMGQ\AStar\Node');
-        $mediumNode->expects($this->any())
-            ->method('getID')
+        $mediumNode = $this->createStub(Node::class);
+        $mediumNode->method('getID')
             ->willReturn('mediumNode');
-        $mediumNode->expects($this->any())
-            ->method('getF')
+        $mediumNode->method('getF')
             ->willReturn(3);
 
-        $worstNode = $this->getMock('JMGQ\AStar\Node');
-        $worstNode->expects($this->any())
-            ->method('getID')
+        $worstNode = $this->createStub(Node::class);
+        $worstNode->method('getID')
             ->willReturn('worstNode');
-        $worstNode->expects($this->any())
-            ->method('getF')
+        $worstNode->method('getF')
             ->willReturn(10);
 
         $this->sut->add($mediumNode);
@@ -140,16 +130,14 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains($extractedNode, $this->sut);
     }
 
-    public function testShouldRemoveNode()
+    public function testShouldRemoveNode(): void
     {
-        $nodeToBeRemoved = $this->getMock('JMGQ\AStar\Node');
-        $nodeToBeRemoved->expects($this->any())
-            ->method('getID')
+        $nodeToBeRemoved = $this->createStub(Node::class);
+        $nodeToBeRemoved->method('getID')
             ->willReturn('nodeToBeRemoved');
 
-        $nodeToBeKept = $this->getMock('JMGQ\AStar\Node');
-        $nodeToBeKept->expects($this->any())
-            ->method('getID')
+        $nodeToBeKept = $this->createStub(Node::class);
+        $nodeToBeKept->method('getID')
             ->willReturn('nodeToBeKept');
 
         $this->sut->add($nodeToBeRemoved);
@@ -164,11 +152,10 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $this->assertContains($nodeToBeKept, $this->sut);
     }
 
-    public function testShouldGetNode()
+    public function testShouldGetNode(): void
     {
-        $node = $this->getMock('JMGQ\AStar\Node');
-        $node->expects($this->any())
-            ->method('getID')
+        $node = $this->createStub(Node::class);
+        $node->method('getID')
             ->willReturn('someUniqueID');
 
         $this->sut->add($node);
@@ -176,21 +163,19 @@ class NodeListTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($node, $this->sut->get($node));
     }
 
-    public function testShouldGetNullIfNodeNotFound()
+    public function testShouldGetNullIfNodeNotFound(): void
     {
-        $nonExistentNode = $this->getMock('JMGQ\AStar\Node');
-        $nonExistentNode->expects($this->any())
-            ->method('getID')
+        $nonExistentNode = $this->createStub(Node::class);
+        $nonExistentNode->method('getID')
             ->willReturn('someUniqueID');
 
         $this->assertNull($this->sut->get($nonExistentNode));
     }
 
-    public function testShouldEmptyTheList()
+    public function testShouldEmptyTheList(): void
     {
-        $node = $this->getMock('JMGQ\AStar\Node');
-        $node->expects($this->any())
-            ->method('getID')
+        $node = $this->createStub(Node::class);
+        $node->method('getID')
             ->willReturn('someUniqueID');
 
         $this->sut->add($node);

@@ -3,10 +3,11 @@
 namespace JMGQ\AStar\Tests\Example\Terrain;
 
 use JMGQ\AStar\Example\Terrain\TerrainCost;
+use PHPUnit\Framework\TestCase;
 
-class TerrainCostTest extends \PHPUnit_Framework_TestCase
+class TerrainCostTest extends TestCase
 {
-    public function validTerrainInformationProvider()
+    public function validTerrainInformationProvider(): array
     {
         return array(
             '3x3 terrain' => array(
@@ -39,7 +40,7 @@ class TerrainCostTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function emptyTerrainProvider()
+    public function emptyTerrainProvider(): array
     {
         return array(
             'no rows nor columns' => array(
@@ -53,7 +54,7 @@ class TerrainCostTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidTerrainCostsProvider()
+    public function invalidTerrainCostsProvider(): array
     {
         return array(
             'costs of type float' => array(
@@ -70,7 +71,7 @@ class TerrainCostTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function nonRectangularTerrainProvider()
+    public function nonRectangularTerrainProvider(): array
     {
         return array(
             array(
@@ -97,7 +98,7 @@ class TerrainCostTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidPointProvider()
+    public function invalidPointProvider(): array
     {
         return array(
             array(-1, 3),
@@ -110,7 +111,7 @@ class TerrainCostTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider validTerrainInformationProvider
      */
-    public function testShouldSetValidTerrainInformation($terrainInformation)
+    public function testShouldSetValidTerrainInformation(array $terrainInformation): void
     {
         $sut = new TerrainCost($terrainInformation);
 
@@ -136,40 +137,41 @@ class TerrainCostTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider emptyTerrainProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage empty
      */
-    public function testShouldNotSetEmptyTerrain($emptyTerrain)
+    public function testShouldNotSetEmptyTerrain(array $emptyTerrain): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('empty');
+
         new TerrainCost($emptyTerrain);
     }
 
     /**
      * @dataProvider invalidTerrainCostsProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid terrain cost
      */
-    public function testShouldOnlySetIntegerCosts($invalidTerrain)
+    public function testShouldOnlySetIntegerCosts(array $invalidTerrain): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid terrain cost');
+
         new TerrainCost($invalidTerrain);
     }
 
     /**
      * @dataProvider nonRectangularTerrainProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage rectangular
      */
-    public function testShouldOnlySetRectangularTerrains($nonRectangularTerrain)
+    public function testShouldOnlySetRectangularTerrains(array $nonRectangularTerrain): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('rectangular');
+
         new TerrainCost($nonRectangularTerrain);
     }
 
     /**
      * @dataProvider invalidPointProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid tile
      */
-    public function testShouldThrowExceptionIfTheRequestedTileDoesNotExist($row, $column)
+    public function testShouldThrowExceptionIfTheRequestedTileDoesNotExist($row, $column): void
     {
         $sut = new TerrainCost(
             array(
@@ -178,6 +180,9 @@ class TerrainCostTest extends \PHPUnit_Framework_TestCase
                 array(0, 0, 0)
             )
         );
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid tile');
 
         $sut->getCost($row, $column);
     }

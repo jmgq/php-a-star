@@ -3,15 +3,16 @@
 namespace JMGQ\AStar\Tests\Benchmark;
 
 use JMGQ\AStar\Benchmark\BenchmarkCommand;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class BenchmarkCommandTest extends \PHPUnit_Framework_TestCase
+class BenchmarkCommandTest extends TestCase
 {
-    private $benchmarkCommand;
-    private $commandTester;
+    private BenchmarkCommand $benchmarkCommand;
+    private CommandTester $commandTester;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->benchmarkCommand = new BenchmarkCommand();
 
@@ -21,7 +22,7 @@ class BenchmarkCommandTest extends \PHPUnit_Framework_TestCase
         $this->commandTester = new CommandTester($this->benchmarkCommand);
     }
 
-    public function testShouldExecuteCorrectly()
+    public function testShouldExecuteCorrectly(): void
     {
         $successfulExitCode = 0;
 
@@ -34,10 +35,10 @@ class BenchmarkCommandTest extends \PHPUnit_Framework_TestCase
         $output = $this->commandTester->getDisplay();
 
         $this->assertSame($successfulExitCode, $actualExitCode);
-        $this->assertContains('1x1', $output);
+        $this->assertStringContainsString('1x1', $output);
     }
 
-    public function testShouldHandleInvalidInput()
+    public function testShouldHandleInvalidInput(): void
     {
         $unsuccessfulExitCode = 1;
         $invalidIterationsParameter = 'foobar';
@@ -51,6 +52,6 @@ class BenchmarkCommandTest extends \PHPUnit_Framework_TestCase
         $output = $this->commandTester->getDisplay();
 
         $this->assertSame($unsuccessfulExitCode, $actualExitCode);
-        $this->assertContains('[ERROR]', $output);
+        $this->assertStringContainsString('[ERROR]', $output);
     }
 }

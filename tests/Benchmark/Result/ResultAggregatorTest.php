@@ -3,18 +3,20 @@
 namespace JMGQ\AStar\Tests\Benchmark\Result;
 
 use JMGQ\AStar\Benchmark\Result\AggregatedResult;
+use JMGQ\AStar\Benchmark\Result\Result;
 use JMGQ\AStar\Benchmark\Result\ResultAggregator;
+use PHPUnit\Framework\TestCase;
 
-class ResultAggregatorTest extends \PHPUnit_Framework_TestCase
+class ResultAggregatorTest extends TestCase
 {
-    private $sut;
+    private ResultAggregator $sut;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sut = new ResultAggregator();
     }
 
-    public function testShouldGroupResultsBySize()
+    public function testShouldGroupResultsBySize(): void
     {
         $result1 = $this->getMockResult(5, 4, true);
         $result2 = $this->getMockResult(10, 1234, true);
@@ -30,7 +32,7 @@ class ResultAggregatorTest extends \PHPUnit_Framework_TestCase
         $this->assertContainsSize(10, $aggregatedResults);
     }
 
-    public function testShouldCalculateDurations()
+    public function testShouldCalculateDurations(): void
     {
         $result1 = $this->getMockResult(5, 4, true);
         $result2 = $this->getMockResult(5, 20, true);
@@ -47,7 +49,7 @@ class ResultAggregatorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(20, $aggregatedResult->getMaximumDuration());
     }
 
-    public function testShouldCalculateNumberOfSolutions()
+    public function testShouldCalculateNumberOfSolutions(): void
     {
         $result1 = $this->getMockResult(5, 1, true);
         $result2 = $this->getMockResult(5, 1, false);
@@ -62,7 +64,7 @@ class ResultAggregatorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(2, $aggregatedResult->getNumberOfSolutions());
     }
 
-    public function testShouldCalculateNumberOfTerrains()
+    public function testShouldCalculateNumberOfTerrains(): void
     {
         $result1 = $this->getMockResult(5, 1, true);
         $result2 = $this->getMockResult(5, 1, false);
@@ -80,7 +82,7 @@ class ResultAggregatorTest extends \PHPUnit_Framework_TestCase
      * @param int $needle
      * @param AggregatedResult[] $haystack
      */
-    private function assertContainsSize($needle, array $haystack)
+    private function assertContainsSize(int $needle, array $haystack): void
     {
         foreach ($haystack as $result) {
             if ($result->getSize() === $needle) {
@@ -94,11 +96,9 @@ class ResultAggregatorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    private function getMockResult($size, $duration, $hasSolution)
+    private function getMockResult(int $size, int $duration, bool $hasSolution): Result
     {
-        $result = $this->getMockBuilder('JMGQ\AStar\Benchmark\Result\Result')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $result = $this->createMock(Result::class);
         $result->expects($this->atLeastOnce())
             ->method('getSize')
             ->willReturn($size);

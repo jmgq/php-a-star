@@ -1,4 +1,4 @@
-FROM php:7-cli-alpine
+FROM php:8-cli-alpine
 
 WORKDIR /opt/php-a-star
 

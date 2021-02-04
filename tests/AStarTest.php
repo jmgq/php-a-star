@@ -2,10 +2,12 @@
 
 namespace JMGQ\AStar\Tests;
 
+use JMGQ\AStar\AStar;
+
 class AStarTest extends BaseAStarTest
 {
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->sut = $this->getMockForAbstractClass('JMGQ\AStar\AStar');
+        $this->sut = $this->getMockForAbstractClass(AStar::class);
     }
 }

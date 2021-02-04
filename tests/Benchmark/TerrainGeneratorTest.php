@@ -3,12 +3,13 @@
 namespace JMGQ\AStar\Tests\Benchmark;
 
 use JMGQ\AStar\Benchmark\TerrainGenerator;
+use PHPUnit\Framework\TestCase;
 
-class TerrainGeneratorTest extends \PHPUnit_Framework_TestCase
+class TerrainGeneratorTest extends TestCase
 {
-    private $sut;
+    private TerrainGenerator $sut;
 
-    public function invalidNaturalNumberProvider()
+    public function invalidNaturalNumberProvider(): array
     {
         return array(
             array(0),
@@ -20,7 +21,7 @@ class TerrainGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidOptionalIntegerProvider()
+    public function invalidOptionalIntegerProvider(): array
     {
         return array(
             array('a'),
@@ -33,12 +34,12 @@ class TerrainGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sut = new TerrainGenerator();
     }
 
-    public function testShouldGenerateTerrain()
+    public function testShouldGenerateTerrain(): void
     {
         $rows = 3;
         $columns = 5;
@@ -51,34 +52,37 @@ class TerrainGeneratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidNaturalNumberProvider
-     * @expectedException \InvalidArgumentException
      */
-    public function testShouldNotGenerateWithInvalidRows($invalidRows)
+    public function testShouldNotGenerateWithInvalidRows($invalidRows): void
     {
         $columns = 5;
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->sut->generate($invalidRows, $columns);
     }
 
     /**
      * @dataProvider invalidNaturalNumberProvider
-     * @expectedException \InvalidArgumentException
      */
-    public function testShouldNotGenerateWithInvalidColumns($invalidColumns)
+    public function testShouldNotGenerateWithInvalidColumns($invalidColumns): void
     {
         $rows = 3;
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->sut->generate($rows, $invalidColumns);
     }
 
     /**
      * @dataProvider invalidOptionalIntegerProvider
-     * @expectedException \InvalidArgumentException
      */
-    public function testShouldNotGenerateWithInvalidSeed($invalidSeed)
+    public function testShouldNotGenerateWithInvalidSeed($invalidSeed): void
     {
         $rows = 3;
         $columns = 5;
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->sut->generate($rows, $columns, $invalidSeed);
     }

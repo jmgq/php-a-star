@@ -2,21 +2,21 @@
 
 namespace JMGQ\AStar\Tests\Example\Graph;
 
-use JMGQ\AStar\Example\Graph\Link;
 use JMGQ\AStar\Example\Graph\Graph;
+use JMGQ\AStar\Example\Graph\Link;
 use JMGQ\AStar\Example\Graph\MyNode;
+use PHPUnit\Framework\TestCase;
 
-class GraphTest extends \PHPUnit_Framework_TestCase
+class GraphTest extends TestCase
 {
-    /** @var Graph */
-    private $sut;
+    private Graph $sut;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sut = new Graph();
     }
 
-    public function testShouldAddLink()
+    public function testShouldAddLink(): void
     {
         $source = new MyNode(0, 0);
         $destination = new MyNode(1, 1);
@@ -32,7 +32,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($link, $this->sut->getLink($source, $destination));
     }
 
-    public function testShouldOverwriteLinksWithSameSourceAndDestination()
+    public function testShouldOverwriteLinksWithSameSourceAndDestination(): void
     {
         $source = new MyNode(0, 0);
         $destination = new MyNode(1, 1);
@@ -58,7 +58,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($distance2, $this->sut->getLink($source, $destination)->getDistance());
     }
 
-    public function testShouldSetLinksInConstructor()
+    public function testShouldSetLinksInConstructor(): void
     {
         $source1 = new MyNode(0, 1);
         $destination1 = new MyNode(2, 3);
@@ -79,7 +79,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($distance2, $this->sut->getLink($source2, $destination2)->getDistance());
     }
 
-    public function testShouldGetDirectSuccessors()
+    public function testShouldGetDirectSuccessors(): void
     {
         $nodeA = new MyNode(0, 0);
         $nodeB = new MyNode(1, 1);
@@ -108,7 +108,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($nodeD->getID(), $nodeBDirectSuccessors[0]->getID());
     }
 
-    public function testShouldGetEmptyArrayAsDirectSuccessorsIfNodeDoesNotExist()
+    public function testShouldGetEmptyArrayAsDirectSuccessorsIfNodeDoesNotExist(): void
     {
         $nonExistentNode = new MyNode(0, 0);
 

@@ -3,14 +3,18 @@
 namespace JMGQ\AStar\Tests\Benchmark;
 
 use JMGQ\AStar\Benchmark\InputValidator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Style\StyleInterface;
 
-class InputValidatorTest extends \PHPUnit_Framework_TestCase
+class InputValidatorTest extends TestCase
 {
-    private $sut;
-    private $input;
-    private $output;
+    private InputValidator $sut;
+    private MockObject|InputInterface $input;
+    private MockObject|StyleInterface $output;
 
-    public function invalidNaturalNumberProvider()
+    public function invalidNaturalNumberProvider(): array
     {
         return array(
             array(0),
@@ -22,7 +26,7 @@ class InputValidatorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidOptionalIntegerProvider()
+    public function invalidOptionalIntegerProvider(): array
     {
         return array(
             array('a'),
@@ -35,16 +39,16 @@ class InputValidatorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->input = $this->getMock('Symfony\Component\Console\Input\InputInterface');
+        $this->input = $this->createMock(InputInterface::class);
 
-        $this->output = $this->getMock('Symfony\Component\Console\Style\StyleInterface');
+        $this->output = $this->createMock(StyleInterface::class);
 
         $this->sut = new InputValidator($this->output);
     }
 
-    public function testShouldValidateCorrectValues()
+    public function testShouldValidateCorrectValues(): void
     {
         $validSizes = array('5', '10');
         $validIterations = '15';
@@ -60,7 +64,7 @@ class InputValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result);
     }
 
-    public function testShouldNotValidateIncorrectValues()
+    public function testShouldNotValidateIncorrectValues(): void
     {
         $invalidSizes = array('a');
         $invalidIterations = 'b';
@@ -84,7 +88,7 @@ class InputValidatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider invalidNaturalNumberProvider
      */
-    public function testShouldNotValidateIncorrectSizes($invalidSize)
+    public function testShouldNotValidateIncorrectSizes($invalidSize): void
     {
         $invalidSizes = array($invalidSize, '10', $invalidSize);
         $validIterations = '15';
@@ -104,7 +108,7 @@ class InputValidatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider invalidNaturalNumberProvider
      */
-    public function testShouldNotValidateIncorrectIterations($invalidIterations)
+    public function testShouldNotValidateIncorrectIterations($invalidIterations): void
     {
         $validSizes = array('8');
         $validSeed = '123456';
@@ -123,7 +127,7 @@ class InputValidatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider invalidOptionalIntegerProvider
      */
-    public function testShouldNotValidateIncorrectSeed($invalidSeed)
+    public function testShouldNotValidateIncorrectSeed($invalidSeed): void
     {
         $validSizes = array('8');
         $validIterations = '15';
@@ -139,7 +143,7 @@ class InputValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($result);
     }
 
-    public function testShouldValidateOptionalSeed()
+    public function testShouldValidateOptionalSeed(): void
     {
         $validSizes = array('8');
         $validIterations = '15';
@@ -155,7 +159,7 @@ class InputValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result);
     }
 
-    private function setInputExpectations(array $sizes, $iterations, $seed)
+    private function setInputExpectations(array $sizes, $iterations, $seed): void
     {
         $this->input->expects($this->exactly(3))
             ->method('getOption')

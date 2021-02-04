@@ -6,13 +6,13 @@ use JMGQ\AStar\Example\Graph\Graph;
 use JMGQ\AStar\Example\Graph\Link;
 use JMGQ\AStar\Example\Graph\MyNode;
 use JMGQ\AStar\Example\Graph\SequencePrinter;
+use PHPUnit\Framework\TestCase;
 
-class SequencePrinterTest extends \PHPUnit_Framework_TestCase
+class SequencePrinterTest extends TestCase
 {
-    /** @var Graph */
-    private $graph;
+    private Graph $graph;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $links = array(
             new Link(new MyNode(0, 0), new MyNode(2, 5), 6.5),
@@ -25,7 +25,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
         $this->graph = new Graph($links);
     }
 
-    public function testShouldPrintANodeSequence()
+    public function testShouldPrintANodeSequence(): void
     {
         $sequence = array(
             new MyNode(0, 0),
@@ -44,7 +44,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
         $this->expectOutputString($expectedOutput);
     }
 
-    public function testShouldPrintMessageIfSequenceIsEmpty()
+    public function testShouldPrintMessageIfSequenceIsEmpty(): void
     {
         $expectedOutput = "Total cost: 0";
 
@@ -55,7 +55,7 @@ class SequencePrinterTest extends \PHPUnit_Framework_TestCase
         $this->expectOutputString($expectedOutput);
     }
 
-    public function testShouldPrintSequenceEvenIfItOnlyHasOneNode()
+    public function testShouldPrintSequenceEvenIfItOnlyHasOneNode(): void
     {
         $sequence = array(new MyNode(3, 3));
 

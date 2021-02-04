@@ -5,10 +5,11 @@ namespace JMGQ\AStar\Tests\Example\Terrain;
 use JMGQ\AStar\Example\Terrain\MyNode;
 use JMGQ\AStar\Example\Terrain\StaticExample;
 use JMGQ\AStar\Example\Terrain\TerrainCost;
+use PHPUnit\Framework\TestCase;
 
-class StaticExampleTest extends \PHPUnit_Framework_TestCase
+class StaticExampleTest extends TestCase
 {
-    public function testShouldPrintSolution()
+    public function testShouldPrintSolution(): void
     {
         $terrainCost = new TerrainCost(
             array(
@@ -34,7 +35,7 @@ HEREDOC;
         $this->expectOutputString($expectedOutput);
     }
 
-    public function testShouldPrintSolution2()
+    public function testShouldPrintSolution2(): void
     {
         $terrainCost = new TerrainCost(
             array(
@@ -60,7 +61,7 @@ HEREDOC;
         $this->expectOutputString($expectedOutput);
     }
 
-    public function testShouldPrintSolution3()
+    public function testShouldPrintSolution3(): void
     {
         $terrainCost = new TerrainCost(
             array(
@@ -86,7 +87,7 @@ HEREDOC;
         $this->expectOutputString($expectedOutput);
     }
 
-    public function testShouldPrintSolution4()
+    public function testShouldPrintSolution4(): void
     {
         $terrainCost = new TerrainCost(
             array(
@@ -112,7 +113,7 @@ HEREDOC;
         $this->expectOutputString($expectedOutput);
     }
 
-    public function testShouldPrintSolution5()
+    public function testShouldPrintSolution5(): void
     {
         $terrainCost = new TerrainCost(
             array(

@@ -3,13 +3,14 @@
 namespace JMGQ\AStar\Tests;
 
 use JMGQ\AStar\AbstractNode;
+use JMGQ\AStar\Node;
+use PHPUnit\Framework\TestCase;
 
-class AbstractNodeTest extends \PHPUnit_Framework_TestCase
+class AbstractNodeTest extends TestCase
 {
-    /** @var AbstractNode */
-    private $sut;
+    private AbstractNode $sut;
 
-    public function validNumberProvider()
+    public function validNumberProvider(): array
     {
         return array(
             array(1),
@@ -21,7 +22,7 @@ class AbstractNodeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidNumberProvider()
+    public function invalidNumberProvider(): array
     {
         return array(
             array('a'),
@@ -34,19 +35,19 @@ class AbstractNodeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->sut = $this->getMockForAbstractClass('JMGQ\AStar\AbstractNode');
+        $this->sut = $this->getMockForAbstractClass(AbstractNode::class);
     }
 
-    public function testShouldHaveNoParentInitially()
+    public function testShouldHaveNoParentInitially(): void
     {
         $this->assertNull($this->sut->getParent());
     }
 
-    public function testShouldSetParent()
+    public function testShouldSetParent(): void
     {
-        $parent = $this->getMock('JMGQ\AStar\Node');
+        $parent = $this->createStub(Node::class);
 
         $this->assertNull($this->sut->getParent());
 
@@ -55,14 +56,14 @@ class AbstractNodeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($parent, $this->sut->getParent());
     }
 
-    public function testShouldHaveNoChildrenInitially()
+    public function testShouldHaveNoChildrenInitially(): void
     {
         $this->assertCount(0, $this->sut->getChildren());
     }
 
-    public function testShouldAddChild()
+    public function testShouldAddChild(): void
     {
-        $child = $this->getMock('JMGQ\AStar\Node');
+        $child = $this->createStub(Node::class);
 
         $this->assertCount(0, $this->sut->getChildren());
 
@@ -71,9 +72,9 @@ class AbstractNodeTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $this->sut->getChildren());
     }
 
-    public function testShouldSetItselfAsTheParentOfItsChildren()
+    public function testShouldSetItselfAsTheParentOfItsChildren(): void
     {
-        $child = $this->getMockForAbstractClass('JMGQ\AStar\AbstractNode');
+        $child = $this->getMockForAbstractClass(AbstractNode::class);
 
         $this->assertNull($child->getParent());
 
@@ -85,7 +86,7 @@ class AbstractNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider validNumberProvider
      */
-    public function testShouldSetValidG($validScore)
+    public function testShouldSetValidG($validScore): void
     {
         $this->sut->setG($validScore);
 
@@ -94,17 +95,18 @@ class AbstractNodeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidNumberProvider
-     * @expectedException \InvalidArgumentException
      */
-    public function testShouldNotSetInvalidG($invalidScore)
+    public function testShouldNotSetInvalidG($invalidScore): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->sut->setG($invalidScore);
     }
 
     /**
      * @dataProvider validNumberProvider
      */
-    public function testShouldSetValidH($validScore)
+    public function testShouldSetValidH($validScore): void
     {
         $this->sut->setH($validScore);
 
@@ -113,14 +115,15 @@ class AbstractNodeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidNumberProvider
-     * @expectedException \InvalidArgumentException
      */
-    public function testShouldNotSetInvalidH($invalidScore)
+    public function testShouldNotSetInvalidH($invalidScore): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->sut->setH($invalidScore);
     }
 
-    public function testShouldGetF()
+    public function testShouldGetF(): void
     {
         $g = 3;
         $h = 5;

@@ -3,10 +3,12 @@
 namespace JMGQ\AStar\Tests\Example\Terrain;
 
 use JMGQ\AStar\Example\Terrain\MyNode;
+use JMGQ\AStar\Node;
+use PHPUnit\Framework\TestCase;
 
-class MyNodeTest extends \PHPUnit_Framework_TestCase
+class MyNodeTest extends TestCase
 {
-    public function validPointProvider()
+    public function validPointProvider(): array
     {
         return array(
             array(3, 4),
@@ -17,7 +19,7 @@ class MyNodeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function invalidPointProvider()
+    public function invalidPointProvider(): array
     {
         return array(
             array(-1, 3),
@@ -30,17 +32,17 @@ class MyNodeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testShouldImplementTheNodeInterface()
+    public function testShouldImplementTheNodeInterface(): void
     {
         $sut = new MyNode(0, 0);
 
-        $this->assertInstanceOf('JMGQ\AStar\Node', $sut);
+        $this->assertInstanceOf(Node::class, $sut);
     }
 
     /**
      * @dataProvider validPointProvider
      */
-    public function testShouldSetValidPoint($row, $column)
+    public function testShouldSetValidPoint($row, $column): void
     {
         $expectedRow = (int) $row;
         $expectedColumn = (int) $column;
@@ -53,18 +55,19 @@ class MyNodeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidPointProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid non negative integer
      */
-    public function testShouldNotSetInvalidPoint($row, $column)
+    public function testShouldNotSetInvalidPoint($row, $column): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid non negative integer');
+
         new MyNode($row, $column);
     }
 
     /**
      * @dataProvider validPointProvider
      */
-    public function testShouldGenerateAnID($row, $column)
+    public function testShouldGenerateAnID($row, $column): void
     {
         $expectedID = $row . 'x' . $column;
 
@@ -73,13 +76,13 @@ class MyNodeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedID, $sut->getID());
     }
 
-    public function testShouldCreateNewInstanceFromNode()
+    public function testShouldCreateNewInstanceFromNode(): void
     {
         $row = 3;
         $column = 5;
         $nodeID = $row . 'x' . $column;
 
-        $node = $this->getMock('JMGQ\AStar\Node');
+        $node = $this->createMock(Node::class);
         $node->expects($this->once())
             ->method('getID')
             ->willReturn($nodeID);
@@ -91,18 +94,17 @@ class MyNodeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($nodeID, $myNode->getID());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid node
-     */
-    public function testShouldNotCreateNewInstanceFromInvalidNode()
+    public function testShouldNotCreateNewInstanceFromInvalidNode(): void
     {
         $nodeID = 'foo';
 
-        $node = $this->getMock('JMGQ\AStar\Node');
+        $node = $this->createMock(Node::class);
         $node->expects($this->once())
             ->method('getID')
             ->willReturn($nodeID);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid node');
 
         MyNode::fromNode($node);
     }

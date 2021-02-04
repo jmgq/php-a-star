@@ -11,7 +11,9 @@ A Star pathfinding algorithm implementation for PHP.
 
 Requirements
 ------------
-You need PHP >= 5.3.0 (or HHVM) to use this library, but the latest stable version of PHP is recommended.
+You need PHP >= 8.0 to use this library, but the latest stable version of PHP is recommended.
+
+If you need to run this library on an older version of PHP (or HHVM), please install a 1.x version.
 
 Installation
 ------------
@@ -131,7 +133,13 @@ Contributions to this project are always welcome. If you want to make a contribu
 In order to set up your development environment, please follow these steps:
 1. Install [Docker](https://www.docker.com/).
 2. Build the image: `docker build -t php-a-star .`
-3. Run the image: `docker run -it php-a-star sh`
+3. Run the image:
+    ```sh
+    docker run -it \
+        --mount type=bind,source="$(pwd)",target=/opt/php-a-star \
+        php-a-star \
+        sh
+    ```
 
 ### Coding Standards
 To ensure a consistent code base, please make sure your code follows the following conventions:
