@@ -4,7 +4,7 @@ A Star algorithm for PHP
 [![Build Status](https://travis-ci.org/jmgq/php-a-star.svg)](https://travis-ci.org/jmgq/php-a-star)
 [![Coverage Status](https://coveralls.io/repos/github/jmgq/php-a-star/badge.svg)](https://coveralls.io/github/jmgq/php-a-star)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jmgq/php-a-star/badges/quality-score.png)](https://scrutinizer-ci.com/g/jmgq/php-a-star)
-[![SemVer](http://img.shields.io/:semver-2.0.0-brightgreen.svg)](http://semver.org/spec/v2.0.0.html)
+[![SemVer](https://img.shields.io/:semver-2.0.0-brightgreen.svg)](https://semver.org/spec/v2.0.0.html)
 [![License](https://poser.pugx.org/jmgq/a-star/license.svg)](https://packagist.org/packages/jmgq/a-star)
 
 A Star pathfinding algorithm implementation for PHP.
@@ -17,7 +17,7 @@ If you need to run this library on an older version of PHP (or HHVM), please ins
 
 Installation
 ------------
-1. Install [composer](http://getcomposer.org/).
+1. Install [composer](https://getcomposer.org/).
 
 2. Add the A Star algorithm package to your `composer.json` file and download it:
     ```sh
@@ -143,7 +143,7 @@ In order to set up your development environment, please follow these steps:
 
 ### Coding Standards
 To ensure a consistent code base, please make sure your code follows the following conventions:
-- The code should follow the standards defined in the [PSR-2](http://www.php-fig.org/psr/psr-2/) document.
+- The code should follow the standards defined in the [PSR-2](https://www.php-fig.org/psr/psr-2/) document.
 - Use camelCase for naming variables, instead of underscores.
 - Use parentheses when instantiating classes regardless of the number of arguments the constructor has.
 - Write self-documenting code instead of actual comments (unless strictly necessary).
@@ -153,7 +153,7 @@ In other words, please imitate the existing code.
 Please remember that you can verify that your code adheres to the coding standards by running `composer coding-standards`.
 
 ### Tests
-This project has been developed following the [TDD](http://en.wikipedia.org/wiki/Test-driven_development) principles, and it strives for maximum test coverage. Therefore, you are encouraged to write tests for your new code. If your code is a bug fix, please write a test that proves that your code actually fixes the bug.
+This project has been developed following the [TDD](https://en.wikipedia.org/wiki/Test-driven_development) principles, and it strives for maximum test coverage. Therefore, you are encouraged to write tests for your new code. If your code is a bug fix, please write a test that proves that your code actually fixes the bug.
 
 If you don't know how to write tests, please don't be discouraged, and send your pull request without tests, I will try to add them myself later.
 
