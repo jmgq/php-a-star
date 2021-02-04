@@ -41,14 +41,9 @@ class ResultPrinter
      * @param AggregatedResult[] $results
      * @return AggregatedResult[]
      */
-    private function orderResults(array $results)
+    private function orderResults(array $results): array
     {
-        // Suppressing the errors thrown by usort due to a PHP5 bug:
-        // https://bugs.php.net/bug.php?id=50688
-        // https://stackoverflow.com/q/3235387
-        @usort($results, function ($a, $b) {
-            return $a->getSize() > $b->getSize();
-        });
+        usort($results, static fn (AggregatedResult $a, AggregatedResult $b) => $a->getSize() - $b->getSize());
 
         return $results;
     }
