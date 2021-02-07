@@ -6,19 +6,16 @@ use Symfony\Component\Console\Style\StyleInterface;
 
 class ResultPrinter
 {
-    private $output;
-
-    public function __construct(StyleInterface $output)
+    public function __construct(private StyleInterface $output)
     {
-        $this->output = $output;
     }
 
     /**
      * @param AggregatedResult[] $results
      */
-    public function display(array $results)
+    public function display(array $results): void
     {
-        $tableRows = array();
+        $tableRows = [];
 
         $orderedResults = $this->orderResults($results);
 
@@ -29,10 +26,10 @@ class ResultPrinter
             $maximumDuration = $result->getMaximumDuration() . 'ms';
             $solutionFound = $this->formatSolutionFound($result);
 
-            $tableRows[] = array($size, $averageDuration, $minimumDuration, $maximumDuration, $solutionFound);
+            $tableRows[] = [$size, $averageDuration, $minimumDuration, $maximumDuration, $solutionFound];
         }
 
-        $tableHeaders = array('Size', 'Avg Duration', 'Min Duration', 'Max Duration', 'Solved?');
+        $tableHeaders = ['Size', 'Avg Duration', 'Min Duration', 'Max Duration', 'Solved?'];
 
         $this->output->table($tableHeaders, $tableRows);
     }
@@ -48,11 +45,7 @@ class ResultPrinter
         return $results;
     }
 
-    /**
-     * @param AggregatedResult $result
-     * @return string
-     */
-    private function formatSolutionFound($result)
+    private function formatSolutionFound(AggregatedResult $result): string
     {
         $allResultsAreSolved = $result->getNumberOfSolutions() === $result->getNumberOfTerrains();
         if ($allResultsAreSolved) {

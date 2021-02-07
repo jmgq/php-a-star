@@ -11,27 +11,23 @@ class TerrainGeneratorTest extends TestCase
 
     public function invalidNaturalNumberProvider(): array
     {
-        return array(
-            array(0),
-            array(-1),
-            array(2.5),
-            array(null),
-            array(array()),
-            array('foo'),
-        );
+        return [
+            [0, \InvalidArgumentException::class],
+            [-1, \InvalidArgumentException::class],
+            [null, \TypeError::class],
+            [[], \TypeError::class],
+            ['foo', \TypeError::class],
+        ];
     }
 
     public function invalidOptionalIntegerProvider(): array
     {
-        return array(
-            array('a'),
-            array(array()),
-            array(false),
-            array(1.5),
-            array(-1.5),
-            array(''),
-            array(' '),
-        );
+        return [
+            ['a', \TypeError::class],
+            [[], \TypeError::class],
+            ['', \TypeError::class],
+            [' ', \TypeError::class],
+        ];
     }
 
     protected function setUp(): void
@@ -53,11 +49,11 @@ class TerrainGeneratorTest extends TestCase
     /**
      * @dataProvider invalidNaturalNumberProvider
      */
-    public function testShouldNotGenerateWithInvalidRows($invalidRows): void
+    public function testShouldNotGenerateWithInvalidRows($invalidRows, string $expectedException): void
     {
         $columns = 5;
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException($expectedException);
 
         $this->sut->generate($invalidRows, $columns);
     }
@@ -65,11 +61,11 @@ class TerrainGeneratorTest extends TestCase
     /**
      * @dataProvider invalidNaturalNumberProvider
      */
-    public function testShouldNotGenerateWithInvalidColumns($invalidColumns): void
+    public function testShouldNotGenerateWithInvalidColumns($invalidColumns, string $expectedException): void
     {
         $rows = 3;
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException($expectedException);
 
         $this->sut->generate($rows, $invalidColumns);
     }
@@ -77,12 +73,12 @@ class TerrainGeneratorTest extends TestCase
     /**
      * @dataProvider invalidOptionalIntegerProvider
      */
-    public function testShouldNotGenerateWithInvalidSeed($invalidSeed): void
+    public function testShouldNotGenerateWithInvalidSeed($invalidSeed, string $expectedException): void
     {
         $rows = 3;
         $columns = 5;
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException($expectedException);
 
         $this->sut->generate($rows, $columns, $invalidSeed);
     }

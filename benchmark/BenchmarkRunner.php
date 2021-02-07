@@ -2,16 +2,17 @@
 
 namespace JMGQ\AStar\Benchmark;
 
+use JMGQ\AStar\AStar;
 use JMGQ\AStar\Benchmark\Result\Result;
-use JMGQ\AStar\Example\Terrain\MyAStar;
-use JMGQ\AStar\Example\Terrain\MyNode;
+use JMGQ\AStar\Example\Terrain\DomainLogic;
+use JMGQ\AStar\Example\Terrain\Position;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 class BenchmarkRunner
 {
-    private $progressBar;
-    private $terrainGenerator;
+    private ProgressBar $progressBar;
+    private TerrainGenerator $terrainGenerator;
 
     public function __construct(ProgressBar $progressBar)
     {
@@ -25,9 +26,9 @@ class BenchmarkRunner
      * @param int | null $seed
      * @return Result[]
      */
-    public function run(array $sizes, $iterations, $seed)
+    public function run(array $sizes, int $iterations, ?int $seed): array
     {
-        $results = array();
+        $results = [];
 
         $steps = count($sizes) * $iterations;
         $this->progressBar->start($steps);
@@ -35,10 +36,11 @@ class BenchmarkRunner
         foreach ($sizes as $size) {
             for ($i = 0; $i < $iterations; $i++) {
                 $terrain = $this->terrainGenerator->generate($size, $size, $seed);
-                $aStar = new MyAStar($terrain);
+                $domainLogic = new DomainLogic($terrain);
+                $aStar = new AStar($domainLogic);
 
-                $start = new MyNode(0, 0);
-                $goal = new MyNode($size - 1, $size - 1);
+                $start = new Position(0, 0);
+                $goal = new Position($size - 1, $size - 1);
 
                 $stopwatch = new Stopwatch();
                 $stopwatch->start('benchmark');

@@ -11,32 +11,32 @@ use Symfony\Component\Console\Style\StyleInterface;
 class InputValidatorTest extends TestCase
 {
     private InputValidator $sut;
-    private MockObject|InputInterface $input;
-    private MockObject|StyleInterface $output;
+    private MockObject | InputInterface $input;
+    private MockObject | StyleInterface $output;
 
     public function invalidNaturalNumberProvider(): array
     {
-        return array(
-            array(0),
-            array(-1),
-            array(2.5),
-            array(null),
-            array(array()),
-            array('foo'),
-        );
+        return [
+            [0],
+            [-1],
+            [2.5],
+            [null],
+            [[]],
+            ['foo'],
+        ];
     }
 
     public function invalidOptionalIntegerProvider(): array
     {
-        return array(
-            array('a'),
-            array(array()),
-            array(false),
-            array(1.5),
-            array(-1.5),
-            array(''),
-            array(' '),
-        );
+        return [
+            ['a'],
+            [[]],
+            [false],
+            [1.5],
+            [-1.5],
+            [''],
+            [' '],
+        ];
     }
 
     protected function setUp(): void
@@ -50,7 +50,7 @@ class InputValidatorTest extends TestCase
 
     public function testShouldValidateCorrectValues(): void
     {
-        $validSizes = array('5', '10');
+        $validSizes = ['5', '10'];
         $validIterations = '15';
         $validSeed = '123456';
 
@@ -66,7 +66,7 @@ class InputValidatorTest extends TestCase
 
     public function testShouldNotValidateIncorrectValues(): void
     {
-        $invalidSizes = array('a');
+        $invalidSizes = ['a'];
         $invalidIterations = 'b';
         $invalidSeed = 'c';
 
@@ -75,9 +75,9 @@ class InputValidatorTest extends TestCase
         $this->output->expects($this->exactly(3))
             ->method('error')
             ->withConsecutive(
-                array('The size must be an integer greater than 0'),
-                array('The number of iterations must be an integer greater than 0'),
-                array('The seed must be an integer')
+                ['The size must be an integer greater than 0'],
+                ['The number of iterations must be an integer greater than 0'],
+                ['The seed must be an integer'],
             );
 
         $result = $this->sut->validate($this->input);
@@ -90,7 +90,7 @@ class InputValidatorTest extends TestCase
      */
     public function testShouldNotValidateIncorrectSizes($invalidSize): void
     {
-        $invalidSizes = array($invalidSize, '10', $invalidSize);
+        $invalidSizes = [$invalidSize, '10', $invalidSize];
         $validIterations = '15';
         $validSeed = '123456';
 
@@ -110,7 +110,7 @@ class InputValidatorTest extends TestCase
      */
     public function testShouldNotValidateIncorrectIterations($invalidIterations): void
     {
-        $validSizes = array('8');
+        $validSizes = ['8'];
         $validSeed = '123456';
 
         $this->setInputExpectations($validSizes, $invalidIterations, $validSeed);
@@ -129,7 +129,7 @@ class InputValidatorTest extends TestCase
      */
     public function testShouldNotValidateIncorrectSeed($invalidSeed): void
     {
-        $validSizes = array('8');
+        $validSizes = ['8'];
         $validIterations = '15';
 
         $this->setInputExpectations($validSizes, $validIterations, $invalidSeed);
@@ -145,7 +145,7 @@ class InputValidatorTest extends TestCase
 
     public function testShouldValidateOptionalSeed(): void
     {
-        $validSizes = array('8');
+        $validSizes = ['8'];
         $validIterations = '15';
         $validOptionalSeed = null;
 
@@ -163,10 +163,10 @@ class InputValidatorTest extends TestCase
     {
         $this->input->expects($this->exactly(3))
             ->method('getOption')
-            ->willReturnMap(array(
-                array('size', $sizes),
-                array('iterations', $iterations),
-                array('seed', $seed),
-            ));
+            ->willReturnMap([
+                ['size', $sizes],
+                ['iterations', $iterations],
+                ['seed', $seed],
+            ]);
     }
 }

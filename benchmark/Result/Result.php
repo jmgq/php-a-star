@@ -4,61 +4,47 @@ namespace JMGQ\AStar\Benchmark\Result;
 
 class Result
 {
-    private $size;
-    private $duration;
-    private $hasSolution;
+    private int $size;
+    private int $duration;
+    private bool $hasSolution;
 
-    /**
-     * @param int $size
-     * @param int $duration
-     * @param bool $hasSolution
-     */
-    public function __construct($size, $duration, $hasSolution)
+    public function __construct(int $size, int $duration, bool $hasSolution)
     {
         $this->size = $this->filterSize($size);
         $this->duration = $this->filterDuration($duration);
-        $this->hasSolution = $this->filterHasSolution($hasSolution);
+        $this->hasSolution = $hasSolution;
     }
 
-    public function getSize()
+    public function getSize(): int
     {
         return $this->size;
     }
 
-    public function getDuration()
+    public function getDuration(): int
     {
         return $this->duration;
     }
 
-    public function hasSolution()
+    public function hasSolution(): bool
     {
         return $this->hasSolution;
     }
 
-    private function filterSize($size)
+    private function filterSize(int $size): int
     {
-        $naturalNumber = filter_var($size, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)));
-
-        if ($naturalNumber === false) {
-            throw new \InvalidArgumentException('Invalid size: ' . print_r($size, true));
+        if ($size < 1) {
+            throw new \InvalidArgumentException("Invalid size: $size");
         }
 
-        return $naturalNumber;
+        return $size;
     }
 
-    private function filterDuration($duration)
+    private function filterDuration(int $duration): int
     {
-        $nonNegativeInteger = filter_var($duration, FILTER_VALIDATE_INT, array('options' => array('min_range' => 0)));
-
-        if ($nonNegativeInteger === false) {
-            throw new \InvalidArgumentException('Invalid duration: ' . print_r($duration, true));
+        if ($duration < 0) {
+            throw new \InvalidArgumentException("Invalid duration: $duration");
         }
 
-        return $nonNegativeInteger;
-    }
-
-    private function filterHasSolution($hasSolution)
-    {
-        return filter_var($hasSolution, FILTER_VALIDATE_BOOLEAN);
+        return $duration;
     }
 }

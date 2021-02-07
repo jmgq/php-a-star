@@ -7,14 +7,11 @@ use Symfony\Component\Console\Style\StyleInterface;
 
 class InputValidator
 {
-    private $output;
-
-    public function __construct(StyleInterface $output)
+    public function __construct(private StyleInterface $output)
     {
-        $this->output = $output;
     }
 
-    public function validate(InputInterface $input)
+    public function validate(InputInterface $input): bool
     {
         $hasValidInput = true;
 
@@ -42,14 +39,14 @@ class InputValidator
         return $hasValidInput;
     }
 
-    private function isPositiveInteger($value)
+    private function isPositiveInteger($value): bool
     {
-        $positiveInteger = filter_var($value, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)));
+        $positiveInteger = filter_var($value, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
 
         return $positiveInteger !== false;
     }
 
-    private function isOptionalInteger($value)
+    private function isOptionalInteger($value): bool
     {
         $integer = filter_var($value, FILTER_VALIDATE_INT);
 

@@ -14,17 +14,17 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class BenchmarkCommand extends Command
 {
-    const SIZE_OPTION = 'size';
-    const ITERATIONS_OPTION = 'iterations';
-    const SEED_OPTION = 'seed';
+    public const SIZE_OPTION = 'size';
+    public const ITERATIONS_OPTION = 'iterations';
+    public const SEED_OPTION = 'seed';
 
-    const SUCCESS_EXIT_CODE = 0;
-    const ERROR_EXIT_CODE = 1;
+    private const SUCCESS_EXIT_CODE = 0;
+    private const ERROR_EXIT_CODE = 1;
 
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $name = 'benchmark';
         $description = 'Runs a benchmark using the Terrain example';
@@ -41,7 +41,7 @@ class BenchmarkCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $styledOutput = new SymfonyStyle($input, $output);
 
@@ -66,10 +66,10 @@ class BenchmarkCommand extends Command
         return self::SUCCESS_EXIT_CODE;
     }
 
-    private function addSizeOption()
+    private function addSizeOption(): BenchmarkCommand
     {
         $description = 'Number of rows and columns of the terrain';
-        $defaultValue = array(5, 10, 15, 20, 25);
+        $defaultValue = [5, 10, 15, 20, 25];
 
         $this->addOption(
             self::SIZE_OPTION,
@@ -82,7 +82,7 @@ class BenchmarkCommand extends Command
         return $this;
     }
 
-    private function addIterationsOption()
+    private function addIterationsOption(): BenchmarkCommand
     {
         $description = 'Number of times the algorithm will run against each terrain';
         $defaultValue = 10;
@@ -92,7 +92,7 @@ class BenchmarkCommand extends Command
         return $this;
     }
 
-    private function addSeedOption()
+    private function addSeedOption(): BenchmarkCommand
     {
         $description = 'Integer used to generate random costs. Set the same value in order to replicate an execution';
         $defaultValue = null;
@@ -106,7 +106,7 @@ class BenchmarkCommand extends Command
      * @param Result[] $results
      * @param StyleInterface $output
      */
-    private function printResults(array $results, StyleInterface $output)
+    private function printResults(array $results, StyleInterface $output): void
     {
         $output->newLine();
 

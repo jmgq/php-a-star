@@ -8,9 +8,9 @@ class ResultAggregator
      * @param Result[] $results
      * @return AggregatedResult[]
      */
-    public function process(array $results)
+    public function process(array $results): array
     {
-        $aggregatedResults = array();
+        $aggregatedResults = [];
 
         $sizeToResultsMap = $this->groupBySize($results);
 
@@ -39,9 +39,9 @@ class ResultAggregator
      * @param Result[] $results
      * @return Result[][]
      */
-    private function groupBySize(array $results)
+    private function groupBySize(array $results): array
     {
-        $groupedResults = array();
+        $groupedResults = [];
 
         foreach ($results as $result) {
             $groupedResults[$result->getSize()][] = $result;
@@ -54,18 +54,16 @@ class ResultAggregator
      * @param Result[] $results
      * @return int[]
      */
-    private function getDurations(array $results)
+    private function getDurations(array $results): array
     {
-        return array_map(function ($result) {
-            return $result->getDuration();
-        }, $results);
+        return array_map(static fn ($result) => $result->getDuration(), $results);
     }
 
     /**
      * @param int[] $durations
      * @return int
      */
-    private function averageDuration(array $durations)
+    private function averageDuration(array $durations): int
     {
         return (int) (array_sum($durations) / count($durations));
     }
@@ -74,11 +72,9 @@ class ResultAggregator
      * @param Result[] $results
      * @return int
      */
-    private function getNumberOfResultsWithASolution(array $results)
+    private function getNumberOfResultsWithASolution(array $results): int
     {
-        $solvedResults = array_filter($results, function ($result) {
-            return $result->hasSolution();
-        });
+        $solvedResults = array_filter($results, static fn ($result) => $result->hasSolution());
 
         return count($solvedResults);
     }

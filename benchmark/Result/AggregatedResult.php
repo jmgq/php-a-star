@@ -4,28 +4,20 @@ namespace JMGQ\AStar\Benchmark\Result;
 
 class AggregatedResult
 {
-    private $size;
-    private $averageDuration;
-    private $minimumDuration;
-    private $maximumDuration;
-    private $numberOfSolutions;
-    private $numberOfTerrains;
+    private int $size;
+    private int $averageDuration;
+    private int $minimumDuration;
+    private int $maximumDuration;
+    private int $numberOfSolutions;
+    private int $numberOfTerrains;
 
-    /**
-     * @param int $size
-     * @param int $averageDuration
-     * @param int $minimumDuration
-     * @param int $maximumDuration
-     * @param int $numberOfSolutions
-     * @param int $numberOfTerrains
-     */
     public function __construct(
-        $size,
-        $averageDuration,
-        $minimumDuration,
-        $maximumDuration,
-        $numberOfSolutions,
-        $numberOfTerrains
+        int $size,
+        int $averageDuration,
+        int $minimumDuration,
+        int $maximumDuration,
+        int $numberOfSolutions,
+        int $numberOfTerrains,
     ) {
         $this->size = $this->filterNaturalNumber($size, 'size');
         $this->averageDuration = $this->filterNonNegativeInteger($averageDuration, 'average duration');
@@ -35,55 +27,51 @@ class AggregatedResult
         $this->numberOfTerrains = $this->filterNaturalNumber($numberOfTerrains, 'number of terrains');
     }
 
-    public function getSize()
+    public function getSize(): int
     {
         return $this->size;
     }
 
-    public function getAverageDuration()
+    public function getAverageDuration(): int
     {
         return $this->averageDuration;
     }
 
-    public function getMinimumDuration()
+    public function getMinimumDuration(): int
     {
         return $this->minimumDuration;
     }
 
-    public function getMaximumDuration()
+    public function getMaximumDuration(): int
     {
         return $this->maximumDuration;
     }
 
-    public function getNumberOfSolutions()
+    public function getNumberOfSolutions(): int
     {
         return $this->numberOfSolutions;
     }
 
-    public function getNumberOfTerrains()
+    public function getNumberOfTerrains(): int
     {
         return $this->numberOfTerrains;
     }
 
-    private function filterNaturalNumber($value, $parameterName)
+    private function filterNaturalNumber(int $value, string $parameterName): int
     {
-        $naturalNumber = filter_var($value, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)));
-
-        if ($naturalNumber === false) {
-            throw new \InvalidArgumentException('Invalid ' . $parameterName . ': ' . print_r($value, true));
+        if ($value < 1) {
+            throw new \InvalidArgumentException("Invalid $parameterName: $value");
         }
 
-        return $naturalNumber;
+        return $value;
     }
 
-    private function filterNonNegativeInteger($value, $parameterName)
+    private function filterNonNegativeInteger(int $value, string $parameterName): int
     {
-        $nonNegativeInteger = filter_var($value, FILTER_VALIDATE_INT, array('options' => array('min_range' => 0)));
-
-        if ($nonNegativeInteger === false) {
-            throw new \InvalidArgumentException('Invalid ' . $parameterName . ': ' . print_r($value, true));
+        if ($value < 0) {
+            throw new \InvalidArgumentException("Invalid $parameterName: $value");
         }
 
-        return $nonNegativeInteger;
+        return $value;
     }
 }

@@ -26,11 +26,11 @@ class BenchmarkCommandTest extends TestCase
     {
         $successfulExitCode = 0;
 
-        $actualExitCode = $this->commandTester->execute(array(
+        $actualExitCode = $this->commandTester->execute([
             'command' => $this->benchmarkCommand->getName(),
-            '--size' => array(1),
+            '--size' => [1],
             '--iterations' => 1,
-        ));
+        ]);
 
         $output = $this->commandTester->getDisplay();
 
@@ -43,11 +43,11 @@ class BenchmarkCommandTest extends TestCase
         $unsuccessfulExitCode = 1;
         $invalidIterationsParameter = 'foobar';
 
-        $actualExitCode = $this->commandTester->execute(array(
+        $actualExitCode = $this->commandTester->execute([
             'command' => $this->benchmarkCommand->getName(),
-            '--size' => array(1),
+            '--size' => [1],
             '--iterations' => $invalidIterationsParameter,
-        ));
+        ]);
 
         $output = $this->commandTester->getDisplay();
 

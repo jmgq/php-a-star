@@ -18,12 +18,12 @@ class ResultAggregatorTest extends TestCase
 
     public function testShouldGroupResultsBySize(): void
     {
-        $result1 = $this->getMockResult(5, 4, true);
-        $result2 = $this->getMockResult(10, 1234, true);
-        $result3 = $this->getMockResult(5, 20, true);
-        $result4 = $this->getMockResult(5, 1, true);
+        $result1 = $this->createMockResult(5, 4, true);
+        $result2 = $this->createMockResult(10, 1234, true);
+        $result3 = $this->createMockResult(5, 20, true);
+        $result4 = $this->createMockResult(5, 1, true);
 
-        $results = array($result1, $result2, $result3, $result4);
+        $results = [$result1, $result2, $result3, $result4];
 
         $aggregatedResults = $this->sut->process($results);
 
@@ -34,11 +34,11 @@ class ResultAggregatorTest extends TestCase
 
     public function testShouldCalculateDurations(): void
     {
-        $result1 = $this->getMockResult(5, 4, true);
-        $result2 = $this->getMockResult(5, 20, true);
-        $result3 = $this->getMockResult(5, 1, true);
+        $result1 = $this->createMockResult(5, 4, true);
+        $result2 = $this->createMockResult(5, 20, true);
+        $result3 = $this->createMockResult(5, 1, true);
 
-        $results = array($result1, $result2, $result3);
+        $results = [$result1, $result2, $result3];
 
         $aggregatedResults = $this->sut->process($results);
 
@@ -51,11 +51,11 @@ class ResultAggregatorTest extends TestCase
 
     public function testShouldCalculateNumberOfSolutions(): void
     {
-        $result1 = $this->getMockResult(5, 1, true);
-        $result2 = $this->getMockResult(5, 1, false);
-        $result3 = $this->getMockResult(5, 1, true);
+        $result1 = $this->createMockResult(5, 1, true);
+        $result2 = $this->createMockResult(5, 1, false);
+        $result3 = $this->createMockResult(5, 1, true);
 
-        $results = array($result1, $result2, $result3);
+        $results = [$result1, $result2, $result3];
 
         $aggregatedResults = $this->sut->process($results);
 
@@ -66,10 +66,10 @@ class ResultAggregatorTest extends TestCase
 
     public function testShouldCalculateNumberOfTerrains(): void
     {
-        $result1 = $this->getMockResult(5, 1, true);
-        $result2 = $this->getMockResult(5, 1, false);
+        $result1 = $this->createMockResult(5, 1, true);
+        $result2 = $this->createMockResult(5, 1, false);
 
-        $results = array($result1, $result2);
+        $results = [$result1, $result2];
 
         $aggregatedResults = $this->sut->process($results);
 
@@ -96,7 +96,7 @@ class ResultAggregatorTest extends TestCase
         );
     }
 
-    private function getMockResult(int $size, int $duration, bool $hasSolution): Result
+    private function createMockResult(int $size, int $duration, bool $hasSolution): Result
     {
         $result = $this->createMock(Result::class);
         $result->expects($this->atLeastOnce())

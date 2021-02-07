@@ -8,7 +8,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Symfony\Component\Console\Application;
 
 $name = 'A-Star Benchmark';
-$version = '0.1.0';
+$version = '0.2.0';
 
 $application = new Application($name, $version);
 

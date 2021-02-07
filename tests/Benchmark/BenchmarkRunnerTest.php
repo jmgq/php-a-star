@@ -10,7 +10,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 class BenchmarkRunnerTest extends TestCase
 {
     private BenchmarkRunner $sut;
-    private ProgressBar|MockObject $progressBar;
+    private ProgressBar | MockObject $progressBar;
 
     protected function setUp(): void
     {
@@ -21,7 +21,7 @@ class BenchmarkRunnerTest extends TestCase
 
     public function testShouldRunTheBenchmark(): void
     {
-        $sizes = array(1, 2, 3);
+        $sizes = [1, 2, 3];
         $iterations = 2;
         $seed = null;
 

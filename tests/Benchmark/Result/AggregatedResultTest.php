@@ -9,27 +9,23 @@ class AggregatedResultTest extends TestCase
 {
     public function invalidNaturalNumberProvider(): array
     {
-        return array(
-            array(0),
-            array(-1),
-            array(2.5),
-            array(null),
-            array(array()),
-            array('foo'),
-        );
+        return [
+            [0, \InvalidArgumentException::class],
+            [-1, \InvalidArgumentException::class],
+            [null, \TypeError::class],
+            [[], \TypeError::class],
+            ['foo', \TypeError::class],
+        ];
     }
 
     public function invalidNonNegativeIntegerProvider(): array
     {
-        return array(
-            array(-1),
-            array(-0.5),
-            array(1.5),
-            array(null),
-            array('a'),
-            array(array()),
-            array(false),
-        );
+        return [
+            [-1, \InvalidArgumentException::class],
+            [null, \TypeError::class],
+            ['a', \TypeError::class],
+            [[], \TypeError::class],
+        ];
     }
 
     public function testShouldSetValidValues(): void
@@ -61,7 +57,7 @@ class AggregatedResultTest extends TestCase
     /**
      * @dataProvider invalidNaturalNumberProvider
      */
-    public function testShouldNotSetInvalidSize($invalidSize): void
+    public function testShouldNotSetInvalidSize($invalidSize, string $expectedException): void
     {
         $validAverageDuration = 2;
         $validMinimumDuration = 1;
@@ -69,8 +65,7 @@ class AggregatedResultTest extends TestCase
         $validNumberOfSolutions = 4;
         $validNumberOfTerrains = 6;
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid size');
+        $this->expectException($expectedException);
 
         new AggregatedResult(
             $invalidSize,
@@ -85,7 +80,7 @@ class AggregatedResultTest extends TestCase
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
      */
-    public function testShouldNotSetInvalidAverageDuration($invalidAverageDuration): void
+    public function testShouldNotSetInvalidAverageDuration($invalidAverageDuration, string $expectedException): void
     {
         $validSize = 5;
         $validMinimumDuration = 1;
@@ -93,8 +88,7 @@ class AggregatedResultTest extends TestCase
         $validNumberOfSolutions = 4;
         $validNumberOfTerrains = 6;
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid average duration');
+        $this->expectException($expectedException);
 
         new AggregatedResult(
             $validSize,
@@ -109,7 +103,7 @@ class AggregatedResultTest extends TestCase
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
      */
-    public function testShouldNotSetInvalidMinimumDuration($invalidMinimumDuration): void
+    public function testShouldNotSetInvalidMinimumDuration($invalidMinimumDuration, string $expectedException): void
     {
         $validSize = 5;
         $validAverageDuration = 2;
@@ -117,8 +111,7 @@ class AggregatedResultTest extends TestCase
         $validNumberOfSolutions = 4;
         $validNumberOfTerrains = 6;
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid minimum duration');
+        $this->expectException($expectedException);
 
         new AggregatedResult(
             $validSize,
@@ -133,7 +126,7 @@ class AggregatedResultTest extends TestCase
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
      */
-    public function testShouldNotSetInvalidMaximumDuration($invalidMaximumDuration): void
+    public function testShouldNotSetInvalidMaximumDuration($invalidMaximumDuration, string $expectedException): void
     {
         $validSize = 5;
         $validAverageDuration = 2;
@@ -141,8 +134,7 @@ class AggregatedResultTest extends TestCase
         $validNumberOfSolutions = 4;
         $validNumberOfTerrains = 6;
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid maximum duration');
+        $this->expectException($expectedException);
 
         new AggregatedResult(
             $validSize,
@@ -157,7 +149,7 @@ class AggregatedResultTest extends TestCase
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
      */
-    public function testShouldNotSetInvalidNumberOfSolutions($invalidNumberOfSolutions): void
+    public function testShouldNotSetInvalidNumberOfSolutions($invalidNumberOfSolutions, string $expectedException): void
     {
         $validSize = 5;
         $validAverageDuration = 2;
@@ -165,8 +157,7 @@ class AggregatedResultTest extends TestCase
         $validMaximumDuration = 3;
         $validNumberOfTerrains = 6;
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid number of solutions');
+        $this->expectException($expectedException);
 
         new AggregatedResult(
             $validSize,
@@ -181,7 +172,7 @@ class AggregatedResultTest extends TestCase
     /**
      * @dataProvider invalidNaturalNumberProvider
      */
-    public function testShouldNotSetInvalidNumberOfTerrains($invalidNumberOfTerrains): void
+    public function testShouldNotSetInvalidNumberOfTerrains($invalidNumberOfTerrains, string $expectedException): void
     {
         $validSize = 5;
         $validAverageDuration = 2;
@@ -189,8 +180,7 @@ class AggregatedResultTest extends TestCase
         $validMaximumDuration = 3;
         $validNumberOfSolutions = 5;
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid number of terrains');
+        $this->expectException($expectedException);
 
         new AggregatedResult(
             $validSize,

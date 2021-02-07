@@ -9,42 +9,38 @@ class ResultTest extends TestCase
 {
     public function validValuesProvider(): array
     {
-        return array(
-            array(1, PHP_INT_MAX, true),
-            array('4', '2', false),
-            array(20, 0, true),
-        );
+        return [
+            [1, PHP_INT_MAX, true],
+            ['4', '2', false],
+            [20, 0, true],
+        ];
     }
 
     public function invalidNaturalNumberProvider(): array
     {
-        return array(
-            array(0),
-            array(-1),
-            array(2.5),
-            array(null),
-            array(array()),
-            array('foo'),
-        );
+        return [
+            [0, \InvalidArgumentException::class, 'Invalid'],
+            [-1, \InvalidArgumentException::class, 'Invalid'],
+            [null, \TypeError::class, 'must be of type int'],
+            [[], \TypeError::class, 'must be of type int'],
+            ['foo', \TypeError::class, 'must be of type int'],
+        ];
     }
 
     public function invalidNonNegativeIntegerProvider(): array
     {
-        return array(
-            array(-1),
-            array(-0.5),
-            array(1.5),
-            array(null),
-            array('a'),
-            array(array()),
-            array(false),
-        );
+        return [
+            [-1, \InvalidArgumentException::class, 'Invalid'],
+            [null, \TypeError::class, 'must be of type int'],
+            ['a', \TypeError::class, 'must be of type int'],
+            [[], \TypeError::class, 'must be of type int'],
+        ];
     }
 
     /**
      * @dataProvider validValuesProvider
      */
-    public function testShouldSetValidValues($size, $duration, $hasSolution): void
+    public function testShouldSetValidValues($size, $duration, bool $hasSolution): void
     {
         $expectedSize = (int) $size;
         $expectedDuration = (int) $duration;
@@ -59,13 +55,16 @@ class ResultTest extends TestCase
     /**
      * @dataProvider invalidNaturalNumberProvider
      */
-    public function testShouldNotSetInvalidSize($invalidSize): void
-    {
+    public function testShouldNotSetInvalidSize(
+        $invalidSize,
+        string $expectedException,
+        string $expectedExceptionMessage
+    ): void {
         $validDuration = 200;
         $validHasSolution = true;
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid size');
+        $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
 
         new Result($invalidSize, $validDuration, $validHasSolution);
     }
@@ -73,13 +72,16 @@ class ResultTest extends TestCase
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
      */
-    public function testShouldNotSetInvalidDuration($invalidDuration): void
-    {
+    public function testShouldNotSetInvalidDuration(
+        $invalidDuration,
+        string $expectedException,
+        string $expectedExceptionMessage
+    ): void {
         $validSize = '5';
         $validHasSolution = false;
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid duration');
+        $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
 
         new Result($validSize, $invalidDuration, $validHasSolution);
     }

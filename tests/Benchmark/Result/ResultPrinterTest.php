@@ -11,16 +11,16 @@ use Symfony\Component\Console\Style\StyleInterface;
 class ResultPrinterTest extends TestCase
 {
     private ResultPrinter $sut;
-    private MockObject|StyleInterface $output;
+    private MockObject | StyleInterface $output;
     private array $expectedHeaders;
 
     public function hasSolutionProvider(): array
     {
-        return array(
-            array('numberOfSolutions' => 8, 'numberOfTerrains' => 8, 'hasSolution' => 'Yes'),
-            array('numberOfSolutions' => 0, 'numberOfTerrains' => 8, 'hasSolution' => 'No'),
-            array('numberOfSolutions' => 2, 'numberOfTerrains' => 8, 'hasSolution' => 'Sometimes'),
-        );
+        return [
+            ['numberOfSolutions' => 8, 'numberOfTerrains' => 8, 'hasSolution' => 'Yes'],
+            ['numberOfSolutions' => 0, 'numberOfTerrains' => 8, 'hasSolution' => 'No'],
+            ['numberOfSolutions' => 2, 'numberOfTerrains' => 8, 'hasSolution' => 'Sometimes'],
+        ];
     }
 
     protected function setUp(): void
@@ -29,12 +29,12 @@ class ResultPrinterTest extends TestCase
 
         $this->sut = new ResultPrinter($this->output);
 
-        $this->expectedHeaders = array('Size', 'Avg Duration', 'Min Duration', 'Max Duration', 'Solved?');
+        $this->expectedHeaders = ['Size', 'Avg Duration', 'Min Duration', 'Max Duration', 'Solved?'];
     }
 
     public function testShouldPrintTableHeaders(): void
     {
-        $results = array();
+        $results = [];
 
         $this->output->expects($this->once())
             ->method('table')
@@ -45,13 +45,13 @@ class ResultPrinterTest extends TestCase
 
     public function testShouldPrintResult(): void
     {
-        $result = $this->getMockAggregatedResult(5, 4, 2, 6, 10, 10);
+        $result = $this->createMockAggregatedResult(5, 4, 2, 6, 10, 10);
 
-        $results = array($result);
+        $results = [$result];
 
-        $expectedRows = array(
-            array('5x5', '4ms', '2ms', '6ms', 'Yes'),
-        );
+        $expectedRows = [
+            ['5x5', '4ms', '2ms', '6ms', 'Yes'],
+        ];
 
         $this->output->expects($this->once())
             ->method('table')
@@ -62,15 +62,15 @@ class ResultPrinterTest extends TestCase
 
     public function testShouldOrderResultsBySize(): void
     {
-        $result10x10 = $this->getMockAggregatedResult(10, 4, 2, 6, 10, 10);
-        $result5x5 = $this->getMockAggregatedResult(5, 4, 2, 6, 10, 10);
+        $result10x10 = $this->createMockAggregatedResult(10, 4, 2, 6, 10, 10);
+        $result5x5 = $this->createMockAggregatedResult(5, 4, 2, 6, 10, 10);
 
-        $results = array($result10x10, $result5x5);
+        $results = [$result10x10, $result5x5];
 
-        $expectedRows = array(
-            array('5x5', '4ms', '2ms', '6ms', 'Yes'),
-            array('10x10', '4ms', '2ms', '6ms', 'Yes'),
-        );
+        $expectedRows = [
+            ['5x5', '4ms', '2ms', '6ms', 'Yes'],
+            ['10x10', '4ms', '2ms', '6ms', 'Yes'],
+        ];
 
         $this->output->expects($this->once())
             ->method('table')
@@ -87,13 +87,13 @@ class ResultPrinterTest extends TestCase
         int $numberOfTerrains,
         string $expectedHasSolution
     ): void {
-        $result = $this->getMockAggregatedResult(5, 4, 2, 6, $numberOfSolutions, $numberOfTerrains);
+        $result = $this->createMockAggregatedResult(5, 4, 2, 6, $numberOfSolutions, $numberOfTerrains);
 
-        $results = array($result);
+        $results = [$result];
 
-        $expectedRows = array(
-            array('5x5', '4ms', '2ms', '6ms', $expectedHasSolution),
-        );
+        $expectedRows = [
+            ['5x5', '4ms', '2ms', '6ms', $expectedHasSolution],
+        ];
 
         $this->output->expects($this->once())
             ->method('table')
@@ -102,14 +102,14 @@ class ResultPrinterTest extends TestCase
         $this->sut->display($results);
     }
 
-    private function getMockAggregatedResult(
+    private function createMockAggregatedResult(
         int $size,
         int $averageDuration,
         int $minimumDuration,
         int $maximumDuration,
         int $numberOfSolutions,
         int $numberOfTerrains
-    ): MockObject|AggregatedResult {
+    ): MockObject | AggregatedResult {
         $result = $this->createMock(AggregatedResult::class);
         $result->expects($this->atLeastOnce())
             ->method('getSize')
