@@ -9,103 +9,103 @@ class TerrainCostTest extends TestCase
 {
     public function validTerrainInformationProvider(): array
     {
-        return array(
-            '3x3 terrain' => array(
-                array(
-                    array(1, 5, 0),
-                    array(2, 2, 2),
-                    array(2, 8, 9)
-                )
-            ),
-            '4x2 terrain' => array(
-                array(
-                    array(1, 2),
-                    array(0, 0),
-                    array(3, PHP_INT_MAX),
-                    array(5, 3)
-                )
-            ),
-            'terrain with numbers of string type' => array(
-                array(
-                    array('2', '3', '0'),
-                    array('1', 2, '3')
-                )
-            ),
-            'associative array' => array(
-                array(
-                    'first row' => array('first column' => 2, 'second column' => 3),
-                    'next row' => array('foo' => 0, 'bar' => 5)
-                )
-            )
-        );
+        return [
+            '3x3 terrain' => [
+                [
+                    [1, 5, 0],
+                    [2, 2, 2],
+                    [2, 8, 9]
+                ]
+            ],
+            '4x2 terrain' => [
+                [
+                    [1, 2],
+                    [0, 0],
+                    [3, PHP_INT_MAX],
+                    [5, 3]
+                ]
+            ],
+            'terrain with numbers of string type' => [
+                [
+                    ['2', '3', '0'],
+                    ['1', 2, '3']
+                ]
+            ],
+            'associative array' => [
+                [
+                    'first row' => ['first column' => 2, 'second column' => 3],
+                    'next row' => ['foo' => 0, 'bar' => 5]
+                ]
+            ]
+        ];
     }
 
     public function emptyTerrainProvider(): array
     {
-        return array(
-            'no rows nor columns' => array(
-                array()
-            ),
-            'no columns' => array(
-                array(
-                    array()
-                )
-            )
-        );
+        return [
+            'no rows nor columns' => [
+                []
+            ],
+            'no columns' => [
+                [
+                    []
+                ]
+            ]
+        ];
     }
 
     public function invalidTerrainCostsProvider(): array
     {
-        return array(
-            'costs of type float' => array(
-                array(
-                    array(2.3, 2),
-                    array(1, 0)
-                )
-            ),
-            'invalid cost type' => array(
-                array(
-                    array(false)
-                )
-            )
-        );
+        return [
+            'costs of type float' => [
+                [
+                    [2.3, 2],
+                    [1, 0]
+                ]
+            ],
+            'invalid cost type' => [
+                [
+                    [false]
+                ]
+            ]
+        ];
     }
 
     public function nonRectangularTerrainProvider(): array
     {
-        return array(
-            array(
-                array(
-                    array(0, 0, 0),
-                    array(0, 0, 0),
-                    array(0, 0)
-                )
-            ),
-            array(
-                array(
-                    array(0, 0, 0),
-                    array(0, 0),
-                    array(0, 0, 0)
-                )
-            ),
-            array(
-                array(
-                    array(0),
-                    array(0, 0),
-                    array(0)
-                )
-            )
-        );
+        return [
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0]
+                ]
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0],
+                    [0, 0, 0]
+                ]
+            ],
+            [
+                [
+                    [0],
+                    [0, 0],
+                    [0]
+                ]
+            ]
+        ];
     }
 
     public function invalidPointProvider(): array
     {
-        return array(
-            array(-1, 3),
-            array(4, PHP_INT_MAX),
-            array(0, 'foo'),
-            array('bar', 0)
-        );
+        return [
+            [-1, 3, \InvalidArgumentException::class, 'Invalid tile'],
+            [4, PHP_INT_MAX, \InvalidArgumentException::class, 'Invalid tile'],
+            [0, 'foo', \TypeError::class, 'must be of type int'],
+            ['bar', 0, \TypeError::class, 'must be of type int'],
+        ];
     }
 
     /**
@@ -171,18 +171,20 @@ class TerrainCostTest extends TestCase
     /**
      * @dataProvider invalidPointProvider
      */
-    public function testShouldThrowExceptionIfTheRequestedTileDoesNotExist($row, $column): void
-    {
-        $sut = new TerrainCost(
-            array(
-                array(0, 0, 0),
-                array(0, 0, 0),
-                array(0, 0, 0)
-            )
-        );
+    public function testShouldThrowExceptionIfTheRequestedTileDoesNotExist(
+        $row,
+        $column,
+        string $expectedException,
+        string $expectedExceptionMessage,
+    ): void {
+        $sut = new TerrainCost([
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]);
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid tile');
+        $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
 
         $sut->getCost($row, $column);
     }

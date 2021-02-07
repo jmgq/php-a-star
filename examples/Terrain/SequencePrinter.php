@@ -4,96 +4,68 @@ namespace JMGQ\AStar\Example\Terrain;
 
 class SequencePrinter
 {
-    private $terrainCost;
-    private $sequence;
-    private $emptyTileToken = '-';
-    private $tileSize = 3;
-    private $padToken = ' ';
+    private TerrainCost $terrainCost;
+    private iterable $sequence;
+    private string $emptyTileToken = '-';
+    private int $tileSize = 3;
+    private string $padToken = ' ';
 
     /**
      * @param TerrainCost $terrainCost
-     * @param MyNode[] $sequence
+     * @param Position[] $sequence
      */
-    public function __construct(TerrainCost $terrainCost, array $sequence)
+    public function __construct(TerrainCost $terrainCost, iterable $sequence)
     {
         $this->terrainCost = $terrainCost;
         $this->sequence = $sequence;
     }
 
-    /**
-     * @return string
-     */
-    public function getEmptyTileToken()
+    public function getEmptyTileToken(): string
     {
         return $this->emptyTileToken;
     }
 
-    /**
-     * @param string $emptyTileToken
-     */
-    public function setEmptyTileToken($emptyTileToken)
+    public function setEmptyTileToken(string $emptyTileToken): void
     {
-        if (!is_string($emptyTileToken)) {
-            throw new \InvalidArgumentException('Invalid empty tile token: ' . print_r($emptyTileToken, true));
-        }
-
         $this->emptyTileToken = $emptyTileToken;
     }
 
-    /**
-     * @return int
-     */
-    public function getTileSize()
+    public function getTileSize(): int
     {
         return $this->tileSize;
     }
 
-    /**
-     * @param int $tileSize
-     */
-    public function setTileSize($tileSize)
+    public function setTileSize(int $tileSize): void
     {
-        $naturalNumber = filter_var($tileSize, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)));
-
-        if ($naturalNumber === false) {
-            throw new \InvalidArgumentException('Invalid tile size: ' . print_r($tileSize, true));
+        if ($tileSize < 1) {
+            throw new \InvalidArgumentException("Invalid tile size: $tileSize");
         }
 
-        $this->tileSize = $naturalNumber;
+        $this->tileSize = $tileSize;
     }
 
-    /**
-     * @return string
-     */
-    public function getPadToken()
+    public function getPadToken(): string
     {
         return $this->padToken;
     }
 
-    /**
-     * @param string $padToken
-     */
-    public function setPadToken($padToken)
+    public function setPadToken(string $padToken): void
     {
-        if (!is_string($padToken)) {
-            throw new \InvalidArgumentException('Invalid pad token: ' . print_r($padToken, true));
-        }
-
         $this->padToken = $padToken;
     }
 
-    public function printSequence()
+    public function printSequence(): void
     {
         $board = $this->generateEmptyBoard();
 
         $step = 1;
-        foreach ($this->sequence as $node) {
-            $board[$node->getRow()][$node->getColumn()] = $this->getTile($step);
+        foreach ($this->sequence as $position) {
+            $board[$position->getRow()][$position->getColumn()] = $this->getTile($step);
 
             $step++;
         }
 
-        $stringBoard = array();
+        $stringBoard = [];
 
         foreach ($board as $row) {
             $stringBoard[] = implode('', $row);
@@ -102,7 +74,7 @@ class SequencePrinter
         echo implode("\n", $stringBoard);
     }
 
-    private function generateEmptyBoard()
+    private function generateEmptyBoard(): array
     {
         $emptyTile = $this->getTile($this->getEmptyTileToken());
 
@@ -113,7 +85,7 @@ class SequencePrinter
         return $board;
     }
 
-    private function getTile($value)
+    private function getTile(string $value): string
     {
         return str_pad($value, $this->getTileSize(), $this->getPadToken(), STR_PAD_LEFT);
     }

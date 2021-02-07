@@ -2,7 +2,7 @@
 
 namespace JMGQ\AStar\Tests\Example\Terrain;
 
-use JMGQ\AStar\Example\Terrain\MyNode;
+use JMGQ\AStar\Example\Terrain\Position;
 use JMGQ\AStar\Example\Terrain\StaticExample;
 use JMGQ\AStar\Example\Terrain\TerrainCost;
 use PHPUnit\Framework\TestCase;
@@ -11,17 +11,15 @@ class StaticExampleTest extends TestCase
 {
     public function testShouldPrintSolution(): void
     {
-        $terrainCost = new TerrainCost(
-            array(
-                array(3, 2, 3, 6, 1),
-                array(1, 3, 4, 1, 1),
-                array(3, 1, 1, 4, 1),
-                array(1, 1, 5, 2, 1)
-            )
-        );
+        $terrainCost = new TerrainCost([
+            [3, 2, 3, 6, 1],
+            [1, 3, 4, 1, 1],
+            [3, 1, 1, 4, 1],
+            [1, 1, 5, 2, 1],
+        ]);
 
-        $start = new MyNode(0, 0);
-        $goal = new MyNode(0, 4);
+        $start = new Position(0, 0);
+        $goal = new Position(0, 4);
 
         $expectedOutput = <<<HEREDOC
   1  -  -  -  6
@@ -37,17 +35,15 @@ HEREDOC;
 
     public function testShouldPrintSolution2(): void
     {
-        $terrainCost = new TerrainCost(
-            array(
-                array(1, 4, 1),
-                array(1, 5, 1),
-                array(1, 6, 1),
-                array(1, 7, 1)
-            )
-        );
+        $terrainCost = new TerrainCost([
+            [1, 4, 1],
+            [1, 5, 1],
+            [1, 6, 1],
+            [1, 7, 1],
+        ]);
 
-        $start = new MyNode(0, 0);
-        $goal = new MyNode(0, 2);
+        $start = new Position(0, 0);
+        $goal = new Position(0, 2);
 
         $expectedOutput = <<<HEREDOC
   1  2  3
@@ -63,17 +59,15 @@ HEREDOC;
 
     public function testShouldPrintSolution3(): void
     {
-        $terrainCost = new TerrainCost(
-            array(
-                array(3, 2, 3, 6, 1),
-                array(1, 3, 4, 2, 1),
-                array(3, 2, 3, 4, 3),
-                array(1, 1, 5, 3, 1)
-            )
-        );
+        $terrainCost = new TerrainCost([
+            [3, 2, 3, 6, 1],
+            [1, 3, 4, 2, 1],
+            [3, 2, 3, 4, 3],
+            [1, 1, 5, 3, 1],
+        ]);
 
-        $start = new MyNode(0, 0);
-        $goal = new MyNode(3, 4);
+        $start = new Position(0, 0);
+        $goal = new Position(3, 4);
 
         $expectedOutput = <<<HEREDOC
   1  -  -  -  -
@@ -89,17 +83,15 @@ HEREDOC;
 
     public function testShouldPrintSolution4(): void
     {
-        $terrainCost = new TerrainCost(
-            array(
-                array(1, 1, 9, 1, 1),
-                array(1, 1, 9, 1, 1),
-                array(1, 1, 9, 1, 1),
-                array(1, 1, 1, 1, 1)
-            )
-        );
+        $terrainCost = new TerrainCost([
+            [1, 1, 9, 1, 1],
+            [1, 1, 9, 1, 1],
+            [1, 1, 9, 1, 1],
+            [1, 1, 1, 1, 1],
+        ]);
 
-        $start = new MyNode(1, 1);
-        $goal = new MyNode(1, 3);
+        $start = new Position(1, 1);
+        $goal = new Position(1, 3);
 
         $expectedOutput = <<<HEREDOC
   -  -  -  -  -
@@ -115,17 +107,15 @@ HEREDOC;
 
     public function testShouldPrintSolution5(): void
     {
-        $terrainCost = new TerrainCost(
-            array(
-                array(1, 4, 4, 5, 1),
-                array(1, 2, 3, 5, 1),
-                array(1, 4, 4, 5, 1),
-                array(1, 1, 1, 1, 1)
-            )
-        );
+        $terrainCost = new TerrainCost([
+            [1, 4, 4, 5, 1],
+            [1, 2, 3, 5, 1],
+            [1, 4, 4, 5, 1],
+            [1, 1, 1, 1, 1],
+        ]);
 
-        $start = new MyNode(0, 0);
-        $goal = new MyNode(0, 4);
+        $start = new Position(0, 0);
+        $goal = new Position(0, 4);
 
         $expectedOutput = <<<HEREDOC
   1  -  -  -  9

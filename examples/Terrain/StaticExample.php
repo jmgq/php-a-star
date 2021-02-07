@@ -2,11 +2,14 @@
 
 namespace JMGQ\AStar\Example\Terrain;
 
+use JMGQ\AStar\AStar;
+
 class StaticExample
 {
-    public static function printSolution(TerrainCost $terrainCost, MyNode $start, MyNode $goal)
+    public static function printSolution(TerrainCost $terrainCost, Position $start, Position $goal): void
     {
-        $aStar = new MyAStar($terrainCost);
+        $domainLogic = new DomainLogic($terrainCost);
+        $aStar = new AStar($domainLogic);
 
         $solution = $aStar->run($start, $goal);
 

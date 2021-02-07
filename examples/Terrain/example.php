@@ -5,19 +5,20 @@ namespace JMGQ\AStar\Example\Terrain;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-$terrainCost = new TerrainCost(
-    array(
-        array(3, 2, 3, 6, 1),
-        array(1, 3, 4, 1, 1),
-        array(3, 1, 1, 4, 1),
-        array(1, 1, 5, 2, 1)
-    )
-);
+use JMGQ\AStar\AStar;
 
-$start = new MyNode(0, 0);
-$goal = new MyNode(0, 4);
+$terrainCost = new TerrainCost([
+    [3, 2, 3, 6, 1],
+    [1, 3, 4, 1, 1],
+    [3, 1, 1, 4, 1],
+    [1, 1, 5, 2, 1]
+]);
 
-$aStar = new MyAStar($terrainCost);
+$start = new Position(0, 0);
+$goal = new Position(0, 4);
+
+$domainLogic = new DomainLogic($terrainCost);
+$aStar = new AStar($domainLogic);
 
 $solution = $aStar->run($start, $goal);
 

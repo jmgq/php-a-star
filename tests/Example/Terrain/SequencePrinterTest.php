@@ -2,7 +2,7 @@
 
 namespace JMGQ\AStar\Tests\Example\Terrain;
 
-use JMGQ\AStar\Example\Terrain\MyNode;
+use JMGQ\AStar\Example\Terrain\Position;
 use JMGQ\AStar\Example\Terrain\SequencePrinter;
 use JMGQ\AStar\Example\Terrain\TerrainCost;
 use PHPUnit\Framework\TestCase;
@@ -13,72 +13,59 @@ class SequencePrinterTest extends TestCase
 
     public function validStringProvider(): array
     {
-        return array(
-            array('foo'),
-            array('foo bar'),
-            array(''),
-            array('-'),
-            array(' ')
-        );
-    }
-
-    public function invalidStringProvider(): array
-    {
-        return array(
-            array(1),
-            array(false),
-            array(null),
-            array(3.2)
-        );
+        return [
+            ['foo'],
+            ['foo bar'],
+            [''],
+            ['-'],
+            [' '],
+        ];
     }
 
     public function validNaturalNumberProvider(): array
     {
-        return array(
-            array(1),
-            array(3),
-            array(PHP_INT_MAX),
-            array('5')
-        );
+        return [
+            [1],
+            [3],
+            [PHP_INT_MAX],
+            ['5'],
+        ];
     }
 
-    public function invalidNaturalNumberProvider(): array
+    public function invalidNaturalNumberForTileProvider(): array
     {
-        return array(
-            array(0),
-            array(-1),
-            array(2.5),
-            array(null),
-            array(array()),
-            array('foo')
-        );
+        return [
+            [0, \InvalidArgumentException::class, 'Invalid tile size'],
+            [-1, \InvalidArgumentException::class, 'Invalid tile size'],
+            [null, \TypeError::class, 'must be of type int'],
+            [[], \TypeError::class, 'must be of type int'],
+            ['foo', \TypeError::class, 'must be of type int'],
+        ];
     }
 
     protected function setUp(): void
     {
-        $terrainCost = new TerrainCost(
-            array(
-                array(4, 5, 1, 2, 3),
-                array(2, 8, 5, 1, 1),
-                array(1, 3, 3, 3, 4),
-                array(1, 9, 2, 3, 3),
-                array(2, 4, 6, 8, 1),
-                array(1, 3, 5, 7, 9)
-            )
-        );
+        $terrainCost = new TerrainCost([
+            [4, 5, 1, 2, 3],
+            [2, 8, 5, 1, 1],
+            [1, 3, 3, 3, 4],
+            [1, 9, 2, 3, 3],
+            [2, 4, 6, 8, 1],
+            [1, 3, 5, 7, 9],
+        ]);
 
-        $sequence = array(
-            new MyNode(2, 0),
-            new MyNode(3, 1),
-            new MyNode(4, 2),
-            new MyNode(3, 2),
-            new MyNode(2, 2),
-            new MyNode(1, 2),
-            new MyNode(0, 2),
-            new MyNode(1, 3),
-            new MyNode(2, 4),
-            new MyNode(3, 4)
-        );
+        $sequence = [
+            new Position(2, 0),
+            new Position(3, 1),
+            new Position(4, 2),
+            new Position(3, 2),
+            new Position(2, 2),
+            new Position(1, 2),
+            new Position(0, 2),
+            new Position(1, 3),
+            new Position(2, 4),
+            new Position(3, 4),
+        ];
 
         $this->sut = new SequencePrinter($terrainCost, $sequence);
     }
@@ -98,16 +85,6 @@ class SequencePrinterTest extends TestCase
         $this->sut->setEmptyTileToken($token);
 
         $this->assertSame($token, $this->sut->getEmptyTileToken());
-    }
-
-    /**
-     * @dataProvider invalidStringProvider
-     */
-    public function testShouldNotSetInvalidEmptyFileToken($invalidToken): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $this->sut->setEmptyTileToken($invalidToken);
     }
 
     public function testShouldHaveDefaultTileSize(): void
@@ -130,11 +107,15 @@ class SequencePrinterTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidNaturalNumberProvider
+     * @dataProvider invalidNaturalNumberForTileProvider
      */
-    public function testShouldNotSetInvalidTileSize($invalidTileSize): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
+    public function testShouldNotSetInvalidTileSize(
+        $invalidTileSize,
+        string $expectedException,
+        string $expectedExceptionMessage
+    ): void {
+        $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
 
         $this->sut->setTileSize($invalidTileSize);
     }
@@ -154,16 +135,6 @@ class SequencePrinterTest extends TestCase
         $this->sut->setPadToken($token);
 
         $this->assertSame($token, $this->sut->getPadToken());
-    }
-
-    /**
-     * @dataProvider invalidStringProvider
-     */
-    public function testShouldNotSetInvalidPadToken($invalidToken): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $this->sut->setPadToken($invalidToken);
     }
 
     public function testShouldPrintANodeSequence(): void

@@ -4,9 +4,9 @@ namespace JMGQ\AStar\Example\Terrain;
 
 class TerrainCost
 {
-    const INFINITE = PHP_INT_MAX;
+    public const INFINITE = PHP_INT_MAX;
 
-    private $terrainCost;
+    private array $terrainCost;
 
     public function __construct(array $terrainCost)
     {
@@ -23,26 +23,26 @@ class TerrainCost
         $this->terrainCost = self::validateTerrainCosts($terrainCost);
     }
 
-    public function getCost($row, $column)
+    public function getCost(int $row, int $column)
     {
         if (!isset($this->terrainCost[$row][$column])) {
-            throw new \InvalidArgumentException('Invalid tile: ' . print_r($row, true) . ', ' . print_r($column, true));
+            throw new \InvalidArgumentException("Invalid tile: $row, $column");
         }
 
         return $this->terrainCost[$row][$column];
     }
 
-    public function getTotalRows()
+    public function getTotalRows(): int
     {
         return count($this->terrainCost);
     }
 
-    public function getTotalColumns()
+    public function getTotalColumns(): int
     {
         return count($this->terrainCost[0]);
     }
 
-    private static function isEmpty(array $terrainCost)
+    private static function isEmpty(array $terrainCost): bool
     {
         if (!empty($terrainCost)) {
             $firstRow = reset($terrainCost);
@@ -53,9 +53,9 @@ class TerrainCost
         return true;
     }
 
-    private static function validateTerrainCosts(array $terrain)
+    private static function validateTerrainCosts(array $terrain): array
     {
-        $validTerrain = array();
+        $validTerrain = [];
 
         foreach ($terrain as $row => $rowValues) {
             foreach ($rowValues as $column => $value) {
@@ -72,9 +72,9 @@ class TerrainCost
         return $validTerrain;
     }
 
-    private static function convertToNumericArray(array $associativeArray)
+    private static function convertToNumericArray(array $associativeArray): array
     {
-        $numericArray = array();
+        $numericArray = [];
 
         foreach ($associativeArray as $row) {
             $numericArray[] = array_values($row);
@@ -83,7 +83,7 @@ class TerrainCost
         return $numericArray;
     }
 
-    private static function isRectangular(array $terrain)
+    private static function isRectangular(array $terrain): bool
     {
         $numberOfColumnsInFirstRow = count(reset($terrain));
 
