@@ -2,34 +2,33 @@
 
 namespace JMGQ\AStar\Tests\Example\Graph;
 
+use JMGQ\AStar\Example\Graph\Coordinate;
 use JMGQ\AStar\Example\Graph\Link;
-use JMGQ\AStar\Example\Graph\MyNode;
 use PHPUnit\Framework\TestCase;
 
 class LinkTest extends TestCase
 {
     public function validDistanceProvider(): array
     {
-        return array(
-            array(0),
-            array(3),
-            array('7'),
-            array(PHP_INT_MAX),
-            array(7.5),
-            array('12.345')
-        );
+        return [
+            [0],
+            [3],
+            ['7'],
+            [99999999],
+            [7.5],
+            ['12.345'],
+        ];
     }
 
     public function invalidDistanceProvider(): array
     {
-        return array(
-            array(-1),
-            array(-0.5),
-            array(null),
-            array('a'),
-            array(array()),
-            array(false)
-        );
+        return [
+            [-1, \InvalidArgumentException::class, 'Invalid distance'],
+            [-0.5, \InvalidArgumentException::class, 'Invalid distance'],
+            [null, \TypeError::class, 'must be of type float'],
+            ['a', \TypeError::class, 'must be of type float'],
+            [[], \TypeError::class, 'must be of type float'],
+        ];
     }
 
     /**
@@ -39,8 +38,8 @@ class LinkTest extends TestCase
     {
         $expectedDistance = (float) $distance;
 
-        $source = $this->createStub(MyNode::class);
-        $destination = $this->createStub(MyNode::class);
+        $source = $this->createStub(Coordinate::class);
+        $destination = $this->createStub(Coordinate::class);
 
         $sut = new Link($source, $destination, $distance);
 
@@ -52,13 +51,16 @@ class LinkTest extends TestCase
     /**
      * @dataProvider invalidDistanceProvider
      */
-    public function testShouldNotSetInvalidDistance($distance): void
-    {
-        $source = $this->createStub(MyNode::class);
-        $destination = $this->createStub(MyNode::class);
+    public function testShouldNotSetInvalidDistance(
+        $distance,
+        string $expectedException,
+        string $expectedExceptionMessage
+    ): void {
+        $source = $this->createStub(Coordinate::class);
+        $destination = $this->createStub(Coordinate::class);
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid distance');
+        $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
 
         new Link($source, $destination, $distance);
     }

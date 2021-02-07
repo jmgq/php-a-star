@@ -2,9 +2,9 @@
 
 namespace JMGQ\AStar\Tests\Example\Graph;
 
+use JMGQ\AStar\Example\Graph\Coordinate;
 use JMGQ\AStar\Example\Graph\Graph;
 use JMGQ\AStar\Example\Graph\Link;
-use JMGQ\AStar\Example\Graph\MyNode;
 use PHPUnit\Framework\TestCase;
 
 class GraphTest extends TestCase
@@ -18,8 +18,8 @@ class GraphTest extends TestCase
 
     public function testShouldAddLink(): void
     {
-        $source = new MyNode(0, 0);
-        $destination = new MyNode(1, 1);
+        $source = new Coordinate(0, 0);
+        $destination = new Coordinate(1, 1);
         $distance = 123.45;
         $link = new Link($source, $destination, $distance);
 
@@ -34,8 +34,8 @@ class GraphTest extends TestCase
 
     public function testShouldOverwriteLinksWithSameSourceAndDestination(): void
     {
-        $source = new MyNode(0, 0);
-        $destination = new MyNode(1, 1);
+        $source = new Coordinate(0, 0);
+        $destination = new Coordinate(1, 1);
 
         $distance1 = 3;
         $link1 = new Link($source, $destination, $distance1);
@@ -60,18 +60,18 @@ class GraphTest extends TestCase
 
     public function testShouldSetLinksInConstructor(): void
     {
-        $source1 = new MyNode(0, 1);
-        $destination1 = new MyNode(2, 3);
+        $source1 = new Coordinate(0, 1);
+        $destination1 = new Coordinate(2, 3);
         $distance1 = 5.5;
 
-        $source2 = new MyNode(4, 5);
-        $destination2 = new MyNode(6, 7);
+        $source2 = new Coordinate(4, 5);
+        $destination2 = new Coordinate(6, 7);
         $distance2 = 27.89;
 
-        $links = array(
+        $links = [
             new Link($source1, $destination1, $distance1),
             new Link($source2, $destination2, $distance2)
-        );
+        ];
 
         $this->sut = new Graph($links);
 
@@ -81,10 +81,10 @@ class GraphTest extends TestCase
 
     public function testShouldGetDirectSuccessors(): void
     {
-        $nodeA = new MyNode(0, 0);
-        $nodeB = new MyNode(1, 1);
-        $nodeC = new MyNode(2, 2);
-        $nodeD = new MyNode(3, 3);
+        $nodeA = new Coordinate(0, 0);
+        $nodeB = new Coordinate(1, 1);
+        $nodeC = new Coordinate(2, 2);
+        $nodeD = new Coordinate(3, 3);
         $distance = 1;
 
         $this->sut->addLink(new Link($nodeA, $nodeB, $distance));
@@ -102,15 +102,15 @@ class GraphTest extends TestCase
         $this->assertCount(0, $nodeDDirectSuccessors);
 
         foreach ($nodeADirectSuccessors as $successor) {
-            $this->assertTrue($successor->getID() === $nodeB->getID() || $successor->getID() === $nodeC->getID());
+            $this->assertTrue($successor->getId() === $nodeB->getId() || $successor->getId() === $nodeC->getId());
         }
 
-        $this->assertSame($nodeD->getID(), $nodeBDirectSuccessors[0]->getID());
+        $this->assertSame($nodeD->getId(), $nodeBDirectSuccessors[0]->getId());
     }
 
     public function testShouldGetEmptyArrayAsDirectSuccessorsIfNodeDoesNotExist(): void
     {
-        $nonExistentNode = new MyNode(0, 0);
+        $nonExistentNode = new Coordinate(0, 0);
 
         $this->assertCount(0, $this->sut->getDirectSuccessors($nonExistentNode));
     }

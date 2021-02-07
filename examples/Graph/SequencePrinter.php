@@ -4,41 +4,36 @@ namespace JMGQ\AStar\Example\Graph;
 
 class SequencePrinter
 {
-    private $graph;
-    private $sequence;
-
     /**
      * @param Graph $graph
-     * @param MyNode[] $sequence
+     * @param Coordinate[] $sequence
      */
-    public function __construct(Graph $graph, array $sequence)
+    public function __construct(private Graph $graph, private iterable $sequence)
     {
-        $this->graph = $graph;
-        $this->sequence = $sequence;
     }
 
-    public function printSequence()
+    public function printSequence(): void
     {
-        $nodesAsString = array();
+        $coordinatesAsString = [];
 
-        foreach ($this->sequence as $node) {
-            $nodesAsString[] = $this->getNodeAsString($node);
+        foreach ($this->sequence as $coordinate) {
+            $coordinatesAsString[] = $this->getCoordinateAsString($coordinate);
         }
 
-        if (!empty($nodesAsString)) {
-            echo implode(' => ', $nodesAsString);
+        if (!empty($coordinatesAsString)) {
+            echo implode(' => ', $coordinatesAsString);
             echo "\n";
         }
 
         echo 'Total cost: ' . $this->getTotalDistance();
     }
 
-    private function getNodeAsString(MyNode $node)
+    private function getCoordinateAsString(Coordinate $coordinate): string
     {
-        return "({$node->getX()}, {$node->getY()})";
+        return "({$coordinate->getX()}, {$coordinate->getY()})";
     }
 
-    private function getTotalDistance()
+    private function getTotalDistance(): float | int
     {
         if (count($this->sequence) < 2) {
             return 0;

@@ -4,44 +4,32 @@ namespace JMGQ\AStar\Example\Graph;
 
 class Link
 {
-    private $source;
-    private $destination;
-    private $distance;
+    private Coordinate $source;
+    private Coordinate $destination;
+    private float $distance;
 
-    public function __construct(MyNode $source, MyNode $destination, $distance)
+    public function __construct(Coordinate $source, Coordinate $destination, float $distance)
     {
-        $this->source = $source;
-        $this->destination = $destination;
-
-        $filteredDistance = filter_var($distance, FILTER_VALIDATE_FLOAT);
-
-        if ($filteredDistance === false || $filteredDistance < 0) {
-            throw new \InvalidArgumentException('Invalid distance: ' . print_r($distance, true));
+        if ($distance < 0) {
+            throw new \InvalidArgumentException("Invalid distance: $distance");
         }
 
-        $this->distance = $filteredDistance;
+        $this->source = $source;
+        $this->destination = $destination;
+        $this->distance = $distance;
     }
 
-    /**
-     * @return MyNode
-     */
-    public function getSource()
+    public function getSource(): Coordinate
     {
         return $this->source;
     }
 
-    /**
-     * @return MyNode
-     */
-    public function getDestination()
+    public function getDestination(): Coordinate
     {
         return $this->destination;
     }
 
-    /**
-     * @return float
-     */
-    public function getDistance()
+    public function getDistance(): float
     {
         return $this->distance;
     }

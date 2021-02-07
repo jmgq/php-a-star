@@ -4,63 +4,54 @@ namespace JMGQ\AStar\Example\Graph;
 
 class Graph
 {
-    private $links = array();
+    /** @var Link[] */
+    private array $links = [];
 
     /**
      * @param Link[] $links
      */
-    public function __construct(array $links = array())
+    public function __construct(iterable $links = [])
     {
         foreach ($links as $link) {
             $this->addLink($link);
         }
     }
 
-    public function addLink(Link $link)
+    public function addLink(Link $link): void
     {
-        $linkID = $this->getLinkID($link->getSource(), $link->getDestination());
+        $linkId = $this->getLinkId($link->getSource(), $link->getDestination());
 
-        $this->links[$linkID] = $link;
+        $this->links[$linkId] = $link;
     }
 
-    /**
-     * @param MyNode $source
-     * @param MyNode $destination
-     * @return Link | null
-     */
-    public function getLink(MyNode $source, MyNode $destination)
+    public function getLink(Coordinate $source, Coordinate $destination): ?Link
     {
         if ($this->hasLink($source, $destination)) {
-            $linkID = $this->getLinkID($source, $destination);
+            $linkId = $this->getLinkId($source, $destination);
 
-            return $this->links[$linkID];
+            return $this->links[$linkId];
         }
 
         return null;
     }
 
-    /**
-     * @param MyNode $source
-     * @param MyNode $destination
-     * @return bool
-     */
-    public function hasLink(MyNode $source, MyNode $destination)
+    public function hasLink(Coordinate $source, Coordinate $destination): bool
     {
-        $linkID = $this->getLinkID($source, $destination);
+        $linkId = $this->getLinkId($source, $destination);
 
-        return isset($this->links[$linkID]);
+        return isset($this->links[$linkId]);
     }
 
     /**
-     * @param MyNode $node
-     * @return MyNode[]
+     * @param Coordinate $node
+     * @return Coordinate[]
      */
-    public function getDirectSuccessors(MyNode $node)
+    public function getDirectSuccessors(Coordinate $node): array
     {
-        $successors = array();
+        $successors = [];
 
         foreach ($this->links as $link) {
-            if ($node->getID() === $link->getSource()->getID()) {
+            if ($node->getId() === $link->getSource()->getId()) {
                 $successors[] = $link->getDestination();
             }
         }
@@ -68,8 +59,8 @@ class Graph
         return $successors;
     }
 
-    private function getLinkID(MyNode $source, MyNode $destination)
+    private function getLinkId(Coordinate $source, Coordinate $destination): string
     {
-        return $source->getID() . '|' . $destination->getID();
+        return $source->getId() . '|' . $destination->getId();
     }
 }

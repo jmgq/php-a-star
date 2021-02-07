@@ -5,20 +5,23 @@ namespace JMGQ\AStar\Example\Graph;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-$links = array(
-    new Link(new MyNode(0, 0), new MyNode(2, 5), 6.5),
-    new Link(new MyNode(0, 0), new MyNode(6, 4), 23.75),
-    new Link(new MyNode(2, 5), new MyNode(3, 3), 5),
-    new Link(new MyNode(3, 3), new MyNode(6, 4), 3.2),
-    new Link(new MyNode(6, 4), new MyNode(10, 10), 8)
-);
+use JMGQ\AStar\AStar;
+
+$links = [
+    new Link(new Coordinate(0, 0), new Coordinate(2, 5), 6.5),
+    new Link(new Coordinate(0, 0), new Coordinate(6, 4), 23.75),
+    new Link(new Coordinate(2, 5), new Coordinate(3, 3), 5),
+    new Link(new Coordinate(3, 3), new Coordinate(6, 4), 3.2),
+    new Link(new Coordinate(6, 4), new Coordinate(10, 10), 8),
+];
 
 $graph = new Graph($links);
 
-$start = new MyNode(0, 0);
-$goal = new MyNode(10, 10);
+$start = new Coordinate(0, 0);
+$goal = new Coordinate(10, 10);
 
-$aStar = new MyAStar($graph);
+$domainLogic = new DomainLogic($graph);
+$aStar = new AStar($domainLogic);
 
 $solution = $aStar->run($start, $goal);
 
