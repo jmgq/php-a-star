@@ -56,7 +56,7 @@ class BenchmarkCommand extends Command
         $iterations = $input->getOption(self::ITERATIONS_OPTION);
         $seed = $input->getOption(self::SEED_OPTION);
 
-        $progressBar = $styledOutput->createProgressBar();
+        $progressBar = new SymfonyProgressBar($styledOutput->createProgressBar());
         $benchmarkRunner = new BenchmarkRunner($progressBar);
 
         $results = $benchmarkRunner->run($sizes, $iterations, $seed);

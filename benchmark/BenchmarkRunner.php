@@ -6,18 +6,19 @@ use JMGQ\AStar\AStar;
 use JMGQ\AStar\Benchmark\Result\Result;
 use JMGQ\AStar\Example\Terrain\DomainLogic;
 use JMGQ\AStar\Example\Terrain\Position;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 class BenchmarkRunner
 {
-    private ProgressBar $progressBar;
+    private ProgressBarInterface $progressBar;
     private TerrainGenerator $terrainGenerator;
+    private Stopwatch $stopwatch;
 
-    public function __construct(ProgressBar $progressBar)
+    public function __construct(ProgressBarInterface $progressBar)
     {
         $this->progressBar = $progressBar;
         $this->terrainGenerator = new TerrainGenerator();
+        $this->stopwatch = new Stopwatch();
     }
 
     /**
@@ -42,16 +43,17 @@ class BenchmarkRunner
                 $start = new Position(0, 0);
                 $goal = new Position($size - 1, $size - 1);
 
-                $stopwatch = new Stopwatch();
-                $stopwatch->start('benchmark');
+                $this->stopwatch->start('benchmark');
 
                 $solution = $aStar->run($start, $goal);
 
-                $event = $stopwatch->stop('benchmark');
+                $event = $this->stopwatch->stop('benchmark');
 
                 $solutionFound = !empty($solution);
 
                 $results[] = new Result($size, $event->getDuration(), $solutionFound);
+
+                $this->stopwatch->reset();
 
                 $this->progressBar->advance();
             }

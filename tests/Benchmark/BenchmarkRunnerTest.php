@@ -3,18 +3,18 @@
 namespace JMGQ\AStar\Tests\Benchmark;
 
 use JMGQ\AStar\Benchmark\BenchmarkRunner;
+use JMGQ\AStar\Benchmark\ProgressBarInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 class BenchmarkRunnerTest extends TestCase
 {
     private BenchmarkRunner $sut;
-    private ProgressBar | MockObject $progressBar;
+    private ProgressBarInterface | MockObject $progressBar;
 
     protected function setUp(): void
     {
-        $this->progressBar = $this->createMock(ProgressBar::class);
+        $this->progressBar = $this->createMock(ProgressBarInterface::class);
 
         $this->sut = new BenchmarkRunner($this->progressBar);
     }
