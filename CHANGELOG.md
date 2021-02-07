@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Raised the minimum required version of PHP to 8.0.
 - Removed support for HHVM.
 - Changed the library's public API (**breaking change**).
+- Switched the coding standards from PSR-2 to PSR-12.
 
 ## [1.2.0] - 2021-02-03
 ### Added

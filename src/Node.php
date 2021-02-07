@@ -39,27 +39,27 @@ class Node
         return $this->parent;
     }
 
-    public function getF(): float|int
+    public function getF(): float | int
     {
         return $this->getG() + $this->getH();
     }
 
-    public function setG(float|int $score): void
+    public function setG(float | int $score): void
     {
         $this->gScore = $score;
     }
 
-    public function getG(): float|int
+    public function getG(): float | int
     {
         return $this->gScore;
     }
 
-    public function setH(float|int $score): void
+    public function setH(float | int $score): void
     {
         $this->hScore = $score;
     }
 
-    public function getH(): float|int
+    public function getH(): float | int
     {
         return $this->hScore;
     }

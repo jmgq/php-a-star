@@ -33,7 +33,7 @@
     },
     "scripts": {
         "benchmark": "@php benchmark/benchmark.php",
-        "coding-standards": "phpcs --standard=PSR2 --ignore=vendor .",
+        "coding-standards": "phpcs --standard=PSR12 --ignore=vendor .",
         "example:graph": "@php examples/Graph/example.php",
         "example:terrain": "@php examples/Terrain/example.php",
         "test": "XDEBUG_MODE=coverage phpunit"

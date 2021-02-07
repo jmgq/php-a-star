@@ -138,7 +138,7 @@ In order to set up your development environment, please follow these steps:
 
 ### Coding Standards
 To ensure a consistent code base, please make sure your code follows the following conventions:
-- The code should follow the standards defined in the [PSR-2](https://www.php-fig.org/psr/psr-2/) document.
+- The code should follow the standards defined in the [PSR-12](https://www.php-fig.org/psr/psr-12/) document.
 - Use camelCase for naming variables, instead of underscores.
 - Use parentheses when instantiating classes regardless of the number of arguments the constructor has.
 - Write self-documenting code instead of actual comments (unless strictly necessary).

@@ -116,7 +116,7 @@ class AStar
         return $adjacentNodes;
     }
 
-    private function calculateRealCost(Node $node, Node $adjacent): float|int
+    private function calculateRealCost(Node $node, Node $adjacent): float | int
     {
         $userNode = $node->getUserData();
         $userAdjacent = $adjacent->getUserData();
@@ -124,7 +124,7 @@ class AStar
         return $this->domainLogic->calculateRealCost($userNode, $userAdjacent);
     }
 
-    private function calculateEstimatedCost(Node $start, Node $end): float|int
+    private function calculateEstimatedCost(Node $start, Node $end): float | int
     {
         $userStartNode = $start->getUserData();
         $userEndNode = $end->getUserData();
