@@ -11,7 +11,7 @@ interface NodeCollectionInterface extends \Traversable
      */
     public function extractBest(): ?Node;
 
-    public function get(Node $node): ?Node;
+    public function get(string $nodeId): ?Node;
 
     public function add(Node $node): void;
 

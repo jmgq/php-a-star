@@ -4,7 +4,6 @@ namespace JMGQ\AStar\Tests;
 
 use JMGQ\AStar\AStar;
 use JMGQ\AStar\DomainLogicInterface;
-use JMGQ\AStar\NodeCollectionInterface;
 use PHPUnit\Framework\TestCase;
 
 class AStarTest extends TestCase
@@ -69,26 +68,5 @@ class AStarTest extends TestCase
         $this->assertCount(2, $path);
         $this->assertSame($startNode, $path[0]);
         $this->assertSame($goalNode, $path[1]);
-    }
-
-    public function testShouldResetToCleanStateInEveryExecution(): void
-    {
-        $openList = $this->createMock(NodeCollectionInterface::class);
-        $openList->method('isEmpty')
-            ->willReturn(true);
-        $openList->expects($this->exactly(3))
-            ->method('clear');
-
-        $closedList = $this->createMock(NodeCollectionInterface::class);
-        $closedList->expects($this->exactly(3))
-            ->method('clear');
-
-        $this->sut = new AStar($this->domainLogic, $openList, $closedList);
-
-        $node = 'foo';
-
-        $this->sut->run($node, $node);
-        $this->sut->run($node, $node);
-        $this->sut->run($node, $node);
     }
 }

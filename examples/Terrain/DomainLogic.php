@@ -80,13 +80,13 @@ class DomainLogic implements DomainLogicInterface
     }
 
     /**
-     * @param Position $start
-     * @param Position $end
+     * @param Position $fromNode
+     * @param Position $toNode
      * @return float|int
      */
-    public function calculateEstimatedCost(mixed $start, mixed $end): float | int
+    public function calculateEstimatedCost(mixed $fromNode, mixed $toNode): float | int
     {
-        return $this->euclideanDistance($start, $end);
+        return $this->euclideanDistance($fromNode, $toNode);
     }
 
     private function euclideanDistance(Position $a, Position $b): float

@@ -8,14 +8,11 @@ class AStar
     private NodeCollectionInterface $openList;
     private NodeCollectionInterface $closedList;
 
-    public function __construct(
-        DomainLogicInterface $domainLogic,
-        NodeCollectionInterface $openList = null,
-        NodeCollectionInterface $closedList = null
-    ) {
+    public function __construct(DomainLogicInterface $domainLogic)
+    {
         $this->domainLogic = $domainLogic;
-        $this->openList = $openList ?: new NodeHashTable();
-        $this->closedList = $closedList ?: new NodeHashTable();
+        $this->openList = new NodeHashTable();
+        $this->closedList = new NodeHashTable();
     }
 
     /**
@@ -63,7 +60,7 @@ class AStar
             foreach ($successors as $successor) {
                 if ($this->openList->contains($successor)) {
                     /** @var Node $successorInOpenList Cannot be null because the open list contains it */
-                    $successorInOpenList = $this->openList->get($successor);
+                    $successorInOpenList = $this->openList->get($successor->getId());
 
                     if ($successor->getG() >= $successorInOpenList->getG()) {
                         continue;
@@ -72,7 +69,7 @@ class AStar
 
                 if ($this->closedList->contains($successor)) {
                     /** @var Node $successorInClosedList Cannot be null because the closed list contains it */
-                    $successorInClosedList = $this->closedList->get($successor);
+                    $successorInClosedList = $this->closedList->get($successor->getId());
 
                     if ($successor->getG() >= $successorInClosedList->getG()) {
                         continue;
@@ -107,10 +104,10 @@ class AStar
     {
         $adjacentNodes = [];
 
-        $adjacentUserData = $this->domainLogic->getAdjacentNodes($node->getUserData());
+        $adjacentStates = $this->domainLogic->getAdjacentNodes($node->getState());
 
-        foreach ($adjacentUserData as $userData) {
-            $adjacentNodes[] = new Node($userData);
+        foreach ($adjacentStates as $state) {
+            $adjacentNodes[] = new Node($state);
         }
 
         return $adjacentNodes;
@@ -118,18 +115,18 @@ class AStar
 
     private function calculateRealCost(Node $node, Node $adjacent): float | int
     {
-        $userNode = $node->getUserData();
-        $userAdjacent = $adjacent->getUserData();
+        $state = $node->getState();
+        $adjacentState = $adjacent->getState();
 
-        return $this->domainLogic->calculateRealCost($userNode, $userAdjacent);
+        return $this->domainLogic->calculateRealCost($state, $adjacentState);
     }
 
     private function calculateEstimatedCost(Node $start, Node $end): float | int
     {
-        $userStartNode = $start->getUserData();
-        $userEndNode = $end->getUserData();
+        $startState = $start->getState();
+        $endState = $end->getState();
 
-        return $this->domainLogic->calculateEstimatedCost($userStartNode, $userEndNode);
+        return $this->domainLogic->calculateEstimatedCost($startState, $endState);
     }
 
     /**
@@ -143,7 +140,7 @@ class AStar
         $currentNode = $node;
 
         while ($currentNode !== null) {
-            array_unshift($path, $currentNode->getUserData());
+            array_unshift($path, $currentNode->getState());
 
             $currentNode = $currentNode->getParent();
         }

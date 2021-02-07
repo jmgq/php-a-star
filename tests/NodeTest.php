@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class NodeTest extends TestCase
 {
     private Node $sut;
-    private string $mockUserData = 'foobar';
+    private string $mockState = 'foobar';
 
     public function validNumberProvider(): array
     {
@@ -35,7 +35,7 @@ class NodeTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->sut = new Node($this->mockUserData);
+        $this->sut = new Node($this->mockState);
     }
 
     public function testShouldHaveNoParentInitially(): void
@@ -54,14 +54,14 @@ class NodeTest extends TestCase
         $this->assertSame($parent, $this->sut->getParent());
     }
 
-    public function testShouldSetUserData(): void
+    public function testShouldSetState(): void
     {
-        $this->assertSame($this->mockUserData, $this->sut->getUserData());
+        $this->assertSame($this->mockState, $this->sut->getState());
     }
 
-    public function testShouldSetItsIdToTheSerialisedUserData(): void
+    public function testShouldSetItsIdToTheSerialisedState(): void
     {
-        $expectedId = serialize($this->mockUserData);
+        $expectedId = serialize($this->mockState);
 
         $this->assertSame($expectedId, $this->sut->getId());
     }

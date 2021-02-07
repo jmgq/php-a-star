@@ -160,24 +160,24 @@ class NodeHashTableTest extends TestCase
         $this->assertContains($nodeToBeKept, $this->sut);
     }
 
-    public function testShouldGetNode(): void
+    public function testShouldGetNodeById(): void
     {
+        $nodeId = 'someUniqueId';
+
         $node = $this->createStub(Node::class);
         $node->method('getId')
-            ->willReturn('someUniqueId');
+            ->willReturn($nodeId);
 
         $this->sut->add($node);
 
-        $this->assertSame($node, $this->sut->get($node));
+        $this->assertSame($node, $this->sut->get($nodeId));
     }
 
     public function testShouldGetNullIfNodeNotFound(): void
     {
-        $nonExistentNode = $this->createStub(Node::class);
-        $nonExistentNode->method('getId')
-            ->willReturn('someUniqueId');
+        $nonExistentNodeId = 'foo';
 
-        $this->assertNull($this->sut->get($nonExistentNode));
+        $this->assertNull($this->sut->get($nonExistentNodeId));
     }
 
     public function testShouldEmptyTheList(): void

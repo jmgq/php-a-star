@@ -35,9 +35,9 @@ class NodeHashTable implements \IteratorAggregate, NodeCollectionInterface
         return $bestNode;
     }
 
-    public function get(Node $node): ?Node
+    public function get(string $nodeId): ?Node
     {
-        return $this->nodes[$node->getId()] ?? null;
+        return $this->nodes[$nodeId] ?? null;
     }
 
     public function add(Node $node): void

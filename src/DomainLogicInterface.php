@@ -8,5 +8,5 @@ interface DomainLogicInterface
 
     public function calculateRealCost(mixed $node, mixed $adjacent): float | int;
 
-    public function calculateEstimatedCost(mixed $start, mixed $end): float | int;
+    public function calculateEstimatedCost(mixed $fromNode, mixed $toNode): float | int;
 }

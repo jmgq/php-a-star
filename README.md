@@ -26,7 +26,7 @@ Installation
 
 Usage
 -----
-1. Create a class that implements`DomainLogicInterface`:
+1. Create a class that implements `DomainLogicInterface`. The parameters of the three methods in this interface are nodes. A node can be of any type: it could be a string, an integer, an object, etc. You decide the shape of a node, depending on your business logic.
     ```php
     use JMGQ\AStar\DomainLogicInterface;
 
@@ -36,7 +36,7 @@ Usage
 
         public function getAdjacentNodes(mixed $node): iterable
         {
-            // Return a list of adjacent nodes
+            // Return a collection of adjacent nodes
         }
 
         public function calculateRealCost(mixed $node, mixed $adjacent): float | int
@@ -44,7 +44,7 @@ Usage
             // Return the actual cost between two adjacent nodes
         }
 
-        public function calculateEstimatedCost(mixed $start, mixed $end): float | int
+        public function calculateEstimatedCost(mixed $fromNode, mixed $toNode): float | int
         {
             // Return the heuristic estimated cost between the two given nodes
         }

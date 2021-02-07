@@ -7,21 +7,27 @@ namespace JMGQ\AStar;
  */
 class Node
 {
-    private mixed $userData;
+    private mixed $state;
     private string $id;
     private ?Node $parent = null;
     private float | int $gScore;
     private float | int $hScore;
 
-    public function __construct(mixed $userData)
+    /**
+     * @param mixed $state The state refers to the actual user data that represents a node in the user's business logic.
+     */
+    public function __construct(mixed $state)
     {
-        $this->userData = $userData;
-        $this->id = serialize($userData);
+        $this->state = $state;
+        $this->id = serialize($state);
     }
 
-    public function getUserData(): mixed
+    /**
+     * @return mixed Returns the state, which is the user data that represents a node in the user's business logic.
+     */
+    public function getState(): mixed
     {
-        return $this->userData;
+        return $this->state;
     }
 
     public function getId(): string
