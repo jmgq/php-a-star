@@ -2,58 +2,65 @@
 
 namespace JMGQ\AStar;
 
-interface Node
+/**
+ * @internal
+ */
+class Node
 {
-    /**
-     * Obtains the node's unique ID
-     * @return string
-     */
-    public function getID();
+    private mixed $userData;
+    private string $id;
+    private ?Node $parent = null;
+    private float | int $gScore;
+    private float | int $hScore;
 
-    /**
-     * @param Node $parent
-     */
-    public function setParent(Node $parent);
+    public function __construct(mixed $userData)
+    {
+        $this->userData = $userData;
+        $this->id = serialize($userData);
+    }
 
-    /**
-     * @return Node | null
-     */
-    public function getParent();
+    public function getUserData(): mixed
+    {
+        return $this->userData;
+    }
 
-    /**
-     * @deprecated
-     * @param Node $child
-     */
-    public function addChild(Node $child);
+    public function getId(): string
+    {
+        return $this->id;
+    }
 
-    /**
-     * @deprecated
-     * @return Node[]
-     */
-    public function getChildren();
+    public function setParent(Node $parent): void
+    {
+        $this->parent = $parent;
+    }
 
-    /**
-     * @return integer | float
-     */
-    public function getF();
+    public function getParent(): ?Node
+    {
+        return $this->parent;
+    }
 
-    /**
-     * @param integer | float $score
-     */
-    public function setG($score);
+    public function getF(): float|int
+    {
+        return $this->getG() + $this->getH();
+    }
 
-    /**
-     * @return integer | float
-     */
-    public function getG();
+    public function setG(float|int $score): void
+    {
+        $this->gScore = $score;
+    }
 
-    /**
-     * @param integer | float $score
-     */
-    public function setH($score);
+    public function getG(): float|int
+    {
+        return $this->gScore;
+    }
 
-    /**
-     * @return integer | float
-     */
-    public function getH();
+    public function setH(float|int $score): void
+    {
+        $this->hScore = $score;
+    }
+
+    public function getH(): float|int
+    {
+        return $this->hScore;
+    }
 }

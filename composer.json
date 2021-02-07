@@ -36,10 +36,7 @@
         "coding-standards": "phpcs --standard=PSR2 --ignore=vendor .",
         "example:graph": "@php examples/Graph/example.php",
         "example:terrain": "@php examples/Terrain/example.php",
-        "test": [
-            "@putenv XDEBUG_MODE=coverage",
-            "phpunit"
-        ]
+        "test": "XDEBUG_MODE=coverage phpunit"
     },
     "scripts-descriptions": {
         "benchmark": "Runs the benchmark.",

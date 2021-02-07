@@ -3,21 +3,27 @@
 namespace JMGQ\AStar\Tests;
 
 use JMGQ\AStar\Node;
-use JMGQ\AStar\NodeList;
+use JMGQ\AStar\NodeCollectionInterface;
+use JMGQ\AStar\NodeHashTable;
 use PHPUnit\Framework\TestCase;
 
-class NodeListTest extends TestCase
+class NodeHashTableTest extends TestCase
 {
-    private NodeList $sut;
+    private NodeHashTable $sut;
 
     protected function setUp(): void
     {
-        $this->sut = new NodeList();
+        $this->sut = new NodeHashTable();
+    }
+
+    public function testShouldBeACollectionOfNodes(): void
+    {
+        $this->assertInstanceOf(NodeCollectionInterface::class, $this->sut);
     }
 
     public function testShouldBeIterable(): void
     {
-        $this->assertInstanceOf('IteratorAggregate', $this->sut);
+        $this->assertIsIterable($this->sut);
     }
 
     public function testShouldBeInitiallyEmpty(): void
@@ -28,12 +34,12 @@ class NodeListTest extends TestCase
     public function testShouldAddNodes(): void
     {
         $node1 = $this->createStub(Node::class);
-        $node1->method('getID')
-            ->willReturn('ID1');
+        $node1->method('getId')
+            ->willReturn('Id1');
 
         $node2 = $this->createStub(Node::class);
-        $node2->method('getID')
-            ->willReturn('ID2');
+        $node2->method('getId')
+            ->willReturn('Id2');
 
         $this->assertCount(0, $this->sut);
 
@@ -61,15 +67,15 @@ class NodeListTest extends TestCase
 
     public function testShouldOverwriteIdenticalNodes(): void
     {
-        $uniqueID = 'someUniqueID';
+        $uniqueId = 'someUniqueId';
 
         $node1 = $this->createStub(Node::class);
-        $node1->method('getID')
-            ->willReturn($uniqueID);
+        $node1->method('getId')
+            ->willReturn($uniqueId);
 
         $node2 = $this->createStub(Node::class);
-        $node2->method('getID')
-            ->willReturn($uniqueID);
+        $node2->method('getId')
+            ->willReturn($uniqueId);
 
         $this->sut->add($node1);
 
@@ -87,32 +93,34 @@ class NodeListTest extends TestCase
     public function testShouldCheckIfItContainsANode(): void
     {
         $node = $this->createStub(Node::class);
-        $node->method('getID')
-            ->willReturn('someUniqueID');
+        $node->method('getId')
+            ->willReturn('someUniqueId');
 
+        $this->assertNotContains($node, $this->sut);
         $this->assertFalse($this->sut->contains($node));
 
         $this->sut->add($node);
 
+        $this->assertContains($node, $this->sut);
         $this->assertTrue($this->sut->contains($node));
     }
 
     public function testShouldExtractBestNode(): void
     {
         $bestNode = $this->createStub(Node::class);
-        $bestNode->method('getID')
+        $bestNode->method('getId')
             ->willReturn('bestNode');
         $bestNode->method('getF')
             ->willReturn(1);
 
         $mediumNode = $this->createStub(Node::class);
-        $mediumNode->method('getID')
+        $mediumNode->method('getId')
             ->willReturn('mediumNode');
         $mediumNode->method('getF')
             ->willReturn(3);
 
         $worstNode = $this->createStub(Node::class);
-        $worstNode->method('getID')
+        $worstNode->method('getId')
             ->willReturn('worstNode');
         $worstNode->method('getF')
             ->willReturn(10);
@@ -133,11 +141,11 @@ class NodeListTest extends TestCase
     public function testShouldRemoveNode(): void
     {
         $nodeToBeRemoved = $this->createStub(Node::class);
-        $nodeToBeRemoved->method('getID')
+        $nodeToBeRemoved->method('getId')
             ->willReturn('nodeToBeRemoved');
 
         $nodeToBeKept = $this->createStub(Node::class);
-        $nodeToBeKept->method('getID')
+        $nodeToBeKept->method('getId')
             ->willReturn('nodeToBeKept');
 
         $this->sut->add($nodeToBeRemoved);
@@ -155,8 +163,8 @@ class NodeListTest extends TestCase
     public function testShouldGetNode(): void
     {
         $node = $this->createStub(Node::class);
-        $node->method('getID')
-            ->willReturn('someUniqueID');
+        $node->method('getId')
+            ->willReturn('someUniqueId');
 
         $this->sut->add($node);
 
@@ -166,8 +174,8 @@ class NodeListTest extends TestCase
     public function testShouldGetNullIfNodeNotFound(): void
     {
         $nonExistentNode = $this->createStub(Node::class);
-        $nonExistentNode->method('getID')
-            ->willReturn('someUniqueID');
+        $nonExistentNode->method('getId')
+            ->willReturn('someUniqueId');
 
         $this->assertNull($this->sut->get($nonExistentNode));
     }
@@ -175,8 +183,8 @@ class NodeListTest extends TestCase
     public function testShouldEmptyTheList(): void
     {
         $node = $this->createStub(Node::class);
-        $node->method('getID')
-            ->willReturn('someUniqueID');
+        $node->method('getId')
+            ->willReturn('someUniqueId');
 
         $this->sut->add($node);
 

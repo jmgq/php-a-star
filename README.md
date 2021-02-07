@@ -26,55 +26,50 @@ Installation
 
 Usage
 -----
-1. Create a class that implements the `Node` interface. The easiest option is to create a class that extends `AbstractNode`. It requires to implement the `getID` method:
+1. Create a class that implements`DomainLogicInterface`:
     ```php
-    use JMGQ\AStar\AbstractNode;
-    
-    class MyNode extends AbstractNode
-    {
-        // ...
-        
-        public function getID()
-        {
-            // Return a unique identifier for this node
-        }
-        
-        // ...
-    }
-    ```
+    use JMGQ\AStar\DomainLogicInterface;
 
-2. Extend the `AStar` class, which requires to implement its three abstract methods:
-    ```php
-    use JMGQ\AStar\AStar;
-    
-    class MyAStar extends AStar
+    class DomainLogic implements DomainLogicInterface
     {
         // ...
-        
-        public function generateAdjacentNodes(Node $node)
+
+        public function getAdjacentNodes(mixed $node): iterable
         {
-            // Return an array of adjacent nodes
+            // Return a list of adjacent nodes
         }
-        
-        public function calculateRealCost(Node $node, Node $adjacent)
+
+        public function calculateRealCost(mixed $node, mixed $adjacent): float | int
         {
             // Return the actual cost between two adjacent nodes
         }
-        
-        public function calculateEstimatedCost(Node $start, Node $end)
+
+        public function calculateEstimatedCost(mixed $start, mixed $end): float | int
         {
             // Return the heuristic estimated cost between the two given nodes
         }
-        
+
         // ...
     }
     ```
 
-3. That's all! You can now use the `run` method in the `AStar` class to generate the best path between two nodes. This method will return an ordered array of nodes, from the start node to the goal node. If there is no solution, an empty array will be returned.
+2. Instantiate the `AStar` class, which requires the newly created Domain Logic object:
+    ```php
+    use JMGQ\AStar\AStar;
+
+    $domainLogic = new DomainLogic();
+
+    $aStar = new AStar($domainLogic);
+    ```
+
+3. That's all! You can now use the `run` method in the `AStar` class to generate the best path between two nodes. This method will return an ordered list of nodes, from the start node to the goal node. If there is no solution, an empty list will be returned.
+    ```php
+    $solution = $aStar->run($start, $goal);
+    ```
 
 Examples
 --------
-There are two working implementations in the `examples` folder.
+There are two working implementations in the [examples](examples) folder.
 
 ### Terrain Example
 In order to execute this example, run the following command:

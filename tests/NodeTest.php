@@ -2,42 +2,40 @@
 
 namespace JMGQ\AStar\Tests;
 
-use JMGQ\AStar\AbstractNode;
 use JMGQ\AStar\Node;
 use PHPUnit\Framework\TestCase;
 
-class AbstractNodeTest extends TestCase
+class NodeTest extends TestCase
 {
-    private AbstractNode $sut;
+    private Node $sut;
+    private string $mockUserData = 'foobar';
 
     public function validNumberProvider(): array
     {
-        return array(
-            array(1),
-            array(1.5),
-            array('1.5'),
-            array('200'),
-            array(0),
-            array(PHP_INT_MAX)
-        );
+        return [
+            [1],
+            [1.5],
+            ['1.5'],
+            ['200'],
+            [0],
+            [PHP_INT_MAX]
+        ];
     }
 
     public function invalidNumberProvider(): array
     {
-        return array(
-            array('a'),
-            array(array()),
-            array(false),
-            array(true),
-            array(null),
-            array(''),
-            array(' ')
-        );
+        return [
+            ['a'],
+            [[]],
+            [null],
+            [''],
+            [' ']
+        ];
     }
 
     protected function setUp(): void
     {
-        $this->sut = $this->getMockForAbstractClass(AbstractNode::class);
+        $this->sut = new Node($this->mockUserData);
     }
 
     public function testShouldHaveNoParentInitially(): void
@@ -56,31 +54,16 @@ class AbstractNodeTest extends TestCase
         $this->assertSame($parent, $this->sut->getParent());
     }
 
-    public function testShouldHaveNoChildrenInitially(): void
+    public function testShouldSetUserData(): void
     {
-        $this->assertCount(0, $this->sut->getChildren());
+        $this->assertSame($this->mockUserData, $this->sut->getUserData());
     }
 
-    public function testShouldAddChild(): void
+    public function testShouldSetItsIdToTheSerialisedUserData(): void
     {
-        $child = $this->createStub(Node::class);
+        $expectedId = serialize($this->mockUserData);
 
-        $this->assertCount(0, $this->sut->getChildren());
-
-        $this->sut->addChild($child);
-
-        $this->assertCount(1, $this->sut->getChildren());
-    }
-
-    public function testShouldSetItselfAsTheParentOfItsChildren(): void
-    {
-        $child = $this->getMockForAbstractClass(AbstractNode::class);
-
-        $this->assertNull($child->getParent());
-
-        $this->sut->addChild($child);
-
-        $this->assertSame($this->sut, $child->getParent());
+        $this->assertSame($expectedId, $this->sut->getId());
     }
 
     /**
@@ -90,7 +73,10 @@ class AbstractNodeTest extends TestCase
     {
         $this->sut->setG($validScore);
 
-        $this->assertSame($validScore, $this->sut->getG());
+        $actualScore = $this->sut->getG();
+
+        $this->assertIsNumeric($actualScore);
+        $this->assertEquals($validScore, $actualScore);
     }
 
     /**
@@ -98,7 +84,7 @@ class AbstractNodeTest extends TestCase
      */
     public function testShouldNotSetInvalidG($invalidScore): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\TypeError::class);
 
         $this->sut->setG($invalidScore);
     }
@@ -110,7 +96,10 @@ class AbstractNodeTest extends TestCase
     {
         $this->sut->setH($validScore);
 
-        $this->assertSame($validScore, $this->sut->getH());
+        $actualScore = $this->sut->getH();
+
+        $this->assertIsNumeric($actualScore);
+        $this->assertEquals($validScore, $actualScore);
     }
 
     /**
@@ -118,7 +107,7 @@ class AbstractNodeTest extends TestCase
      */
     public function testShouldNotSetInvalidH($invalidScore): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\TypeError::class);
 
         $this->sut->setH($invalidScore);
     }
