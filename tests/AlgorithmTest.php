@@ -9,9 +9,9 @@ class AlgorithmTest extends BaseAStarTest
         $this->sut = $this->getMockForAbstractClass('JMGQ\AStar\Algorithm');
     }
 
-    public function testOpenListShouldBeANodeList()
+    public function testOpenListShouldBeAPriorityQueue()
     {
-        $this->assertInstanceOf('JMGQ\AStar\NodeList', $this->sut->getOpenList());
+        $this->assertInstanceOf('JMGQ\AStar\NodePriorityQueue', $this->sut->getOpenList());
     }
 
     public function testClosedListShouldBeANodeList()
