@@ -55,25 +55,15 @@ class AStar
                 break;
             }
 
-            $successors = $this->computeAdjacentNodes($currentNode, $goal);
+            $successors = $this->getAdjacentNodesWithTentativeScore($currentNode, $goal);
 
             foreach ($successors as $successor) {
-                if ($this->openList->contains($successor)) {
-                    /** @var Node $successorInOpenList Cannot be null because the open list contains it */
-                    $successorInOpenList = $this->openList->get($successor->getId());
-
-                    if ($successor->getG() >= $successorInOpenList->getG()) {
-                        continue;
-                    }
+                if ($this->nodeAlreadyPresentInListWithBetterOrSameRealCost($successor, $this->openList)) {
+                    continue;
                 }
 
-                if ($this->closedList->contains($successor)) {
-                    /** @var Node $successorInClosedList Cannot be null because the closed list contains it */
-                    $successorInClosedList = $this->closedList->get($successor->getId());
-
-                    if ($successor->getG() >= $successorInClosedList->getG()) {
-                        continue;
-                    }
+                if ($this->nodeAlreadyPresentInListWithBetterOrSameRealCost($successor, $this->closedList)) {
+                    continue;
                 }
 
                 $successor->setParent($currentNode);
@@ -153,7 +143,7 @@ class AStar
      * @param Node $goal
      * @return Node[]
      */
-    private function computeAdjacentNodes(Node $node, Node $goal): iterable
+    private function getAdjacentNodesWithTentativeScore(Node $node, Node $goal): iterable
     {
         $nodes = $this->generateAdjacentNodes($node);
 
@@ -163,5 +153,21 @@ class AStar
         }
 
         return $nodes;
+    }
+
+    private function nodeAlreadyPresentInListWithBetterOrSameRealCost(
+        Node $node,
+        NodeCollectionInterface $nodeList
+    ): bool {
+        if ($nodeList->contains($node)) {
+            /** @var Node $nodeInList Cannot be null because the list contains it */
+            $nodeInList = $nodeList->get($node->getId());
+
+            if ($node->getG() >= $nodeInList->getG()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

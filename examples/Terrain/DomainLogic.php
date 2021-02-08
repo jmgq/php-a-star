@@ -28,29 +28,7 @@ class DomainLogic implements DomainLogicInterface
     {
         $adjacentNodes = [];
 
-        if ($node->getRow() === 0) {
-            $startingRow = 0;
-        } else {
-            $startingRow = $node->getRow() - 1;
-        }
-
-        if ($node->getRow() === $this->terrainCost->getTotalRows() - 1) {
-            $endingRow = $node->getRow();
-        } else {
-            $endingRow = $node->getRow() + 1;
-        }
-
-        if ($node->getColumn() === 0) {
-            $startingColumn = 0;
-        } else {
-            $startingColumn = $node->getColumn() - 1;
-        }
-
-        if ($node->getColumn() === $this->terrainCost->getTotalColumns() - 1) {
-            $endingColumn = $node->getColumn();
-        } else {
-            $endingColumn = $node->getColumn() + 1;
-        }
+        [$startingRow, $endingRow, $startingColumn, $endingColumn] = $this->calculateAdjacentBoundaries($node);
 
         for ($row = $startingRow; $row <= $endingRow; $row++) {
             for ($column = $startingColumn; $column <= $endingColumn; $column++) {
@@ -95,6 +73,39 @@ class DomainLogic implements DomainLogicInterface
         $columnFactor = ($a->getColumn() - $b->getColumn()) ** 2;
 
         return sqrt($rowFactor + $columnFactor);
+    }
+
+    /**
+     * @param Position $position
+     * @return int[]
+     */
+    private function calculateAdjacentBoundaries(Position $position): array
+    {
+        if ($position->getRow() === 0) {
+            $startingRow = 0;
+        } else {
+            $startingRow = $position->getRow() - 1;
+        }
+
+        if ($position->getRow() === $this->terrainCost->getTotalRows() - 1) {
+            $endingRow = $position->getRow();
+        } else {
+            $endingRow = $position->getRow() + 1;
+        }
+
+        if ($position->getColumn() === 0) {
+            $startingColumn = 0;
+        } else {
+            $startingColumn = $position->getColumn() - 1;
+        }
+
+        if ($position->getColumn() === $this->terrainCost->getTotalColumns() - 1) {
+            $endingColumn = $position->getColumn();
+        } else {
+            $endingColumn = $position->getColumn() + 1;
+        }
+
+        return [$startingRow, $endingRow, $startingColumn, $endingColumn];
     }
 
     /**
