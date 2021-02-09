@@ -2,7 +2,9 @@
 
 namespace JMGQ\AStar\Example\Terrain;
 
-class Position
+use JMGQ\AStar\NodeIdentifierInterface;
+
+class Position implements NodeIdentifierInterface
 {
     private int $row;
     private int $column;
@@ -34,6 +36,11 @@ class Position
     public function isAdjacentTo(Position $other): bool
     {
         return abs($this->getRow() - $other->getRow()) <= 1 && abs($this->getColumn() - $other->getColumn()) <= 1;
+    }
+
+    public function getUniqueNodeId(): string
+    {
+        return $this->row . 'x' . $this->column;
     }
 
     private function validateNonNegativeInteger(int $integer): void

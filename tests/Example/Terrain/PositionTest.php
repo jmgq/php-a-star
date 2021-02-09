@@ -3,6 +3,7 @@
 namespace JMGQ\AStar\Tests\Example\Terrain;
 
 use JMGQ\AStar\Example\Terrain\Position;
+use JMGQ\AStar\NodeIdentifierInterface;
 use PHPUnit\Framework\TestCase;
 
 class PositionTest extends TestCase
@@ -134,5 +135,21 @@ class PositionTest extends TestCase
     {
         $this->assertFalse($position->isAdjacentTo($nonAdjacent));
         $this->assertFalse($nonAdjacent->isAdjacentTo($position));
+    }
+
+    public function testShouldImplementTheNodeIdentifierInterface(): void
+    {
+        $this->assertInstanceOf(NodeIdentifierInterface::class, new Position(0, 0));
+    }
+
+    public function testShouldSetItsUniqueNodeIdBasedOnItsRowAndColumn(): void
+    {
+        $row = 5;
+        $column = 8;
+        $expectedNodeId = '5x8';
+
+        $sut = new Position($row, $column);
+
+        $this->assertSame($expectedNodeId, $sut->getUniqueNodeId());
     }
 }

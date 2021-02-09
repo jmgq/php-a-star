@@ -19,7 +19,7 @@ class Node
     public function __construct(mixed $state)
     {
         $this->state = $state;
-        $this->id = serialize($state);
+        $this->id = $state instanceof NodeIdentifierInterface ? $state->getUniqueNodeId() : serialize($state);
     }
 
     /**

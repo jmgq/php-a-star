@@ -3,6 +3,7 @@
 namespace JMGQ\AStar\Tests;
 
 use JMGQ\AStar\Node;
+use JMGQ\AStar\NodeIdentifierInterface;
 use PHPUnit\Framework\TestCase;
 
 class NodeTest extends TestCase
@@ -59,7 +60,21 @@ class NodeTest extends TestCase
         $this->assertSame($this->mockState, $this->sut->getState());
     }
 
-    public function testShouldSetItsIdToTheSerialisedState(): void
+    public function testShouldSetItsIdToTheOneProvidedByTheUser(): void
+    {
+        $uniqueNodeId = 'some-unique-id';
+
+        $mockStateWithId = $this->createMock(NodeIdentifierInterface::class);
+        $mockStateWithId->expects($this->once())
+            ->method('getUniqueNodeId')
+            ->willReturn($uniqueNodeId);
+
+        $this->sut = new Node($mockStateWithId);
+
+        $this->assertSame($uniqueNodeId, $this->sut->getId());
+    }
+
+    public function testShouldSetItsIdToTheSerialisedStateIfTheUserDoesNotProvideAnId(): void
     {
         $expectedId = serialize($this->mockState);
 

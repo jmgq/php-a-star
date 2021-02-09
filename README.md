@@ -26,7 +26,7 @@ Installation
 
 Usage
 -----
-1. Create a class that implements `DomainLogicInterface`. The parameters of the three methods in this interface are nodes. A node can be of any type: it could be a string, an integer, an object, etc. You decide the shape of a node, depending on your business logic.
+1. Create a class that implements `DomainLogicInterface`. The parameters of the three methods in this interface are nodes. A node can be of any type: it could be a string, an integer, an object, etc. You decide the shape of a node, depending on your business logic. You can optionally provide a way to identify your nodes ([check why and how](#specifying-the-unique-node-id)).
     ```php
     use JMGQ\AStar\DomainLogicInterface;
 
@@ -66,6 +66,45 @@ Usage
     ```php
     $solution = $aStar->run($start, $goal);
     ```
+
+### Specifying the unique node ID
+In order to work correctly, the A* algorithm needs to uniquely identify each node. This library will automatically generate a default ID for each node, which will be the result of serialising the node with PHP's [serialize](https://www.php.net/manual/function.serialize.php) function. This has two major disadvantages:
+1. **It is not always correct**: for instance, let's assume that a node is represented by an associative array with two keys: `x` and `y`. The following two nodes are the same, but their serialised value is not:
+    ```php
+    $node1 = ['x' => 4, 'y' => 5];
+    $node2 = ['y' => 5, 'x' => 4];
+    serialize($node1); // a:2:{s:1:"x";i:4;s:1:"y";i:5;}
+    serialize($node2); // a:2:{s:1:"y";i:5;s:1:"x";i:4;}
+    ```
+2. **Performance issues**: if the node structure is very complex, serialising it could take too long.
+
+Rather than relying on this default mechanism, you can avoid the serialisation process and instead provide the node ID yourself, by ensuring that your node implements `NodeIdentifierInterface`, which only declares one method:
+```php
+interface NodeIdentifierInterface
+{
+    public function getUniqueNodeId(): string;
+}
+```
+
+For instance, this is how it has been implemented in the Terrain example:
+```php
+use JMGQ\AStar\NodeIdentifierInterface;
+
+class Position implements NodeIdentifierInterface
+{
+    private int $row;
+    private int $column;
+
+    // ...
+
+    public function getUniqueNodeId(): string
+    {
+        return $this->row . 'x' . $this->column;
+    }
+
+    // ...
+}
+```
 
 Examples
 --------
