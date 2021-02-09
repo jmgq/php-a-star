@@ -2,6 +2,10 @@
 
 namespace JMGQ\AStar;
 
+use JMGQ\AStar\Node\Collection\NodeCollectionInterface;
+use JMGQ\AStar\Node\Collection\NodeHashTable;
+use JMGQ\AStar\Node\Node;
+
 class AStar
 {
     private DomainLogicInterface $domainLogic;

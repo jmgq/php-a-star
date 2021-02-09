@@ -2,7 +2,7 @@
 
 namespace JMGQ\AStar\Example\Terrain;
 
-use JMGQ\AStar\NodeIdentifierInterface;
+use JMGQ\AStar\Node\NodeIdentifierInterface;
 
 class Position implements NodeIdentifierInterface
 {

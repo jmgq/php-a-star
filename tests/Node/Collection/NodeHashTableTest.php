@@ -1,10 +1,10 @@
 <?php
 
-namespace JMGQ\AStar\Tests;
+namespace JMGQ\AStar\Tests\Node\Collection;
 
-use JMGQ\AStar\Node;
-use JMGQ\AStar\NodeCollectionInterface;
-use JMGQ\AStar\NodeHashTable;
+use JMGQ\AStar\Node\Collection\NodeCollectionInterface;
+use JMGQ\AStar\Node\Collection\NodeHashTable;
+use JMGQ\AStar\Node\Node;
 use PHPUnit\Framework\TestCase;
 
 class NodeHashTableTest extends TestCase

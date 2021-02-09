@@ -88,7 +88,7 @@ interface NodeIdentifierInterface
 
 For instance, this is how it has been implemented in the Terrain example:
 ```php
-use JMGQ\AStar\NodeIdentifierInterface;
+use JMGQ\AStar\Node\NodeIdentifierInterface;
 
 class Position implements NodeIdentifierInterface
 {

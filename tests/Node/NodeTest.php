@@ -1,9 +1,9 @@
 <?php
 
-namespace JMGQ\AStar\Tests;
+namespace JMGQ\AStar\Tests\Node;
 
-use JMGQ\AStar\Node;
-use JMGQ\AStar\NodeIdentifierInterface;
+use JMGQ\AStar\Node\Node;
+use JMGQ\AStar\Node\NodeIdentifierInterface;
 use PHPUnit\Framework\TestCase;
 
 class NodeTest extends TestCase

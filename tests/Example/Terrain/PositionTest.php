@@ -3,7 +3,7 @@
 namespace JMGQ\AStar\Tests\Example\Terrain;
 
 use JMGQ\AStar\Example\Terrain\Position;
-use JMGQ\AStar\NodeIdentifierInterface;
+use JMGQ\AStar\Node\NodeIdentifierInterface;
 use PHPUnit\Framework\TestCase;
 
 class PositionTest extends TestCase

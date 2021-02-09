@@ -1,6 +1,8 @@
 <?php
 
-namespace JMGQ\AStar;
+namespace JMGQ\AStar\Node\Collection;
+
+use JMGQ\AStar\Node\Node;
 
 class NodeHashTable implements \IteratorAggregate, NodeCollectionInterface
 {
