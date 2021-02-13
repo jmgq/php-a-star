@@ -9,6 +9,7 @@ before_script:
 script:
     - composer test
     - composer coding-standards
+    - composer static-analysis:phpstan
 
 after_script:
     - travis_retry php vendor/bin/php-coveralls -v

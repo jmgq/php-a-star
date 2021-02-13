@@ -5,6 +5,7 @@ namespace JMGQ\AStar\Example\Terrain;
 class SequencePrinter
 {
     private TerrainCost $terrainCost;
+    /** @var Position[] */
     private iterable $sequence;
     private string $emptyTileToken = '-';
     private int $tileSize = 3;
@@ -60,7 +61,7 @@ class SequencePrinter
 
         $step = 1;
         foreach ($this->sequence as $position) {
-            $board[$position->getRow()][$position->getColumn()] = $this->getTile($step);
+            $board[$position->getRow()][$position->getColumn()] = $this->getTile((string) $step);
 
             $step++;
         }
@@ -74,6 +75,9 @@ class SequencePrinter
         echo implode("\n", $stringBoard);
     }
 
+    /**
+     * @return string[][]
+     */
     private function generateEmptyBoard(): array
     {
         $emptyTile = $this->getTile($this->getEmptyTileToken());

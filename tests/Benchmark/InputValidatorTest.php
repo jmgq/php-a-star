@@ -11,9 +11,14 @@ use Symfony\Component\Console\Style\StyleInterface;
 class InputValidatorTest extends TestCase
 {
     private InputValidator $sut;
+    /** @var MockObject & InputInterface */
     private MockObject | InputInterface $input;
+    /** @var MockObject & StyleInterface */
     private MockObject | StyleInterface $output;
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidNaturalNumberProvider(): array
     {
         return [
@@ -26,6 +31,9 @@ class InputValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidOptionalIntegerProvider(): array
     {
         return [
@@ -88,7 +96,7 @@ class InputValidatorTest extends TestCase
     /**
      * @dataProvider invalidNaturalNumberProvider
      */
-    public function testShouldNotValidateIncorrectSizes($invalidSize): void
+    public function testShouldNotValidateIncorrectSizes(mixed $invalidSize): void
     {
         $invalidSizes = [$invalidSize, '10', $invalidSize];
         $validIterations = '15';
@@ -108,7 +116,7 @@ class InputValidatorTest extends TestCase
     /**
      * @dataProvider invalidNaturalNumberProvider
      */
-    public function testShouldNotValidateIncorrectIterations($invalidIterations): void
+    public function testShouldNotValidateIncorrectIterations(mixed $invalidIterations): void
     {
         $validSizes = ['8'];
         $validSeed = '123456';
@@ -127,7 +135,7 @@ class InputValidatorTest extends TestCase
     /**
      * @dataProvider invalidOptionalIntegerProvider
      */
-    public function testShouldNotValidateIncorrectSeed($invalidSeed): void
+    public function testShouldNotValidateIncorrectSeed(mixed $invalidSeed): void
     {
         $validSizes = ['8'];
         $validIterations = '15';
@@ -159,7 +167,12 @@ class InputValidatorTest extends TestCase
         $this->assertTrue($result);
     }
 
-    private function setInputExpectations(array $sizes, $iterations, $seed): void
+    /**
+     * @param mixed[] $sizes
+     * @param mixed $iterations
+     * @param mixed $seed
+     */
+    private function setInputExpectations(array $sizes, mixed $iterations, mixed $seed): void
     {
         $this->input->expects($this->exactly(3))
             ->method('getOption')

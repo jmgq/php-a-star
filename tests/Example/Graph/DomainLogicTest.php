@@ -94,14 +94,16 @@ class DomainLogicTest extends TestCase
             new Coordinate(10, 10)
         ];
 
+        $expectedSolutionIds = array_map(static fn (Coordinate $coordinate) => $coordinate->getId(), $expectedSolution);
+
         $aStar = new AStar($this->sut);
         $solution = $aStar->run($start, $goal);
 
         $this->assertCount(count($expectedSolution), $solution);
 
-        for ($i = 0; $i < count($expectedSolution); $i++) {
-            $this->assertSame($expectedSolution[$i]->getId(), $solution[$i]->getId());
-        }
+        $solutionIds = array_map(static fn (Coordinate $coordinate) => $coordinate->getId(), (array) ($solution));
+
+        $this->assertEquals($expectedSolutionIds, $solutionIds);
     }
 
     public function testShouldGetSolutionWithNodesFormingCircularPaths(): void
@@ -128,21 +130,23 @@ class DomainLogicTest extends TestCase
             $nodes['goal']
         ];
 
+        $expectedSolutionIds = array_map(static fn (Coordinate $coordinate) => $coordinate->getId(), $expectedSolution);
+
         $this->sut = new DomainLogic($graph);
 
         $aStar = new AStar($this->sut);
         $solution = $aStar->run($nodes['start'], $nodes['goal']);
 
-        for ($i = 0; $i < count($expectedSolution); $i++) {
-            $this->assertSame($expectedSolution[$i]->getId(), $solution[$i]->getId());
-        }
+        $solutionIds = array_map(static fn (Coordinate $coordinate) => $coordinate->getId(), (array) ($solution));
+
+        $this->assertEquals($expectedSolutionIds, $solutionIds);
     }
 
     /**
      * @param Coordinate $needle
      * @param Coordinate[] $haystack
      */
-    private function assertContainsCoordinate(Coordinate $needle, array $haystack): void
+    private function assertContainsCoordinate(Coordinate $needle, iterable $haystack): void
     {
         foreach ($haystack as $node) {
             if ($needle->getId() === $node->getId()) {

@@ -11,9 +11,14 @@ use Symfony\Component\Console\Style\StyleInterface;
 class ResultPrinterTest extends TestCase
 {
     private ResultPrinter $sut;
+    /** @var MockObject & StyleInterface */
     private MockObject | StyleInterface $output;
+    /** @var string[] */
     private array $expectedHeaders;
 
+    /**
+     * @return mixed[][]
+     */
     public function hasSolutionProvider(): array
     {
         return [
@@ -109,7 +114,7 @@ class ResultPrinterTest extends TestCase
         int $maximumDuration,
         int $numberOfSolutions,
         int $numberOfTerrains
-    ): MockObject | AggregatedResult {
+    ): AggregatedResult {
         $result = $this->createMock(AggregatedResult::class);
         $result->expects($this->atLeastOnce())
             ->method('getSize')

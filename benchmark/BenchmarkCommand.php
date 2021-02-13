@@ -52,8 +52,11 @@ class BenchmarkCommand extends Command
             return self::ERROR_EXIT_CODE;
         }
 
+        /** @var int[] $sizes */
         $sizes = $input->getOption(self::SIZE_OPTION);
+        /** @var int $iterations */
         $iterations = $input->getOption(self::ITERATIONS_OPTION);
+        /** @var int | null $seed */
         $seed = $input->getOption(self::SEED_OPTION);
 
         $progressBar = new SymfonyProgressBar($styledOutput->createProgressBar());
@@ -69,7 +72,7 @@ class BenchmarkCommand extends Command
     private function addSizeOption(): BenchmarkCommand
     {
         $description = 'Number of rows and columns of the terrain';
-        $defaultValue = [5, 10, 15, 20, 25];
+        $defaultValue = ['5', '10', '15', '20', '25'];
 
         $this->addOption(
             self::SIZE_OPTION,

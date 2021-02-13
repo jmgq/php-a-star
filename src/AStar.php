@@ -6,12 +6,19 @@ use JMGQ\AStar\Node\Collection\NodeCollectionInterface;
 use JMGQ\AStar\Node\Collection\NodeHashTable;
 use JMGQ\AStar\Node\Node;
 
+/**
+ * @template TNode
+ */
 class AStar
 {
+    /** @var DomainLogicInterface<TNode> */
     private DomainLogicInterface $domainLogic;
     private NodeCollectionInterface $openList;
     private NodeCollectionInterface $closedList;
 
+    /**
+     * @param DomainLogicInterface<TNode> $domainLogic
+     */
     public function __construct(DomainLogicInterface $domainLogic)
     {
         $this->domainLogic = $domainLogic;
@@ -20,9 +27,9 @@ class AStar
     }
 
     /**
-     * @param mixed $start
-     * @param mixed $goal
-     * @return mixed[]
+     * @param TNode $start
+     * @param TNode $goal
+     * @return TNode[]
      */
     public function run(mixed $start, mixed $goal): iterable
     {
@@ -35,7 +42,7 @@ class AStar
     /**
      * @param Node $start
      * @param Node $goal
-     * @return mixed[]
+     * @return TNode[]
      */
     private function executeAlgorithm(Node $start, Node $goal): iterable
     {
@@ -125,7 +132,7 @@ class AStar
 
     /**
      * @param Node $node
-     * @return mixed[]
+     * @return TNode[]
      */
     private function generatePathFromStartNodeTo(Node $node): iterable
     {

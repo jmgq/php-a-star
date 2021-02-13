@@ -6,8 +6,12 @@ class TerrainCost
 {
     public const INFINITE = PHP_INT_MAX;
 
+    /** @var int[][] */
     private array $terrainCost;
 
+    /**
+     * @param int[][] $terrainCost
+     */
     public function __construct(array $terrainCost)
     {
         if (self::isEmpty($terrainCost)) {
@@ -23,7 +27,7 @@ class TerrainCost
         $this->terrainCost = self::validateTerrainCosts($terrainCost);
     }
 
-    public function getCost(int $row, int $column)
+    public function getCost(int $row, int $column): int
     {
         if (!isset($this->terrainCost[$row][$column])) {
             throw new \InvalidArgumentException("Invalid tile: $row, $column");
@@ -42,6 +46,10 @@ class TerrainCost
         return count($this->terrainCost[0]);
     }
 
+    /**
+     * @param int[][] $terrainCost
+     * @return bool
+     */
     private static function isEmpty(array $terrainCost): bool
     {
         if (!empty($terrainCost)) {
@@ -53,6 +61,10 @@ class TerrainCost
         return true;
     }
 
+    /**
+     * @param mixed[][] $terrain
+     * @return int[][]
+     */
     private static function validateTerrainCosts(array $terrain): array
     {
         $validTerrain = [];
@@ -72,6 +84,10 @@ class TerrainCost
         return $validTerrain;
     }
 
+    /**
+     * @param int[][] $associativeArray
+     * @return int[][]
+     */
     private static function convertToNumericArray(array $associativeArray): array
     {
         $numericArray = [];
@@ -83,8 +99,13 @@ class TerrainCost
         return $numericArray;
     }
 
+    /**
+     * @param int[][] $terrain
+     * @return bool
+     */
     private static function isRectangular(array $terrain): bool
     {
+        // @phpstan-ignore-next-line reset won't return false as we have already checked that the terrain is not empty
         $numberOfColumnsInFirstRow = count(reset($terrain));
 
         foreach ($terrain as $row) {

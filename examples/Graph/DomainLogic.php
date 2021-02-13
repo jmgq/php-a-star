@@ -4,6 +4,9 @@ namespace JMGQ\AStar\Example\Graph;
 
 use JMGQ\AStar\DomainLogicInterface;
 
+/**
+ * @implements DomainLogicInterface<Coordinate>
+ */
 class DomainLogic implements DomainLogicInterface
 {
     public function __construct(private Graph $graph)
@@ -30,6 +33,7 @@ class DomainLogic implements DomainLogicInterface
             throw new \DomainException('The provided nodes are not linked');
         }
 
+        // @phpstan-ignore-next-line getLink cannot be null, as we just checked that the link exists
         return $this->graph->getLink($node, $adjacent)->getDistance();
     }
 

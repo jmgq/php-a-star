@@ -15,7 +15,7 @@ class InputValidator
     {
         $hasValidInput = true;
 
-        $sizes = $input->getOption(BenchmarkCommand::SIZE_OPTION);
+        $sizes = (array) $input->getOption(BenchmarkCommand::SIZE_OPTION);
         $iterations = $input->getOption(BenchmarkCommand::ITERATIONS_OPTION);
         $seed = $input->getOption(BenchmarkCommand::SEED_OPTION);
 
@@ -39,14 +39,14 @@ class InputValidator
         return $hasValidInput;
     }
 
-    private function isPositiveInteger($value): bool
+    private function isPositiveInteger(mixed $value): bool
     {
         $positiveInteger = filter_var($value, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
 
         return $positiveInteger !== false;
     }
 
-    private function isOptionalInteger($value): bool
+    private function isOptionalInteger(mixed $value): bool
     {
         $integer = filter_var($value, FILTER_VALIDATE_INT);
 

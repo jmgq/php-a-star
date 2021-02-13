@@ -11,6 +11,9 @@ class NodeTest extends TestCase
     private Node $sut;
     private string $mockState = 'foobar';
 
+    /**
+     * @return mixed[][]
+     */
     public function validNumberProvider(): array
     {
         return [
@@ -23,6 +26,9 @@ class NodeTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidNumberProvider(): array
     {
         return [
@@ -84,7 +90,7 @@ class NodeTest extends TestCase
     /**
      * @dataProvider validNumberProvider
      */
-    public function testShouldSetValidG($validScore): void
+    public function testShouldSetValidG(mixed $validScore): void
     {
         $this->sut->setG($validScore);
 
@@ -97,7 +103,7 @@ class NodeTest extends TestCase
     /**
      * @dataProvider invalidNumberProvider
      */
-    public function testShouldNotSetInvalidG($invalidScore): void
+    public function testShouldNotSetInvalidG(mixed $invalidScore): void
     {
         $this->expectException(\TypeError::class);
 
@@ -107,7 +113,7 @@ class NodeTest extends TestCase
     /**
      * @dataProvider validNumberProvider
      */
-    public function testShouldSetValidH($validScore): void
+    public function testShouldSetValidH(mixed $validScore): void
     {
         $this->sut->setH($validScore);
 
@@ -120,7 +126,7 @@ class NodeTest extends TestCase
     /**
      * @dataProvider invalidNumberProvider
      */
-    public function testShouldNotSetInvalidH($invalidScore): void
+    public function testShouldNotSetInvalidH(mixed $invalidScore): void
     {
         $this->expectException(\TypeError::class);
 

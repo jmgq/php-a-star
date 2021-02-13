@@ -11,6 +11,9 @@ class SequencePrinterTest extends TestCase
 {
     private SequencePrinter $sut;
 
+    /**
+     * @return string[][]
+     */
     public function validStringProvider(): array
     {
         return [
@@ -22,6 +25,9 @@ class SequencePrinterTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function validNaturalNumberProvider(): array
     {
         return [
@@ -32,6 +38,9 @@ class SequencePrinterTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidNaturalNumberForTileProvider(): array
     {
         return [
@@ -97,7 +106,7 @@ class SequencePrinterTest extends TestCase
     /**
      * @dataProvider validNaturalNumberProvider
      */
-    public function testShouldSetValidTileSize($tileSize): void
+    public function testShouldSetValidTileSize(mixed $tileSize): void
     {
         $expectedTileSize = (int) $tileSize;
 
@@ -108,9 +117,12 @@ class SequencePrinterTest extends TestCase
 
     /**
      * @dataProvider invalidNaturalNumberForTileProvider
+     * @param mixed $invalidTileSize
+     * @param class-string<\Throwable> $expectedException
+     * @param string $expectedExceptionMessage
      */
     public function testShouldNotSetInvalidTileSize(
-        $invalidTileSize,
+        mixed $invalidTileSize,
         string $expectedException,
         string $expectedExceptionMessage
     ): void {

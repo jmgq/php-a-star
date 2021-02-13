@@ -17,8 +17,8 @@ class ResultAggregator
         foreach ($sizeToResultsMap as $size => $groupedResults) {
             $durations = $this->getDurations($groupedResults);
             $averageDuration = $this->averageDuration($durations);
-            $minimumDuration = min($durations);
-            $maximumDuration = max($durations);
+            $minimumDuration = (int) min($durations);
+            $maximumDuration = (int) max($durations);
             $numberOfSolutions = $this->getNumberOfResultsWithASolution($groupedResults);
             $numberOfTerrains = count($groupedResults);
 

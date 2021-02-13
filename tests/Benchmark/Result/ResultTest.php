@@ -7,6 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 class ResultTest extends TestCase
 {
+    /**
+     * @return mixed[][]
+     */
     public function validValuesProvider(): array
     {
         return [
@@ -16,6 +19,9 @@ class ResultTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidNaturalNumberProvider(): array
     {
         return [
@@ -27,6 +33,9 @@ class ResultTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidNonNegativeIntegerProvider(): array
     {
         return [
@@ -40,7 +49,7 @@ class ResultTest extends TestCase
     /**
      * @dataProvider validValuesProvider
      */
-    public function testShouldSetValidValues($size, $duration, bool $hasSolution): void
+    public function testShouldSetValidValues(mixed $size, mixed $duration, bool $hasSolution): void
     {
         $expectedSize = (int) $size;
         $expectedDuration = (int) $duration;
@@ -54,9 +63,12 @@ class ResultTest extends TestCase
 
     /**
      * @dataProvider invalidNaturalNumberProvider
+     * @param mixed $invalidSize
+     * @param class-string<\Throwable> $expectedException
+     * @param string $expectedExceptionMessage
      */
     public function testShouldNotSetInvalidSize(
-        $invalidSize,
+        mixed $invalidSize,
         string $expectedException,
         string $expectedExceptionMessage
     ): void {
@@ -71,9 +83,12 @@ class ResultTest extends TestCase
 
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
+     * @param mixed $invalidDuration
+     * @param class-string<\Throwable> $expectedException
+     * @param string $expectedExceptionMessage
      */
     public function testShouldNotSetInvalidDuration(
-        $invalidDuration,
+        mixed $invalidDuration,
         string $expectedException,
         string $expectedExceptionMessage
     ): void {
@@ -83,6 +98,7 @@ class ResultTest extends TestCase
         $this->expectException($expectedException);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
+        // @phpstan-ignore-next-line A numeric string for the size is a valid user input
         new Result($validSize, $invalidDuration, $validHasSolution);
     }
 
@@ -92,6 +108,7 @@ class ResultTest extends TestCase
         $duration = 3;
         $hasSolution = 1;
 
+        // @phpstan-ignore-next-line We actually want to pass an integer for $hasSolution as part of this test
         $sut = new Result($size, $duration, $hasSolution);
 
         $this->assertTrue($sut->hasSolution());

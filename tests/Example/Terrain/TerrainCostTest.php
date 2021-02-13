@@ -7,6 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 class TerrainCostTest extends TestCase
 {
+    /**
+     * @return mixed[][][][]
+     */
     public function validTerrainInformationProvider(): array
     {
         return [
@@ -40,6 +43,9 @@ class TerrainCostTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function emptyTerrainProvider(): array
     {
         return [
@@ -54,6 +60,9 @@ class TerrainCostTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][][][]
+     */
     public function invalidTerrainCostsProvider(): array
     {
         return [
@@ -71,6 +80,9 @@ class TerrainCostTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][][][]
+     */
     public function nonRectangularTerrainProvider(): array
     {
         return [
@@ -98,6 +110,9 @@ class TerrainCostTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidPointProvider(): array
     {
         return [
@@ -110,12 +125,15 @@ class TerrainCostTest extends TestCase
 
     /**
      * @dataProvider validTerrainInformationProvider
+     * @param mixed[][] $terrainInformation
      */
     public function testShouldSetValidTerrainInformation(array $terrainInformation): void
     {
         $sut = new TerrainCost($terrainInformation);
 
         $expectedRows = count($terrainInformation);
+
+        // @phpstan-ignore-next-line reset won't return false as the terrain information will be valid
         $expectedColumns = count(reset($terrainInformation));
 
         $this->assertSame($expectedRows, $sut->getTotalRows());
@@ -137,6 +155,7 @@ class TerrainCostTest extends TestCase
 
     /**
      * @dataProvider emptyTerrainProvider
+     * @param mixed[] $emptyTerrain
      */
     public function testShouldNotSetEmptyTerrain(array $emptyTerrain): void
     {
@@ -148,6 +167,7 @@ class TerrainCostTest extends TestCase
 
     /**
      * @dataProvider invalidTerrainCostsProvider
+     * @param mixed[][] $invalidTerrain
      */
     public function testShouldOnlySetIntegerCosts(array $invalidTerrain): void
     {
@@ -159,6 +179,7 @@ class TerrainCostTest extends TestCase
 
     /**
      * @dataProvider nonRectangularTerrainProvider
+     * @param int[][] $nonRectangularTerrain
      */
     public function testShouldOnlySetRectangularTerrains(array $nonRectangularTerrain): void
     {
@@ -170,10 +191,14 @@ class TerrainCostTest extends TestCase
 
     /**
      * @dataProvider invalidPointProvider
+     * @param mixed $row
+     * @param mixed $column
+     * @param class-string<\Throwable> $expectedException
+     * @param string $expectedExceptionMessage
      */
     public function testShouldThrowExceptionIfTheRequestedTileDoesNotExist(
-        $row,
-        $column,
+        mixed $row,
+        mixed $column,
         string $expectedException,
         string $expectedExceptionMessage,
     ): void {

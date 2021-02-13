@@ -12,6 +12,9 @@ class DomainLogicTest extends TestCase
 {
     private DomainLogic $sut;
 
+    /**
+     * @return mixed[][]
+     */
     public function adjacentNodesProvider(): array
     {
         return [
@@ -65,6 +68,8 @@ class DomainLogicTest extends TestCase
 
     /**
      * @dataProvider adjacentNodesProvider
+     * @param Position $node
+     * @param Position[] $expectedAdjacentNodes
      */
     public function testShouldGenerateAdjacentNodes(Position $node, array $expectedAdjacentNodes): void
     {
@@ -121,16 +126,14 @@ class DomainLogicTest extends TestCase
         $adjacentNodes = $this->sut->getAdjacentNodes($node);
         $sameAdjacentNodes = $this->sut->getAdjacentNodes($node);
 
-        for ($i = 0; $i < count($adjacentNodes); $i++) {
-            $this->assertSame($adjacentNodes[$i], $sameAdjacentNodes[$i]);
-        }
+        $this->assertEquals($adjacentNodes, $sameAdjacentNodes);
     }
 
     /**
      * @param Position $needle
      * @param Position[] $haystack
      */
-    private function assertContainsPosition(Position $needle, array $haystack): void
+    private function assertContainsPosition(Position $needle, iterable $haystack): void
     {
         foreach ($haystack as $position) {
             if ($needle->isEqualTo($position)) {

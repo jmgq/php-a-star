@@ -4,6 +4,9 @@ namespace JMGQ\AStar\Example\Terrain;
 
 use JMGQ\AStar\DomainLogicInterface;
 
+/**
+ * @implements DomainLogicInterface<Position>
+ */
 class DomainLogic implements DomainLogicInterface
 {
     private TerrainCost $terrainCost;

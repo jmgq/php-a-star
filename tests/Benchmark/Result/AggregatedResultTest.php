@@ -7,6 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 class AggregatedResultTest extends TestCase
 {
+    /**
+     * @return mixed[][]
+     */
     public function invalidNaturalNumberProvider(): array
     {
         return [
@@ -18,6 +21,9 @@ class AggregatedResultTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidNonNegativeIntegerProvider(): array
     {
         return [
@@ -56,8 +62,10 @@ class AggregatedResultTest extends TestCase
 
     /**
      * @dataProvider invalidNaturalNumberProvider
+     * @param mixed $invalidSize
+     * @param class-string<\Throwable> $expectedException
      */
-    public function testShouldNotSetInvalidSize($invalidSize, string $expectedException): void
+    public function testShouldNotSetInvalidSize(mixed $invalidSize, string $expectedException): void
     {
         $validAverageDuration = 2;
         $validMinimumDuration = 1;
@@ -79,9 +87,13 @@ class AggregatedResultTest extends TestCase
 
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
+     * @param mixed $invalidAverageDuration
+     * @param class-string<\Throwable> $expectedException
      */
-    public function testShouldNotSetInvalidAverageDuration($invalidAverageDuration, string $expectedException): void
-    {
+    public function testShouldNotSetInvalidAverageDuration(
+        mixed $invalidAverageDuration,
+        string $expectedException
+    ): void {
         $validSize = 5;
         $validMinimumDuration = 1;
         $validMaximumDuration = 3;
@@ -102,9 +114,13 @@ class AggregatedResultTest extends TestCase
 
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
+     * @param mixed $invalidMinimumDuration
+     * @param class-string<\Throwable> $expectedException
      */
-    public function testShouldNotSetInvalidMinimumDuration($invalidMinimumDuration, string $expectedException): void
-    {
+    public function testShouldNotSetInvalidMinimumDuration(
+        mixed $invalidMinimumDuration,
+        string $expectedException
+    ): void {
         $validSize = 5;
         $validAverageDuration = 2;
         $validMaximumDuration = 3;
@@ -125,9 +141,13 @@ class AggregatedResultTest extends TestCase
 
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
+     * @param mixed $invalidMaximumDuration
+     * @param class-string<\Throwable> $expectedException
      */
-    public function testShouldNotSetInvalidMaximumDuration($invalidMaximumDuration, string $expectedException): void
-    {
+    public function testShouldNotSetInvalidMaximumDuration(
+        mixed $invalidMaximumDuration,
+        string $expectedException
+    ): void {
         $validSize = 5;
         $validAverageDuration = 2;
         $validMinimumDuration = 1;
@@ -148,9 +168,13 @@ class AggregatedResultTest extends TestCase
 
     /**
      * @dataProvider invalidNonNegativeIntegerProvider
+     * @param mixed $invalidNumberOfSolutions
+     * @param class-string<\Throwable> $expectedException
      */
-    public function testShouldNotSetInvalidNumberOfSolutions($invalidNumberOfSolutions, string $expectedException): void
-    {
+    public function testShouldNotSetInvalidNumberOfSolutions(
+        mixed $invalidNumberOfSolutions,
+        string $expectedException
+    ): void {
         $validSize = 5;
         $validAverageDuration = 2;
         $validMinimumDuration = 1;
@@ -171,9 +195,13 @@ class AggregatedResultTest extends TestCase
 
     /**
      * @dataProvider invalidNaturalNumberProvider
+     * @param mixed $invalidNumberOfTerrains
+     * @param class-string<\Throwable> $expectedException
      */
-    public function testShouldNotSetInvalidNumberOfTerrains($invalidNumberOfTerrains, string $expectedException): void
-    {
+    public function testShouldNotSetInvalidNumberOfTerrains(
+        mixed $invalidNumberOfTerrains,
+        string $expectedException
+    ): void {
         $validSize = 5;
         $validAverageDuration = 2;
         $validMinimumDuration = 1;

@@ -10,7 +10,8 @@ use PHPUnit\Framework\TestCase;
 class BenchmarkRunnerTest extends TestCase
 {
     private BenchmarkRunner $sut;
-    private ProgressBarInterface | MockObject $progressBar;
+    /** @var MockObject & ProgressBarInterface */
+    private MockObject | ProgressBarInterface $progressBar;
 
     protected function setUp(): void
     {

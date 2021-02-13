@@ -49,13 +49,13 @@ class GraphTest extends TestCase
         $this->sut->addLink($link1);
 
         $this->assertTrue($this->sut->hasLink($source, $destination));
-        $this->assertEquals($distance1, $this->sut->getLink($source, $destination)->getDistance());
+        $this->assertEquals($distance1, $this->sut->getLink($source, $destination)?->getDistance());
 
         $this->sut->addLink($link2);
 
         $this->assertTrue($this->sut->hasLink($source, $destination));
-        $this->assertNotEquals($distance1, $this->sut->getLink($source, $destination)->getDistance());
-        $this->assertEquals($distance2, $this->sut->getLink($source, $destination)->getDistance());
+        $this->assertNotEquals($distance1, $this->sut->getLink($source, $destination)?->getDistance());
+        $this->assertEquals($distance2, $this->sut->getLink($source, $destination)?->getDistance());
     }
 
     public function testShouldSetLinksInConstructor(): void
@@ -75,8 +75,8 @@ class GraphTest extends TestCase
 
         $this->sut = new Graph($links);
 
-        $this->assertSame($distance1, $this->sut->getLink($source1, $destination1)->getDistance());
-        $this->assertSame($distance2, $this->sut->getLink($source2, $destination2)->getDistance());
+        $this->assertSame($distance1, $this->sut->getLink($source1, $destination1)?->getDistance());
+        $this->assertSame($distance2, $this->sut->getLink($source2, $destination2)?->getDistance());
     }
 
     public function testShouldGetDirectSuccessors(): void

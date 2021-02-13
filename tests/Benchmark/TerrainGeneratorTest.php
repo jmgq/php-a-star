@@ -9,6 +9,9 @@ class TerrainGeneratorTest extends TestCase
 {
     private TerrainGenerator $sut;
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidNaturalNumberProvider(): array
     {
         return [
@@ -20,6 +23,9 @@ class TerrainGeneratorTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidOptionalIntegerProvider(): array
     {
         return [
@@ -48,8 +54,10 @@ class TerrainGeneratorTest extends TestCase
 
     /**
      * @dataProvider invalidNaturalNumberProvider
+     * @param mixed $invalidRows
+     * @param class-string<\Throwable> $expectedException
      */
-    public function testShouldNotGenerateWithInvalidRows($invalidRows, string $expectedException): void
+    public function testShouldNotGenerateWithInvalidRows(mixed $invalidRows, string $expectedException): void
     {
         $columns = 5;
 
@@ -60,8 +68,10 @@ class TerrainGeneratorTest extends TestCase
 
     /**
      * @dataProvider invalidNaturalNumberProvider
+     * @param mixed $invalidColumns
+     * @param class-string<\Throwable> $expectedException
      */
-    public function testShouldNotGenerateWithInvalidColumns($invalidColumns, string $expectedException): void
+    public function testShouldNotGenerateWithInvalidColumns(mixed $invalidColumns, string $expectedException): void
     {
         $rows = 3;
 
@@ -72,8 +82,10 @@ class TerrainGeneratorTest extends TestCase
 
     /**
      * @dataProvider invalidOptionalIntegerProvider
+     * @param mixed $invalidSeed
+     * @param class-string<\Throwable> $expectedException
      */
-    public function testShouldNotGenerateWithInvalidSeed($invalidSeed, string $expectedException): void
+    public function testShouldNotGenerateWithInvalidSeed(mixed $invalidSeed, string $expectedException): void
     {
         $rows = 3;
         $columns = 5;

@@ -20,12 +20,14 @@ class SequencePrinter
             $coordinatesAsString[] = $this->getCoordinateAsString($coordinate);
         }
 
+        $cost = $this->getTotalDistance();
+
         if (!empty($coordinatesAsString)) {
             echo implode(' => ', $coordinatesAsString);
             echo "\n";
         }
 
-        echo 'Total cost: ' . $this->getTotalDistance();
+        echo "Total cost: $cost";
     }
 
     private function getCoordinateAsString(Coordinate $coordinate): string
@@ -35,17 +37,23 @@ class SequencePrinter
 
     private function getTotalDistance(): float | int
     {
-        if (count($this->sequence) < 2) {
+        $sequence = (array) $this->sequence;
+
+        if (count($sequence) < 2) {
             return 0;
         }
 
         $totalDistance = 0;
 
-        $sequence = $this->sequence;
-
         $previousNode = array_shift($sequence);
         foreach ($sequence as $node) {
-            $totalDistance += $this->graph->getLink($previousNode, $node)->getDistance();
+            $link = $this->graph->getLink($previousNode, $node);
+
+            if (!$link) {
+                throw new \RuntimeException('Some of the nodes in the provided sequence are not connected');
+            }
+
+            $totalDistance += $link->getDistance();
 
             $previousNode = $node;
         }

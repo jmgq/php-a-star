@@ -51,7 +51,7 @@ class BenchmarkRunner
 
                 $solutionFound = !empty($solution);
 
-                $results[] = new Result($size, $event->getDuration(), $solutionFound);
+                $results[] = new Result($size, (int) $event->getDuration(), $solutionFound);
 
                 $this->stopwatch->reset();
 

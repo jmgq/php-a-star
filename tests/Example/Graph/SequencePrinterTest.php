@@ -67,4 +67,21 @@ class SequencePrinterTest extends TestCase
 
         $this->expectOutputString($expectedOutput);
     }
+
+    public function testShouldThrowExceptionIfTheSequenceIsNotConnected(): void
+    {
+        $sequence = [
+            new Coordinate(0, 0),
+            new Coordinate(2, 5),
+            new Coordinate(99999, 99999),
+        ];
+
+        $sut = new SequencePrinter($this->graph, $sequence);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Some of the nodes in the provided sequence are not connected');
+        $this->expectOutputString('');
+
+        $sut->printSequence();
+    }
 }

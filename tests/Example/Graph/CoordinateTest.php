@@ -7,6 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 class CoordinateTest extends TestCase
 {
+    /**
+     * @return mixed[][]
+     */
     public function validPointProvider(): array
     {
         $PHP_INT_MIN = ~PHP_INT_MAX;
@@ -23,6 +26,9 @@ class CoordinateTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidPointProvider(): array
     {
         return [
@@ -36,7 +42,7 @@ class CoordinateTest extends TestCase
     /**
      * @dataProvider validPointProvider
      */
-    public function testShouldSetValidPoint($x, $y): void
+    public function testShouldSetValidPoint(mixed $x, mixed $y): void
     {
         $expectedX = (int) $x;
         $expectedY = (int) $y;
@@ -50,7 +56,7 @@ class CoordinateTest extends TestCase
     /**
      * @dataProvider invalidPointProvider
      */
-    public function testShouldNotSetInvalidPoint($x, $y): void
+    public function testShouldNotSetInvalidPoint(mixed $x, mixed $y): void
     {
         $this->expectException(\TypeError::class);
 
@@ -60,7 +66,7 @@ class CoordinateTest extends TestCase
     /**
      * @dataProvider validPointProvider
      */
-    public function testShouldGenerateAnId($x, $y): void
+    public function testShouldGenerateAnId(mixed $x, mixed $y): void
     {
         $expectedId = $x . 'x' . $y;
 

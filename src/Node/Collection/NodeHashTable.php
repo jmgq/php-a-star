@@ -4,6 +4,9 @@ namespace JMGQ\AStar\Node\Collection;
 
 use JMGQ\AStar\Node\Node;
 
+/**
+ * @implements \IteratorAggregate<string, Node>
+ */
 class NodeHashTable implements \IteratorAggregate, NodeCollectionInterface
 {
     /** @var Node[] */
@@ -11,6 +14,7 @@ class NodeHashTable implements \IteratorAggregate, NodeCollectionInterface
 
     /**
      * {@inheritdoc}
+     * @return \ArrayIterator<string, Node>
      */
     public function getIterator(): iterable
     {

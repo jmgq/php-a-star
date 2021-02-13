@@ -4,12 +4,15 @@ namespace JMGQ\AStar\Tests;
 
 use JMGQ\AStar\AStar;
 use JMGQ\AStar\DomainLogicInterface;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 class AStarTest extends TestCase
 {
+    /** @var AStar<string> */
     private AStar $sut;
-    private DomainLogicInterface $domainLogic;
+    /** @var Stub & DomainLogicInterface<string> */
+    private Stub | DomainLogicInterface $domainLogic;
 
     protected function setUp(): void
     {
@@ -23,11 +26,14 @@ class AStarTest extends TestCase
         $startNode = 'foo';
         $goalNode = 'foo';
 
-        $path = $this->sut->run($startNode, $goalNode);
+        $path = (array) $this->sut->run($startNode, $goalNode);
 
         $this->assertCount(1, $path);
-        $this->assertSame($startNode, $path[0]);
-        $this->assertSame($goalNode, $path[0]);
+
+        $firstAndOnlySolutionNode = reset($path);
+
+        $this->assertSame($startNode, $firstAndOnlySolutionNode);
+        $this->assertSame($goalNode, $firstAndOnlySolutionNode);
     }
 
     public function testShouldReturnEmptyPathIfSolutionNotFound(): void
@@ -63,10 +69,14 @@ class AStarTest extends TestCase
         $this->domainLogic->method('calculateEstimatedCost')
             ->willReturn(2);
 
-        $path = $this->sut->run($startNode, $goalNode);
+        $path = (array) $this->sut->run($startNode, $goalNode);
 
         $this->assertCount(2, $path);
-        $this->assertSame($startNode, $path[0]);
-        $this->assertSame($goalNode, $path[1]);
+
+        $firstSolutionNode = reset($path);
+        $lastSolutionNode = end($path);
+
+        $this->assertSame($startNode, $firstSolutionNode);
+        $this->assertSame($goalNode, $lastSolutionNode);
     }
 }

@@ -13,7 +13,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 class SymfonyProgressBarTest extends TestCase
 {
     private SymfonyProgressBar $sut;
-    private OutputInterface | MockObject $output;
+    /** @var MockObject & OutputInterface */
+    private MockObject | OutputInterface $output;
 
     protected function setUp(): void
     {

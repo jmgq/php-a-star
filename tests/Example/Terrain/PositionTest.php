@@ -8,6 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class PositionTest extends TestCase
 {
+    /**
+     * @return mixed[][]
+     */
     public function validPointProvider(): array
     {
         return [
@@ -19,6 +22,9 @@ class PositionTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidPointProvider(): array
     {
         return [
@@ -31,6 +37,9 @@ class PositionTest extends TestCase
         ];
     }
 
+    /**
+     * @return Position[][]
+     */
     public function adjacentPointProvider(): array
     {
         return [
@@ -48,6 +57,9 @@ class PositionTest extends TestCase
         ];
     }
 
+    /**
+     * @return Position[][]
+     */
     public function nonAdjacentPointProvider(): array
     {
         return [
@@ -62,7 +74,7 @@ class PositionTest extends TestCase
     /**
      * @dataProvider validPointProvider
      */
-    public function testShouldSetValidPoint($row, $column): void
+    public function testShouldSetValidPoint(mixed $row, mixed $column): void
     {
         $expectedRow = (int) $row;
         $expectedColumn = (int) $column;
@@ -75,10 +87,14 @@ class PositionTest extends TestCase
 
     /**
      * @dataProvider invalidPointProvider
+     * @param mixed $row
+     * @param mixed $column
+     * @param class-string<\Throwable> $expectedException
+     * @param string $expectedExceptionMessage
      */
     public function testShouldNotSetInvalidPoint(
-        $row,
-        $column,
+        mixed $row,
+        mixed $column,
         string $expectedException,
         string $expectedExceptionMessage
     ): void {

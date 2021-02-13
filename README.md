@@ -193,6 +193,14 @@ If you don't know how to write tests, please don't be discouraged, and send your
 
 To run the test suite and the code coverage report, simply execute `composer test`.
 
+### Static Analysis Tools
+To ensure the quality of the codebase is of a high standard, the following static analysis tools are run as part of the CI pipeline:
+
+| Tool | Notes | How to run |
+| ---- | ----- | ---------- |
+| [Scrutinizer](https://scrutinizer-ci.com/g/jmgq/php-a-star/) | Tracks how data flows through the application to detect security issues, bugs, unused code, and more | Online only |
+| PHPStan | Runs on the highest, most strict level | `composer static-analysis:phpstan` |
+
 ### Contributors
 Feel free to add yourself to the list of [contributors](CONTRIBUTORS.md).
 

@@ -15,6 +15,6 @@ $application = new Application($name, $version);
 $benchmarkCommand = new BenchmarkCommand();
 
 $application->add($benchmarkCommand);
-$application->setDefaultCommand($benchmarkCommand->getName());
+$application->setDefaultCommand((string) $benchmarkCommand->getName());
 
 $application->run();

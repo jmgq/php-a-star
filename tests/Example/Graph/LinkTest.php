@@ -8,6 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class LinkTest extends TestCase
 {
+    /**
+     * @return mixed[][]
+     */
     public function validDistanceProvider(): array
     {
         return [
@@ -20,6 +23,9 @@ class LinkTest extends TestCase
         ];
     }
 
+    /**
+     * @return mixed[][]
+     */
     public function invalidDistanceProvider(): array
     {
         return [
@@ -34,7 +40,7 @@ class LinkTest extends TestCase
     /**
      * @dataProvider validDistanceProvider
      */
-    public function testShouldSetValidDistance($distance): void
+    public function testShouldSetValidDistance(mixed $distance): void
     {
         $expectedDistance = (float) $distance;
 
@@ -50,9 +56,12 @@ class LinkTest extends TestCase
 
     /**
      * @dataProvider invalidDistanceProvider
+     * @param mixed $distance
+     * @param class-string<\Throwable> $expectedException
+     * @param string $expectedExceptionMessage
      */
     public function testShouldNotSetInvalidDistance(
-        $distance,
+        mixed $distance,
         string $expectedException,
         string $expectedExceptionMessage
     ): void {
