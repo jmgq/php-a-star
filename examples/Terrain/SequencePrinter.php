@@ -5,7 +5,7 @@ namespace JMGQ\AStar\Example\Terrain;
 class SequencePrinter
 {
     private TerrainCost $terrainCost;
-    /** @var Position[] */
+    /** @var iterable<Position> */
     private iterable $sequence;
     private string $emptyTileToken = '-';
     private int $tileSize = 3;
@@ -13,7 +13,7 @@ class SequencePrinter
 
     /**
      * @param TerrainCost $terrainCost
-     * @param Position[] $sequence
+     * @param iterable<Position> $sequence
      */
     public function __construct(TerrainCost $terrainCost, iterable $sequence)
     {

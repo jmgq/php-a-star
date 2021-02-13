@@ -3,18 +3,23 @@
 namespace JMGQ\AStar\Node;
 
 /**
+ * @template TNode
  * @internal
  */
 class Node
 {
+    /** @var TNode */
     private mixed $state;
     private string $id;
+    /** @var Node<TNode> | null  */
     private ?Node $parent = null;
+    /** @psalm-suppress PropertyNotSetInConstructor Reading G should fail visibly if it hasn't been previously set */
     private float | int $gScore;
+    /** @psalm-suppress PropertyNotSetInConstructor Reading H should fail visibly if it hasn't been previously set */
     private float | int $hScore;
 
     /**
-     * @param mixed $state The state refers to the actual user data that represents a node in the user's business logic.
+     * @param TNode $state The state refers to the actual user data that represents a node in the user's business logic.
      */
     public function __construct(mixed $state)
     {
@@ -23,7 +28,7 @@ class Node
     }
 
     /**
-     * @return mixed Returns the state, which is the user data that represents a node in the user's business logic.
+     * @return TNode Returns the state, which is the user data that represents a node in the user's business logic.
      */
     public function getState(): mixed
     {
@@ -35,11 +40,17 @@ class Node
         return $this->id;
     }
 
+    /**
+     * @param Node<TNode> $parent
+     */
     public function setParent(Node $parent): void
     {
         $this->parent = $parent;
     }
 
+    /**
+     * @return Node<TNode> | null
+     */
     public function getParent(): ?Node
     {
         return $this->parent;

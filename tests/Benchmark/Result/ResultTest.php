@@ -98,7 +98,11 @@ class ResultTest extends TestCase
         $this->expectException($expectedException);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
-        // @phpstan-ignore-next-line A numeric string for the size is a valid user input
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress InvalidScalarArgument
+         * A numeric string for the size is a valid user input
+         */
         new Result($validSize, $invalidDuration, $validHasSolution);
     }
 
@@ -108,7 +112,11 @@ class ResultTest extends TestCase
         $duration = 3;
         $hasSolution = 1;
 
-        // @phpstan-ignore-next-line We actually want to pass an integer for $hasSolution as part of this test
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress InvalidScalarArgument
+         * We actually want to pass an integer for $hasSolution as part of this test
+         */
         $sut = new Result($size, $duration, $hasSolution);
 
         $this->assertTrue($sut->hasSolution());

@@ -33,7 +33,11 @@ class DomainLogic implements DomainLogicInterface
             throw new \DomainException('The provided nodes are not linked');
         }
 
-        // @phpstan-ignore-next-line getLink cannot be null, as we just checked that the link exists
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress PossiblyNullReference
+         * getLink cannot be null, as we just checked that the link exists
+         */
         return $this->graph->getLink($node, $adjacent)->getDistance();
     }
 

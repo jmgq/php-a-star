@@ -13,7 +13,9 @@ class AStar
 {
     /** @var DomainLogicInterface<TNode> */
     private DomainLogicInterface $domainLogic;
+    /** @var NodeCollectionInterface<TNode> | NodeHashTable<TNode> */
     private NodeCollectionInterface $openList;
+    /** @var NodeCollectionInterface<TNode> | NodeHashTable<TNode> */
     private NodeCollectionInterface $closedList;
 
     /**
@@ -29,7 +31,7 @@ class AStar
     /**
      * @param TNode $start
      * @param TNode $goal
-     * @return TNode[]
+     * @return iterable<TNode>
      */
     public function run(mixed $start, mixed $goal): iterable
     {
@@ -40,9 +42,9 @@ class AStar
     }
 
     /**
-     * @param Node $start
-     * @param Node $goal
-     * @return TNode[]
+     * @param Node<TNode> $start
+     * @param Node<TNode> $goal
+     * @return iterable<TNode>
      */
     private function executeAlgorithm(Node $start, Node $goal): iterable
     {
@@ -56,7 +58,7 @@ class AStar
         $this->openList->add($start);
 
         while (!$this->openList->isEmpty()) {
-            /** @var Node $currentNode Cannot be null because the open list is not empty */
+            /** @var Node<TNode> $currentNode Cannot be null because the open list is not empty */
             $currentNode = $this->openList->extractBest();
 
             $this->closedList->add($currentNode);
@@ -98,8 +100,8 @@ class AStar
     }
 
     /**
-     * @param Node $node
-     * @return Node[]
+     * @param Node<TNode> $node
+     * @return iterable<Node<TNode>>
      */
     private function generateAdjacentNodes(Node $node): iterable
     {
@@ -114,6 +116,11 @@ class AStar
         return $adjacentNodes;
     }
 
+    /**
+     * @param Node<TNode> $node
+     * @param Node<TNode> $adjacent
+     * @return float | int
+     */
     private function calculateRealCost(Node $node, Node $adjacent): float | int
     {
         $state = $node->getState();
@@ -122,6 +129,11 @@ class AStar
         return $this->domainLogic->calculateRealCost($state, $adjacentState);
     }
 
+    /**
+     * @param Node<TNode> $start
+     * @param Node<TNode> $end
+     * @return float | int
+     */
     private function calculateEstimatedCost(Node $start, Node $end): float | int
     {
         $startState = $start->getState();
@@ -131,8 +143,8 @@ class AStar
     }
 
     /**
-     * @param Node $node
-     * @return TNode[]
+     * @param Node<TNode> $node
+     * @return iterable<TNode>
      */
     private function generatePathFromStartNodeTo(Node $node): iterable
     {
@@ -150,9 +162,9 @@ class AStar
     }
 
     /**
-     * @param Node $node
-     * @param Node $goal
-     * @return Node[]
+     * @param Node<TNode> $node
+     * @param Node<TNode> $goal
+     * @return iterable<Node<TNode>>
      */
     private function getAdjacentNodesWithTentativeScore(Node $node, Node $goal): iterable
     {
@@ -166,12 +178,17 @@ class AStar
         return $nodes;
     }
 
+    /**
+     * @param Node<TNode> $node
+     * @param NodeCollectionInterface<TNode> $nodeList
+     * @return bool
+     */
     private function nodeAlreadyPresentInListWithBetterOrSameRealCost(
         Node $node,
         NodeCollectionInterface $nodeList
     ): bool {
         if ($nodeList->contains($node)) {
-            /** @var Node $nodeInList Cannot be null because the list contains it */
+            /** @var Node<TNode> $nodeInList Cannot be null because the list contains it */
             $nodeInList = $nodeList->get($node->getId());
 
             if ($node->getG() >= $nodeInList->getG()) {

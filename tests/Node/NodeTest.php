@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class NodeTest extends TestCase
 {
+    /** @var Node<string> */
     private Node $sut;
     private string $mockState = 'foobar';
 
@@ -75,9 +76,10 @@ class NodeTest extends TestCase
             ->method('getUniqueNodeId')
             ->willReturn($uniqueNodeId);
 
-        $this->sut = new Node($mockStateWithId);
+        /** @var Node<object> */
+        $sut = new Node($mockStateWithId);
 
-        $this->assertSame($uniqueNodeId, $this->sut->getId());
+        $this->assertSame($uniqueNodeId, $sut->getId());
     }
 
     public function testShouldSetItsIdToTheSerialisedStateIfTheUserDoesNotProvideAnId(): void

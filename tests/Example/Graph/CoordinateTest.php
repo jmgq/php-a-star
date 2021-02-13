@@ -68,6 +68,7 @@ class CoordinateTest extends TestCase
      */
     public function testShouldGenerateAnId(mixed $x, mixed $y): void
     {
+        /** @psalm-suppress MixedOperand $x and $y will be an integer or a string representing an integer */
         $expectedId = $x . 'x' . $y;
 
         $sut = new Coordinate($x, $y);

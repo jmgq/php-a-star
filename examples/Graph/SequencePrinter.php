@@ -6,7 +6,7 @@ class SequencePrinter
 {
     /**
      * @param Graph $graph
-     * @param Coordinate[] $sequence
+     * @param iterable<Coordinate> $sequence
      */
     public function __construct(private Graph $graph, private iterable $sequence)
     {
@@ -37,6 +37,7 @@ class SequencePrinter
 
     private function getTotalDistance(): float | int
     {
+        /** @var Coordinate[] $sequence */
         $sequence = (array) $this->sequence;
 
         if (count($sequence) < 2) {

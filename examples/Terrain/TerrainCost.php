@@ -70,6 +70,7 @@ class TerrainCost
         $validTerrain = [];
 
         foreach ($terrain as $row => $rowValues) {
+            /** @psalm-suppress MixedAssignment PSalm is unable to determine that $value is of mixed type */
             foreach ($rowValues as $column => $value) {
                 $integerValue = filter_var($value, FILTER_VALIDATE_INT);
 

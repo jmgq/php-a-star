@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src"/>
+        <directory name="tests"/>
+        <directory name="examples"/>
+        <directory name="benchmark"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+    </plugins>
+
+    <issueHandlers>
+        <!-- Some tests check that exceptions are thrown when an invalid argument is provided -->
+        <MixedArgument>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </MixedArgument>
+
+        <!-- The terrain cost tests check that the terrain values can be given as a mixture of integers and integers as string -->
+        <MixedArgumentTypeCoercion>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+                <file name="tests/Example/Terrain/TerrainCostTest.php"/>
+            </errorLevel>
+        </MixedArgumentTypeCoercion>
+
+        <!-- Some tests check that exceptions are thrown when an invalid argument is provided -->
+        <PossiblyInvalidArgument>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </PossiblyInvalidArgument>
+
+        <!-- Some tests check that a parameter or return value is of a certain type -->
+        <RedundantCondition>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </RedundantCondition>
+    </issueHandlers>
+</psalm>

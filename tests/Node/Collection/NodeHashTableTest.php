@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class NodeHashTableTest extends TestCase
 {
+    /** @var NodeHashTable<mixed> */
     private NodeHashTable $sut;
 
     protected function setUp(): void

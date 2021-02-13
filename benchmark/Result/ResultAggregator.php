@@ -15,10 +15,11 @@ class ResultAggregator
         $sizeToResultsMap = $this->groupBySize($results);
 
         foreach ($sizeToResultsMap as $size => $groupedResults) {
+            /** @var non-empty-array<int> $durations */
             $durations = $this->getDurations($groupedResults);
             $averageDuration = $this->averageDuration($durations);
-            $minimumDuration = (int) min($durations);
-            $maximumDuration = (int) max($durations);
+            $minimumDuration = min($durations);
+            $maximumDuration = max($durations);
             $numberOfSolutions = $this->getNumberOfResultsWithASolution($groupedResults);
             $numberOfTerrains = count($groupedResults);
 
@@ -37,7 +38,7 @@ class ResultAggregator
 
     /**
      * @param Result[] $results
-     * @return Result[][]
+     * @return array<int, Result[]>
      */
     private function groupBySize(array $results): array
     {

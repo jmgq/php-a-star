@@ -44,7 +44,7 @@ class TerrainCostTest extends TestCase
     }
 
     /**
-     * @return mixed[][]
+     * @return mixed[][][]
      */
     public function emptyTerrainProvider(): array
     {
@@ -81,7 +81,7 @@ class TerrainCostTest extends TestCase
     }
 
     /**
-     * @return mixed[][][][]
+     * @return int[][][][]
      */
     public function nonRectangularTerrainProvider(): array
     {
@@ -142,6 +142,7 @@ class TerrainCostTest extends TestCase
         $row = 0;
         foreach ($terrainInformation as $rowCosts) {
             $column = 0;
+            /** @var numeric $cost */
             foreach ($rowCosts as $cost) {
                 $expectedCost = (int) $cost;
 

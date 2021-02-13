@@ -18,6 +18,7 @@ class AStarTest extends TestCase
     {
         $this->domainLogic = $this->createStub(DomainLogicInterface::class);
 
+        /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->sut = new AStar($this->domainLogic);
     }
 
@@ -33,6 +34,7 @@ class AStarTest extends TestCase
         $firstAndOnlySolutionNode = reset($path);
 
         $this->assertSame($startNode, $firstAndOnlySolutionNode);
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
         $this->assertSame($goalNode, $firstAndOnlySolutionNode);
     }
 
@@ -58,7 +60,7 @@ class AStarTest extends TestCase
         $allNodes = [$startNode, $goalNode, $otherNode];
 
         $this->domainLogic->method('getAdjacentNodes')
-            ->willReturnCallback(function ($argumentNode) use ($allNodes) {
+            ->willReturnCallback(function (string $argumentNode) use ($allNodes) {
                 // The adjacent nodes are all other nodes (not including itself)
                 return array_filter($allNodes, static fn ($node) => $argumentNode !== $node);
             });

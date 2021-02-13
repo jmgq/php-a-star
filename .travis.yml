@@ -10,6 +10,7 @@ script:
     - composer test
     - composer coding-standards
     - composer static-analysis:phpstan
+    - composer static-analysis:psalm
 
 after_script:
     - travis_retry php vendor/bin/php-coveralls -v
