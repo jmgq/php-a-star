@@ -5,18 +5,18 @@ namespace JMGQ\AStar\Node\Collection;
 use JMGQ\AStar\Node\Node;
 
 /**
- * @template TNode
- * @implements \IteratorAggregate<array-key, Node<TNode>>
- * @implements NodeCollectionInterface<TNode>
+ * @template TState
+ * @implements \IteratorAggregate<array-key, Node<TState>>
+ * @implements NodeCollectionInterface<TState>
  */
 class NodeHashTable implements \IteratorAggregate, NodeCollectionInterface
 {
-    /** @var Node<TNode>[] */
+    /** @var Node<TState>[] */
     private array $nodes = [];
 
     /**
      * {@inheritdoc}
-     * @return \ArrayIterator<array-key, Node<TNode>>
+     * @return \ArrayIterator<array-key, Node<TState>>
      */
     public function getIterator(): iterable
     {

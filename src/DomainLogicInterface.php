@@ -3,26 +3,26 @@
 namespace JMGQ\AStar;
 
 /**
- * @template TNode
+ * @template TState
  */
 interface DomainLogicInterface
 {
     /**
-     * @param TNode $node
-     * @return TNode[]
+     * @param TState $node
+     * @return TState[]
      */
     public function getAdjacentNodes(mixed $node): iterable;
 
     /**
-     * @param TNode $node
-     * @param TNode $adjacent
+     * @param TState $node
+     * @param TState $adjacent
      * @return float | int
      */
     public function calculateRealCost(mixed $node, mixed $adjacent): float | int;
 
     /**
-     * @param TNode $fromNode
-     * @param TNode $toNode
+     * @param TState $fromNode
+     * @param TState $toNode
      * @return float | int
      */
     public function calculateEstimatedCost(mixed $fromNode, mixed $toNode): float | int;

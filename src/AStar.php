@@ -7,19 +7,19 @@ use JMGQ\AStar\Node\Collection\NodeHashTable;
 use JMGQ\AStar\Node\Node;
 
 /**
- * @template TNode
+ * @template TState
  */
 class AStar
 {
-    /** @var DomainLogicInterface<TNode> */
+    /** @var DomainLogicInterface<TState> */
     private DomainLogicInterface $domainLogic;
-    /** @var NodeCollectionInterface<TNode> | NodeHashTable<TNode> */
+    /** @var NodeCollectionInterface<TState> | NodeHashTable<TState> */
     private NodeCollectionInterface $openList;
-    /** @var NodeCollectionInterface<TNode> | NodeHashTable<TNode> */
+    /** @var NodeCollectionInterface<TState> | NodeHashTable<TState> */
     private NodeCollectionInterface $closedList;
 
     /**
-     * @param DomainLogicInterface<TNode> $domainLogic
+     * @param DomainLogicInterface<TState> $domainLogic
      */
     public function __construct(DomainLogicInterface $domainLogic)
     {
@@ -29,9 +29,9 @@ class AStar
     }
 
     /**
-     * @param TNode $start
-     * @param TNode $goal
-     * @return iterable<TNode>
+     * @param TState $start
+     * @param TState $goal
+     * @return iterable<TState>
      */
     public function run(mixed $start, mixed $goal): iterable
     {
@@ -42,9 +42,9 @@ class AStar
     }
 
     /**
-     * @param Node<TNode> $start
-     * @param Node<TNode> $goal
-     * @return iterable<TNode>
+     * @param Node<TState> $start
+     * @param Node<TState> $goal
+     * @return iterable<TState>
      */
     private function executeAlgorithm(Node $start, Node $goal): iterable
     {
@@ -58,7 +58,7 @@ class AStar
         $this->openList->add($start);
 
         while (!$this->openList->isEmpty()) {
-            /** @var Node<TNode> $currentNode Cannot be null because the open list is not empty */
+            /** @var Node<TState> $currentNode Cannot be null because the open list is not empty */
             $currentNode = $this->openList->extractBest();
 
             $this->closedList->add($currentNode);
@@ -100,8 +100,8 @@ class AStar
     }
 
     /**
-     * @param Node<TNode> $node
-     * @return iterable<Node<TNode>>
+     * @param Node<TState> $node
+     * @return iterable<Node<TState>>
      */
     private function generateAdjacentNodes(Node $node): iterable
     {
@@ -117,8 +117,8 @@ class AStar
     }
 
     /**
-     * @param Node<TNode> $node
-     * @param Node<TNode> $adjacent
+     * @param Node<TState> $node
+     * @param Node<TState> $adjacent
      * @return float | int
      */
     private function calculateRealCost(Node $node, Node $adjacent): float | int
@@ -130,8 +130,8 @@ class AStar
     }
 
     /**
-     * @param Node<TNode> $start
-     * @param Node<TNode> $end
+     * @param Node<TState> $start
+     * @param Node<TState> $end
      * @return float | int
      */
     private function calculateEstimatedCost(Node $start, Node $end): float | int
@@ -143,8 +143,8 @@ class AStar
     }
 
     /**
-     * @param Node<TNode> $node
-     * @return iterable<TNode>
+     * @param Node<TState> $node
+     * @return iterable<TState>
      */
     private function generatePathFromStartNodeTo(Node $node): iterable
     {
@@ -162,9 +162,9 @@ class AStar
     }
 
     /**
-     * @param Node<TNode> $node
-     * @param Node<TNode> $goal
-     * @return iterable<Node<TNode>>
+     * @param Node<TState> $node
+     * @param Node<TState> $goal
+     * @return iterable<Node<TState>>
      */
     private function getAdjacentNodesWithTentativeScore(Node $node, Node $goal): iterable
     {
@@ -179,8 +179,8 @@ class AStar
     }
 
     /**
-     * @param Node<TNode> $node
-     * @param NodeCollectionInterface<TNode> $nodeList
+     * @param Node<TState> $node
+     * @param NodeCollectionInterface<TState> $nodeList
      * @return bool
      */
     private function nodeAlreadyPresentInListWithBetterOrSameRealCost(
@@ -188,7 +188,7 @@ class AStar
         NodeCollectionInterface $nodeList
     ): bool {
         if ($nodeList->contains($node)) {
-            /** @var Node<TNode> $nodeInList Cannot be null because the list contains it */
+            /** @var Node<TState> $nodeInList Cannot be null because the list contains it */
             $nodeInList = $nodeList->get($node->getId());
 
             if ($node->getG() >= $nodeInList->getG()) {
