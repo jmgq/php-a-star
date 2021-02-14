@@ -70,21 +70,7 @@ class AStar
 
             $successors = $this->getAdjacentNodesWithTentativeScore($currentNode, $goal);
 
-            foreach ($successors as $successor) {
-                if ($this->nodeAlreadyPresentInListWithBetterOrSameRealCost($successor, $this->openList)) {
-                    continue;
-                }
-
-                if ($this->nodeAlreadyPresentInListWithBetterOrSameRealCost($successor, $this->closedList)) {
-                    continue;
-                }
-
-                $successor->setParent($currentNode);
-
-                $this->closedList->remove($successor);
-
-                $this->openList->add($successor);
-            }
+            $this->evaluateSuccessors($successors, $currentNode);
         }
 
         return $path;
@@ -176,6 +162,29 @@ class AStar
         }
 
         return $nodes;
+    }
+
+    /**
+     * @param iterable<Node<TState>> $successors
+     * @param Node<TState> $parent
+     */
+    private function evaluateSuccessors(iterable $successors, Node $parent): void
+    {
+        foreach ($successors as $successor) {
+            if ($this->nodeAlreadyPresentInListWithBetterOrSameRealCost($successor, $this->openList)) {
+                continue;
+            }
+
+            if ($this->nodeAlreadyPresentInListWithBetterOrSameRealCost($successor, $this->closedList)) {
+                continue;
+            }
+
+            $successor->setParent($parent);
+
+            $this->closedList->remove($successor);
+
+            $this->openList->add($successor);
+        }
     }
 
     /**
