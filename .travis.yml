@@ -9,9 +9,9 @@ before_script:
 script:
     - composer test
     - composer coding-standards
-    - composer static-analysis:phan
-    - composer static-analysis:phpstan
-    - composer static-analysis:psalm
+    - composer static-analysis:phan -- --no-progress-bar
+    - composer static-analysis:phpstan -- --no-progress
+    - composer static-analysis:psalm -- --no-progress
 
 after_script:
     - travis_retry php vendor/bin/php-coveralls -v
