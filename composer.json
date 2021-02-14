@@ -26,6 +26,7 @@
         "php": ">=8.0"
     },
     "require-dev": {
+        "phan/phan": "^4.0",
         "php-coveralls/php-coveralls": "^2.0",
         "phpstan/phpstan": "^0.12.74",
         "phpunit/phpunit": "^9.0",
@@ -40,9 +41,11 @@
         "example:graph": "@php examples/Graph/example.php",
         "example:terrain": "@php examples/Terrain/example.php",
         "static-analysis": [
+            "@static-analysis:phan",
             "@static-analysis:phpstan",
             "@static-analysis:psalm"
         ],
+        "static-analysis:phan": "phan --config-file=.phan.config.php --allow-polyfill-parser --analyze-twice",
         "static-analysis:phpstan": "phpstan analyse --level=max src tests examples benchmark",
         "static-analysis:psalm": "psalm",
         "test": "XDEBUG_MODE=coverage phpunit"
@@ -53,6 +56,7 @@
         "example:graph": "Runs the Graph example.",
         "example:terrain": "Runs the Terrain example.",
         "static-analysis": "Runs all the static analysis tools.",
+        "static-analysis:phan": "Runs the Phan static analysis tool.",
         "static-analysis:phpstan": "Runs the PHPStan static analysis tool.",
         "static-analysis:psalm": "Runs the Psalm static analysis tool.",
         "test": "Runs unit tests and generates a coverage report."

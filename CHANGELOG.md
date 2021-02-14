@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Added a new static analysis tool: Phan.
 - Added a new static analysis tool: PHPStan.
 - Added a new static analysis tool: Psalm.
 

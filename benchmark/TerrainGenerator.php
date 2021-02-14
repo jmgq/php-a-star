@@ -11,12 +11,7 @@ class TerrainGenerator
         $this->validatePositiveInteger($rows);
         $this->validatePositiveInteger($columns);
 
-        /**
-         * @phpstan-ignore-next-line
-         * @psalm-suppress PossiblyNullArgument
-         * mt_srand accepts null or int as its seed
-         */
-        mt_srand($seed);
+        $seed !== null ? mt_srand($seed) : mt_srand();
 
         $terrainCost = [];
 

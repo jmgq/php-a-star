@@ -199,6 +199,7 @@ To ensure the quality of the codebase is of a high standard, the following stati
 | Tool | Notes | How to run |
 | ---- | ----- | ---------- |
 | [Scrutinizer](https://scrutinizer-ci.com/g/jmgq/php-a-star/) | Tracks how data flows through the application to detect security issues, bugs, unused code, and more | Online only |
+| Phan | Runs on the lowest, most strict level | `composer static-analysis:phan` |
 | PHPStan | Runs on the highest, most strict level | `composer static-analysis:phpstan` |
 | Psalm | Runs on lowest, most strict level | `composer static-analysis:psalm` |
 
