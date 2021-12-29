@@ -18,7 +18,7 @@ class NodeHashTable implements \IteratorAggregate, NodeCollectionInterface
      * {@inheritdoc}
      * @return \ArrayIterator<array-key, Node<TState>>
      */
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->nodes);
     }
