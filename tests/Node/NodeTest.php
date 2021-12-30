@@ -53,6 +53,7 @@ class NodeTest extends TestCase
 
     public function testShouldSetParent(): void
     {
+        /** @var Node<string> */
         $parent = $this->createStub(Node::class);
 
         $this->assertNull($this->sut->getParent());

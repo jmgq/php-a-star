@@ -30,10 +30,16 @@
         <!-- The terrain cost tests check that the terrain values can be given as a mixture of integers and integers as string -->
         <MixedArgumentTypeCoercion>
             <errorLevel type="suppress">
-                <directory name="tests"/>
                 <file name="tests/Example/Terrain/TerrainCostTest.php"/>
             </errorLevel>
         </MixedArgumentTypeCoercion>
+
+        <!-- The input validator is supposed to accept inputs of mixed types -->
+        <MixedAssignment>
+            <errorLevel type="suppress">
+                <file name="benchmark/InputValidator.php"/>
+            </errorLevel>
+        </MixedAssignment>
 
         <!-- Some tests check that exceptions are thrown when an invalid argument is provided -->
         <PossiblyInvalidArgument>

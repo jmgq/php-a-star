@@ -93,4 +93,4 @@ jobs:
         run: composer install --no-progress
 
       - name: Run Psalm
-        run: composer static-analysis:psalm -- --no-progress
+        run: composer static-analysis:psalm -- --no-progress --php-version=${{ matrix.php }}
