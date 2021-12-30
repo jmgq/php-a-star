@@ -1,7 +1,8 @@
 A Star algorithm for PHP
 ========================
 [![Latest Stable Version](https://poser.pugx.org/jmgq/a-star/v/stable.svg)](https://packagist.org/packages/jmgq/a-star)
-[![Build Status](https://travis-ci.org/jmgq/php-a-star.svg)](https://travis-ci.org/jmgq/php-a-star)
+[![Static Analysis](https://github.com/jmgq/php-a-star/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/jmgq/php-a-star/actions/workflows/static-analysis.yml)
+[![Tests](https://github.com/jmgq/php-a-star/actions/workflows/tests.yml/badge.svg)](https://github.com/jmgq/php-a-star/actions/workflows/tests.yml)
 [![Coverage Status](https://coveralls.io/repos/github/jmgq/php-a-star/badge.svg)](https://coveralls.io/github/jmgq/php-a-star)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jmgq/php-a-star/badges/quality-score.png)](https://scrutinizer-ci.com/g/jmgq/php-a-star)
 [![SemVer](https://img.shields.io/:semver-2.0.0-brightgreen.svg)](https://semver.org/spec/v2.0.0.html)

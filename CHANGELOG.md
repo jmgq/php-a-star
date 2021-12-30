@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a new static analysis tool: PHPStan.
 - Added a new static analysis tool: Psalm.
 
+### Changed
+- Replaced Travis CI with GitHub Actions.
+
 ### Fixed
 - Fix `NodeHashTable::getIterator()` return type.
 
