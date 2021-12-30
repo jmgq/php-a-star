@@ -6,7 +6,7 @@ use JMGQ\AStar\Node\Node;
 
 /**
  * @template TState
- * @implements \IteratorAggregate<array-key, Node<TState>>
+ * @implements \IteratorAggregate<mixed, Node<TState>>
  * @implements NodeCollectionInterface<TState>
  */
 class NodeHashTable implements \IteratorAggregate, NodeCollectionInterface

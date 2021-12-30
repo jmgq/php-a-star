@@ -1,0 +1,6 @@
+parameters:
+    ignoreErrors:
+        - message: '#Parameter .+ given#'
+          path: tests/*
+        - message: '#Cannot cast mixed to .+#'
+          path: tests/*
