@@ -26,7 +26,7 @@
         "php": ">=8.0"
     },
     "require-dev": {
-        "phan/phan": "^4.0",
+        "phan/phan": "^5.0",
         "php-coveralls/php-coveralls": "^2.0",
         "phpstan/phpstan": "^0.12.74",
         "phpunit/phpunit": "^9.0",

@@ -9,7 +9,7 @@ use Phan\Issue;
  *
  * - Go through this file and verify that there are no missing/unnecessary files/directories.
  *   (E.g. this only includes direct composer dependencies - You may have to manually add indirect composer dependencies to 'directory_list')
- * - Look at 'plugins' and add or remove plugins if appropriate (see https://github.com/phan/phan/tree/v4/.phan/plugins#plugins)
+ * - Look at 'plugins' and add or remove plugins if appropriate (see https://github.com/phan/phan/tree/v5/.phan/plugins#plugins)
  * - Add global suppressions for pre-existing issues to suppress_issue_types (https://github.com/phan/phan/wiki/Tutorial-for-Analyzing-a-Large-Sloppy-Code-Base)
  *   - Consider setting up a baseline if there are a large number of pre-existing issues (see `phan --extended-help`)
  *
@@ -18,7 +18,7 @@ use Phan\Issue;
  * after this file is read.
  *
  * @see https://github.com/phan/phan/wiki/Phan-Config-Settings for all configurable options
- * @see https://github.com/phan/phan/tree/v4/src/Phan/Config.php
+ * @see https://github.com/phan/phan/tree/v5/src/Phan/Config.php
  *
  * A Note About Paths
  * ==================
@@ -41,7 +41,8 @@ return [
     // (Phan relies on Reflection for some types, param counts,
     // and checks for undefined classes/methods/functions)
     //
-    // Supported values: `'5.6'`, `'7.0'`, `'7.1'`, `'7.2'`, `'7.3'`, `'7.4'`, `null`.
+    // Supported values: `'5.6'`, `'7.0'`, `'7.1'`, `'7.2'`, `'7.3'`, `'7.4'`,
+    // `'8.0'`, `'8.1'`, `null`.
     // If this is set to `null`,
     // then Phan assumes the PHP version which is closest to the minor version
     // of the php executable used to execute Phan.
@@ -49,7 +50,7 @@ return [
     // Note that the **only** effect of choosing `'5.6'` is to infer that functions removed in php 7.0 exist.
     // (See `backward_compatibility_checks` for additional options)
     // Automatically inferred from composer.json requirement for "php" of ">=8.0"
-    'target_php_version' => '8.0',
+    'target_php_version' => null,
 
     // If enabled, missing properties will be created when
     // they are first seen. If false, we'll report an
@@ -265,18 +266,9 @@ return [
         'PhanCompatibleTrailingCommaParameterList',
         'PhanGenericConstructorTypes',
         'PhanParamSignatureMismatch',
-        'PhanPartialTypeMismatchArgument',
-        'PhanPartialTypeMismatchReturn',
         'PhanPossiblyFalseTypeArgumentInternal',
         'PhanPossiblyNonClassMethodCall',
-        'PhanPossiblyNullTypeArgument',
-        'PhanTypeMismatchArgument',
         'PhanTypeMismatchDeclaredParamNullable',
-        'PhanTypeMismatchDeclaredReturnNullable',
-        'PhanTypeMismatchPropertyDefault',
-        'PhanTypeMismatchPropertyDefaultReal',
-        'PhanUndeclaredClassMethod',
-        'PhanUndeclaredTypeReturnType',
         'PhanUnextractableAnnotationSuffix',
     ],
 
@@ -340,7 +332,7 @@ return [
     //
     // Plugins which are bundled with Phan can be added here by providing their name (e.g. `'AlwaysReturnPlugin'`)
     //
-    // Documentation about available bundled plugins can be found [here](https://github.com/phan/phan/tree/v4/.phan/plugins).
+    // Documentation about available bundled plugins can be found [here](https://github.com/phan/phan/tree/v5/.phan/plugins).
     //
     // Alternately, you can pass in the full path to a PHP file with the plugin's implementation (e.g. `'vendor/phan/phan/.phan/plugins/AlwaysReturnPlugin.php'`)
     'plugins' => [

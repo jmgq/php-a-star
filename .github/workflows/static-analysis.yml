@@ -47,7 +47,7 @@ jobs:
         run: composer install --no-progress
 
       - name: Run Phan
-        run: composer static-analysis:phan -- --no-progress-bar
+        run: composer static-analysis:phan -- --no-progress-bar --target-php-version=${{ matrix.php }} --minimum-target-php-version=${{ matrix.php }}
 
   phpstan:
     name: PHPStan
