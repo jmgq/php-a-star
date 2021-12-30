@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a new static analysis tool: PHPStan.
 - Added a new static analysis tool: Psalm.
 
+### Fixed
+- Fix `NodeHashTable::getIterator()` return type.
+
 ## [2.1.0] - 2021-02-09
 ### Added
 - Added a `NodeIdentifierInterface` to allow the user to specify unique node IDs.
