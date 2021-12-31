@@ -7,7 +7,7 @@ jobs:
     name: Composer Validation
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout the repository
         uses: actions/checkout@v2
 
       - name: Validate composer.json
@@ -17,7 +17,7 @@ jobs:
     name: Coding Standards
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout the repository
         uses: actions/checkout@v2
 
       - name: Install dependencies
@@ -35,16 +35,11 @@ jobs:
           - '8.0'
           - '8.1'
     steps:
-      - name: Checkout
+      - name: Checkout the repository
         uses: actions/checkout@v2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-
-      - name: Install dependencies
-        run: composer install --no-progress
+      - name: Setup PHP and install dependencies
+        uses: ./.github/actions/setup
 
       - name: Run Phan
         run: composer static-analysis:phan -- --no-progress-bar --target-php-version=${{ matrix.php }} --minimum-target-php-version=${{ matrix.php }}
@@ -58,16 +53,11 @@ jobs:
           - '8.0'
           - '8.1'
     steps:
-      - name: Checkout
+      - name: Checkout the repository
         uses: actions/checkout@v2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-
-      - name: Install dependencies
-        run: composer install --no-progress
+      - name: Setup PHP and install dependencies
+        uses: ./.github/actions/setup
 
       - name: Run PHPStan
         run: composer static-analysis:phpstan -- --no-progress
@@ -81,16 +71,11 @@ jobs:
           - '8.0'
           - '8.1'
     steps:
-      - name: Checkout
+      - name: Checkout the repository
         uses: actions/checkout@v2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-
-      - name: Install dependencies
-        run: composer install --no-progress
+      - name: Setup PHP and install dependencies
+        uses: ./.github/actions/setup
 
       - name: Run Psalm
         run: composer static-analysis:psalm -- --no-progress --php-version=${{ matrix.php }}
