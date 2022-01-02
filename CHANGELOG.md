@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Replaced Travis CI with GitHub Actions.
+- Marked `NodeCollectionInterface` and `NodeHashTable` as internal.
 
 ### Fixed
 - Fix `NodeHashTable::getIterator()` return type.

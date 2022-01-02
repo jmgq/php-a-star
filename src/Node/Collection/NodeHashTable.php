@@ -8,6 +8,7 @@ use JMGQ\AStar\Node\Node;
  * @template TState
  * @implements \IteratorAggregate<mixed, Node<TState>>
  * @implements NodeCollectionInterface<TState>
+ * @internal
  */
 class NodeHashTable implements \IteratorAggregate, NodeCollectionInterface
 {

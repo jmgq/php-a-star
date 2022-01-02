@@ -7,6 +7,7 @@ use JMGQ\AStar\Node\Node;
 /**
  * @template TState
  * @extends \Traversable<mixed, Node<TState>>
+ * @internal
  */
 interface NodeCollectionInterface extends \Traversable
 {
