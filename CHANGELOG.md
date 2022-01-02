@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Marked `NodeCollectionInterface` and `NodeHashTable` as internal.
 
 ### Fixed
-- Fix `NodeHashTable::getIterator()` return type.
+- Fixed `NodeHashTable::getIterator()` return type.
 
 ## [2.1.0] - 2021-02-09
 ### Added
