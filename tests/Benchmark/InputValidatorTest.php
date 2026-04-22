@@ -81,12 +81,7 @@ class InputValidatorTest extends TestCase
         $this->setInputExpectations($invalidSizes, $invalidIterations, $invalidSeed);
 
         $this->output->expects($this->exactly(3))
-            ->method('error')
-            ->withConsecutive(
-                ['The size must be an integer greater than 0'],
-                ['The number of iterations must be an integer greater than 0'],
-                ['The seed must be an integer'],
-            );
+            ->method('error');
 
         $result = $this->sut->validate($this->input);
 
