@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set the version of PHP to 8.0 in `Dockerfile`.
 - Added the `linux-headers` dependency in `Dockerfile`.
 - Increased PHP's memory limit in `Dockerfile`.
+- Removed a call to PHPUnit's recently deprecated method `withConsecutive`.
 
 ## [2.1.1] - 2022-01-02
 ### Added
