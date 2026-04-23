@@ -42,7 +42,7 @@ return [
     // and checks for undefined classes/methods/functions)
     //
     // Supported values: `'5.6'`, `'7.0'`, `'7.1'`, `'7.2'`, `'7.3'`, `'7.4'`,
-    // `'8.0'`, `'8.1'`, `null`.
+    // `'8.0'`, `'8.1'`, `'8.2'`, `'8.3'`, `'8.4'`, `null`.
     // If this is set to `null`,
     // then Phan assumes the PHP version which is closest to the minor version
     // of the php executable used to execute Phan.
@@ -262,14 +262,11 @@ return [
     // to this list to inhibit them from being reported.
     'suppress_issue_types' => [
         'PhanAccessMethodInternal',
-        'PhanAccessWrongInheritanceCategoryInternal',
-        'PhanCompatibleTrailingCommaParameterList',
         'PhanGenericConstructorTypes',
         'PhanParamSignatureMismatch',
         'PhanPossiblyFalseTypeArgumentInternal',
         'PhanPossiblyNonClassMethodCall',
         'PhanTypeMismatchDeclaredParamNullable',
-        'PhanUnextractableAnnotationSuffix',
     ],
 
     // A regular expression to match files to be excluded
