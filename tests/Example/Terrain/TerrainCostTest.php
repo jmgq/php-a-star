@@ -133,7 +133,6 @@ class TerrainCostTest extends TestCase
 
         $expectedRows = count($terrainInformation);
 
-        // @phpstan-ignore-next-line reset won't return false as the terrain information will be valid
         $expectedColumns = count(reset($terrainInformation));
 
         $this->assertSame($expectedRows, $sut->getTotalRows());

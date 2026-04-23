@@ -106,7 +106,7 @@ class TerrainCost
      */
     private static function isRectangular(array $terrain): bool
     {
-        // @phpstan-ignore-next-line reset won't return false as we have already checked that the terrain is not empty
+        // @phpstan-ignore argument.type (reset won't return false: we've already checked that the terrain is not empty)
         $numberOfColumnsInFirstRow = count(reset($terrain));
 
         foreach ($terrain as $row) {

@@ -18,7 +18,10 @@ class AStarTest extends TestCase
     {
         $this->domainLogic = $this->createStub(DomainLogicInterface::class);
 
-        /** @psalm-suppress MixedPropertyTypeCoercion */
+        /**
+         * @psalm-suppress MixedPropertyTypeCoercion
+         * @phpstan-ignore assign.propertyType
+         */
         $this->sut = new AStar($this->domainLogic);
     }
 
@@ -34,7 +37,6 @@ class AStarTest extends TestCase
         $firstAndOnlySolutionNode = reset($path);
 
         $this->assertSame($startNode, $firstAndOnlySolutionNode);
-        /** @psalm-suppress RedundantConditionGivenDocblockType */
         $this->assertSame($goalNode, $firstAndOnlySolutionNode);
     }
 
