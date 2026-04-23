@@ -24,9 +24,7 @@ class AStar
     public function __construct(DomainLogicInterface $domainLogic)
     {
         $this->domainLogic = $domainLogic;
-        // @phpstan-ignore assign.propertyType
         $this->openList = new NodeHashTable();
-        // @phpstan-ignore assign.propertyType
         $this->closedList = new NodeHashTable();
     }
 
