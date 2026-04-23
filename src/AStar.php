@@ -13,9 +13,9 @@ class AStar
 {
     /** @var DomainLogicInterface<TState> */
     private DomainLogicInterface $domainLogic;
-    /** @var NodeCollectionInterface<TState> | NodeHashTable<TState> */
+    /** @var NodeCollectionInterface<TState> */
     private NodeCollectionInterface $openList;
-    /** @var NodeCollectionInterface<TState> | NodeHashTable<TState> */
+    /** @var NodeCollectionInterface<TState> */
     private NodeCollectionInterface $closedList;
 
     /**
@@ -24,7 +24,9 @@ class AStar
     public function __construct(DomainLogicInterface $domainLogic)
     {
         $this->domainLogic = $domainLogic;
+        // @phpstan-ignore assign.propertyType
         $this->openList = new NodeHashTable();
+        // @phpstan-ignore assign.propertyType
         $this->closedList = new NodeHashTable();
     }
 

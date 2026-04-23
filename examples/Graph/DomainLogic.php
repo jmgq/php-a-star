@@ -34,9 +34,9 @@ class DomainLogic implements DomainLogicInterface
         }
 
         /**
-         * @phpstan-ignore-next-line
-         * @psalm-suppress PossiblyNullReference
          * getLink cannot be null, as we just checked that the link exists
+         * @psalm-suppress PossiblyNullReference
+         * @phpstan-ignore method.nonObject
          */
         return $this->graph->getLink($node, $adjacent)->getDistance();
     }

@@ -99,7 +99,6 @@ class ResultTest extends TestCase
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         /**
-         * @phpstan-ignore-next-line
          * @psalm-suppress InvalidScalarArgument
          * A numeric string for the size is a valid user input
          */
@@ -113,7 +112,6 @@ class ResultTest extends TestCase
         $hasSolution = 1;
 
         /**
-         * @phpstan-ignore-next-line
          * @psalm-suppress InvalidScalarArgument
          * We actually want to pass an integer for $hasSolution as part of this test
          */

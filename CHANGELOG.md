@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed a call to PHPUnit's recently deprecated method `withConsecutive`.
 - Upgraded Psalm to version 5.
 - Updated Phan's configuration to stop suppressing certain issues.
+- Improved some PHPDocs to help the static analysis tools.
 
 ## [2.1.1] - 2022-01-02
 ### Added
