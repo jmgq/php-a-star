@@ -60,6 +60,7 @@ class CoordinateTest extends TestCase
     {
         $this->expectException(\TypeError::class);
 
+        // @phpstan-ignore new.resultUnused (the result does not matter, as we're expecting an exception to be thrown)
         new Coordinate($x, $y);
     }
 
@@ -68,7 +69,10 @@ class CoordinateTest extends TestCase
      */
     public function testShouldGenerateAnId(mixed $x, mixed $y): void
     {
-        /** @psalm-suppress MixedOperand $x and $y will be an integer or a string representing an integer */
+        /**
+         * @psalm-suppress MixedOperand $x and $y will be an integer or a string representing an integer
+         * @phpstan-ignore binaryOp.invalid, binaryOp.invalid
+         */
         $expectedId = $x . 'x' . $y;
 
         $sut = new Coordinate($x, $y);

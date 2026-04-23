@@ -4,3 +4,5 @@ parameters:
           path: tests/*
         - message: '#Cannot cast mixed to .+#'
           path: tests/*
+        - message: '#Call to method .+ will always evaluate to true#'
+          path: tests/*

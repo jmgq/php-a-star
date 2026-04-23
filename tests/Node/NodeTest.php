@@ -53,7 +53,6 @@ class NodeTest extends TestCase
 
     public function testShouldSetParent(): void
     {
-        /** @var Node<string> */
         $parent = $this->createStub(Node::class);
 
         $this->assertNull($this->sut->getParent());
@@ -77,7 +76,6 @@ class NodeTest extends TestCase
             ->method('getUniqueNodeId')
             ->willReturn($uniqueNodeId);
 
-        /** @var Node<object> */
         $sut = new Node($mockStateWithId);
 
         $this->assertSame($uniqueNodeId, $sut->getId());

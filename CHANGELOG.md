@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Increased PHP's memory limit in `Dockerfile`.
 - Removed a call to PHPUnit's recently deprecated method `withConsecutive`.
 - Upgraded Psalm to version 5.
+- Upgraded PHPStan to version 2.
 - Updated Phan's configuration to stop suppressing certain issues.
 - Improved some PHPDocs to help the static analysis tools.
 
