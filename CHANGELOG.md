@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Upgraded Psalm to version 5.
 - Upgraded PHPStan to version 2.
 - Updated Phan's configuration to stop suppressing certain issues.
+- Increased maximum version of Psalm to version 6.
+- Increased maximum version of Phan to version 6.
+- Increased maximum version of `symfony/console` to version 6.
 - Improved some PHPDocs to help the static analysis tools.
 
 ## [2.1.1] - 2022-01-02
