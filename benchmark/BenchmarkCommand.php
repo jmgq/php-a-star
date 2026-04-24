@@ -14,11 +14,16 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class BenchmarkCommand extends Command
 {
+    /** @var string */
     public const SIZE_OPTION = 'size';
+    /** @var string */
     public const ITERATIONS_OPTION = 'iterations';
+    /** @var string */
     public const SEED_OPTION = 'seed';
 
+    /** @var int */
     private const SUCCESS_EXIT_CODE = 0;
+    /** @var int */
     private const ERROR_EXIT_CODE = 1;
 
     /**

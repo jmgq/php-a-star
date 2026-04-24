@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Check for PHP 8.2, 8.3, 8.4 & 8.5 compatibility in the pipeline.
+- Documented the types of all the class constants.
 
 ### Changed
 - Set the version of PHP to 8.0 in `Dockerfile`.

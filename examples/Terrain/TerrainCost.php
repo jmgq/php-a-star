@@ -4,6 +4,7 @@ namespace JMGQ\AStar\Example\Terrain;
 
 class TerrainCost
 {
+    /** @var int */
     public const INFINITE = PHP_INT_MAX;
 
     /** @var int[][] */
