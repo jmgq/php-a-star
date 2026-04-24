@@ -90,4 +90,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run Psalm
-        run: composer static-analysis:psalm -- --no-progress --php-version=${{ matrix.php }}
+        run: composer static-analysis:psalm -- --no-progress --php-version=${{ matrix.php }} --config=${{ case(matrix.php == '8.0', 'psalm.xml', 'psalm-v6.xml') }}
