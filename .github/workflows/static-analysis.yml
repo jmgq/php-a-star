@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Validate composer.json
         run: composer validate --strict
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Install dependencies
         run: composer install --no-progress
@@ -34,9 +34,13 @@ jobs:
         php:
           - '8.0'
           - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Setup PHP and install dependencies
         uses: ./.github/actions/setup
@@ -52,9 +56,13 @@ jobs:
         php:
           - '8.0'
           - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Setup PHP and install dependencies
         uses: ./.github/actions/setup
@@ -70,9 +78,13 @@ jobs:
         php:
           - '8.0'
           - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Setup PHP and install dependencies
         uses: ./.github/actions/setup

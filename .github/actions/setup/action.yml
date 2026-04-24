@@ -1,5 +1,5 @@
 name: Setup PHP and install dependencies
-description: Install the right version of PHP (according to strategy.matrix.php) as well as the project depencencies (via Composer)
+description: Install the right version of PHP (according to strategy.matrix.php) as well as the project dependencies (via Composer)
 runs:
   using: composite
   steps:
