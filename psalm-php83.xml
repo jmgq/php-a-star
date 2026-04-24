@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src"/>
+        <directory name="tests"/>
+        <directory name="examples"/>
+        <directory name="benchmark"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+    </plugins>
+
+    <issueHandlers>
+        <!-- Some tests check that exceptions are thrown when an invalid argument is provided -->
+        <MixedArgument>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </MixedArgument>
+
+        <!-- The terrain cost tests check that the terrain values can be given as a mixture of integers and integers as string -->
+        <MixedArgumentTypeCoercion>
+            <errorLevel type="suppress">
+                <file name="tests/Example/Terrain/TerrainCostTest.php"/>
+            </errorLevel>
+        </MixedArgumentTypeCoercion>
+
+        <!-- The input validator is supposed to accept inputs of mixed types -->
+        <MixedAssignment>
+            <errorLevel type="suppress">
+                <file name="benchmark/InputValidator.php"/>
+            </errorLevel>
+        </MixedAssignment>
+
+        <!-- Some tests check that exceptions are thrown when an invalid argument is provided -->
+        <PossiblyInvalidArgument>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </PossiblyInvalidArgument>
+
+        <!-- Some tests check that a parameter or return value is of a certain type -->
+        <RedundantCondition>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </RedundantCondition>
+
+        <!-- This would be a breaking change for the classes in the "src" folder. Perhaps something to consider for the next major version -->
+        <ClassMustBeFinal>
+            <errorLevel type="suppress">
+                <directory name="benchmark"/>
+                <directory name="examples"/>
+                <directory name="src"/>
+                <directory name="tests"/>
+            </errorLevel>
+        </ClassMustBeFinal>
+
+        <!-- Psalm's proposed solution for PHP < 8.3 is to add a polyfill, and I don't want to add a dependency just for this -->
+        <MissingOverrideAttribute>
+            <errorLevel type="suppress">
+                <directory name="benchmark"/>
+                <directory name="examples"/>
+                <directory name="src"/>
+                <directory name="tests"/>
+            </errorLevel>
+        </MissingOverrideAttribute>
+
+        <!-- Addition of integers and floats is fine without casting in these cases -->
+        <InvalidOperand>
+            <errorLevel type="suppress">
+                <file name="examples/Graph/SequencePrinter.php"/>
+                <file name="src/AStar.php"/>
+                <file name="src/Node/Node.php"/>
+            </errorLevel>
+        </InvalidOperand>
+
+        <!-- "reset" will never return "false" in these particular instances -->
+        <PossiblyFalseArgument>
+            <errorLevel type="suppress">
+                <file name="examples/Terrain/TerrainCost.php"/>
+                <file name="tests/Example/Terrain/TerrainCostTest.php"/>
+            </errorLevel>
+        </PossiblyFalseArgument>
+
+        <!-- This is a good idea, but it's only doable in PHP >= 8.3, and we need to support PHP >= 8.0 -->
+        <MissingClassConstType>
+            <errorLevel type="suppress">
+                <file name="examples/Terrain/TerrainCost.php"/>
+                <file name="benchmark/BenchmarkCommand.php"/>
+            </errorLevel>
+        </MissingClassConstType>
+    </issueHandlers>
+</psalm>
