@@ -89,5 +89,15 @@ jobs:
       - name: Setup PHP and install dependencies
         uses: ./.github/actions/setup
 
+      - name: Select the configuration file
+        id: cfg
+        run: |-
+          echo "config_file=${{ case(
+            matrix.php == '8.0', 'psalm.xml',
+            matrix.php == '8.1', 'psalm-php81.xml',
+            matrix.php == '8.2', 'psalm-php81.xml',
+            'psalm-php83.xml'
+          ) }}" >> "$GITHUB_OUTPUT"
+
       - name: Run Psalm
-        run: composer static-analysis:psalm -- --no-progress --php-version=${{ matrix.php }} --config=${{ case(matrix.php == '8.0', 'psalm.xml', 'psalm-v6.xml') }}
+        run: composer static-analysis:psalm -- --no-progress --php-version=${{ matrix.php }} --config=${{ steps.cfg.outputs.config_file }}
